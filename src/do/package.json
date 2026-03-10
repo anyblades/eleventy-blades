@@ -2,7 +2,7 @@
   "name": "@anydigital/eleventy-blades-do",
   "private": true,
   "scripts": {
-    "build": "npm run 11ty -- $ELTY_OPTIONS                      && npm run tw -- --minify",
+    "build": "npm run tw && npm run 11ty -- $ELTY_OPTIONS",
     "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- --watch",
     "prerestart": "npm run 11ty:clean",
     "stage": "npm run 11ty:clean; npm run build && serve ../_site",
