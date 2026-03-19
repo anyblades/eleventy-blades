@@ -9,7 +9,7 @@ Ultimate blade kit for 11ty (Build Awesome).
 
 <div class="grid"><div>
 
-Filters:
+**Filters:**
 
 - [if](https://blades.ninja/build-awesome-11ty/#if)
 - [merge](https://blades.ninja/build-awesome-11ty/#merge)
@@ -23,7 +23,7 @@ Filters:
 
 </div><div>
 
-Other:
+**Other:**
 
 - [Auto link favicons](https://blades.ninja/build-awesome-11ty/#auto-link-favicons) {data-marker=🥷}
 - [Auto-raw tags](https://blades.ninja/build-awesome-11ty/#auto-raw)
