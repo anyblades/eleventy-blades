@@ -1,3 +1,4 @@
+// <!--section:code-->```js
 /**
  * Merge objects together
  *
@@ -23,7 +24,7 @@ export function merge(first, ...rest) {
         }
         return acc;
       },
-      { ...first }
+      { ...first },
     );
   }
 
@@ -45,3 +46,33 @@ export function merge(first, ...rest) {
 export function mergeFilter(eleventyConfig) {
   eleventyConfig.addFilter("merge", merge);
 }
+/*```
+
+<!--section:docs-->
+### `merge`
+
+A filter that merges arrays or objects together, similar to Twig's merge filter. For arrays, it concatenates them. For objects, it performs a shallow merge where later values override earlier ones.
+
+**Why use this?** When working with data in templates, you often need to combine multiple arrays or objects. The `merge` filter provides a clean way to merge data structures without writing custom JavaScript, making it easy to combine collections, merge configuration objects, or aggregate data from multiple sources.
+
+**Examples:** <!-- @TODO: better examples -->
+
+```jinja2
+{# Merge configuration objects #}
+{% set defaultConfig = { theme: 'light', lang: 'en' } %}
+{% set userConfig = { theme: 'dark' } %}
+{% set finalConfig = defaultConfig | merge(userConfig) %}
+
+{# Result: { theme: 'dark', lang: 'en' } #}
+```
+
+```jinja2
+{# Merge page metadata with defaults #}
+{% set defaultMeta = {
+  author: 'Site Admin',
+  category: 'general',
+  comments: false
+} %}
+{% set pageMeta = defaultMeta | merge(page.data) %}
+```
+*/

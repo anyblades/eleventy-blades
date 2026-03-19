@@ -1,3 +1,4 @@
+// <!--section:code-->```js
 /**
  * Concatenate values to an attribute array
  *
@@ -61,3 +62,46 @@ export function attrConcat(obj, attr, values) {
 export function attrConcatFilter(eleventyConfig) {
   eleventyConfig.addFilter("attr_concat", attrConcat);
 }
+/*```
+
+<!--section:docs-->
+### `attr_concat`
+
+A filter that concatenates values to an attribute array, returning a new object with the combined array. Useful for adding items to arrays like tags, classes, or other list-based attributes.
+
+**Why use this?** When working with objects that have array attributes (like tags), you often need to add additional values without mutating the original object. The `attr_concat` filter provides a clean way to combine existing array values with new ones, automatically handling duplicates.
+
+**Features:**
+
+- Non-mutating: Creates a new object, leaving the original unchanged
+- Automatically removes duplicates using Set
+- Handles multiple input types: arrays, JSON string arrays (killer feature for `.liquid`), or single values
+- Creates the attribute as an empty array if it doesn't exist
+- Logs an error if the existing attribute is not an array
+- `TBC:` Supports nested attributes (e.g., `data.tags`)
+
+#### Example: Add tags to a post object in `.njk`:
+
+```jinja2
+{% set enhancedPost = post | attr_concat('tags', ['featured', 'popular']) %}
+```
+
+#### `PRO` Example: Add scripts and styles to the `site` object in `.liquid`:
+
+```liquid
+{% capture _ %}[
+  "https://cdn.jsdelivr.net/npm/prismjs@1/themes/prism-tomorrow.min.css",
+  "https://cdn.jsdelivr.net/npm/prismjs@1/plugins/treeview/prism-treeview.min.css",
+  "https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7/css/all.min.css",
+  "/styles.css"
+]{% endcapture %}
+{% assign site = site | attr_concat: 'styles', _ %}
+
+{% capture _ %}[
+  "https://cdn.jsdelivr.net/npm/prismjs@1/components/prism-core.min.js",
+  "https://cdn.jsdelivr.net/npm/prismjs@1/plugins/autoloader/prism-autoloader.min.js",
+  "https://cdn.jsdelivr.net/npm/prismjs@1/plugins/treeview/prism-treeview.min.js"
+]{% endcapture %}
+{% assign site = site | attr_concat: 'scripts', _ %}
+```
+*/

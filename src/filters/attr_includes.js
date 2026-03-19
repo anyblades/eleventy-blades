@@ -1,3 +1,4 @@
+// <!--section:code-->```js
 import lodash from "@11ty/lodash-custom";
 const { get } = lodash;
 
@@ -43,3 +44,22 @@ export function attrIncludes(collection, attrName, targetValue) {
 export function attrIncludesFilter(eleventyConfig) {
   eleventyConfig.addFilter("attr_includes", attrIncludes);
 }
+/*```
+
+<!--section:docs-->
+### `attr_includes`
+
+A filter that filters a list of items by checking if an attribute array includes a target value. Supports nested attribute names using dot notation.
+
+**Why use this?** When working with Eleventy collections, you often need to filter items based on tags or other array attributes in front matter. The `attr_includes` filter provides a flexible way to filter by any array attribute, with support for nested properties using dot notation.
+
+#### Example: Get all posts that include `#javascript` tag
+
+```jinja2 {data-caption="in .njk:"}
+{% set js_posts = collections.all | attr_includes('data.tags', '#javascript') %}
+
+{% for post in js_posts %}
+  <h2>{{ post.data.title }}</h2>
+{% endfor %}
+```
+*/
