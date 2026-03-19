@@ -11,6 +11,8 @@ Ultimate blade kit for 11ty (Build Awesome):
 
 - [Data helpers](https://blades.ninja/build-awesome-11ty/#data-helpers)
 - [Auto link favicons](https://blades.ninja/build-awesome-11ty/#auto-link-favicons) {data-marker=🥷}
+- [Auto-raw tags](https://blades.ninja/build-awesome-11ty/#auto-raw)
+- [Auto-newlines-to-br](https://blades.ninja/build-awesome-11ty/#auto-nl2br)
 - [Base eleventy.config.js](https://blades.ninja/build-awesome-11ty/#base-config) {data-marker=🥷}
 - [Reusable npm scripts](https://blades.ninja/build-awesome-11ty/#npm-scripts) {data-marker=🥷}
 
@@ -82,67 +84,6 @@ export default function (eleventyConfig) {
 Or use a fully preconfigured:
 
 [🥷 Build Awesome Starter ↗ &nbsp;<small>11ty + Tailwind + Typography + Blades</small>](https://github.com/anydigital/build-awesome-starter){role=button .outline}
-
-<!--section:data&processors-h3-->
-
-<details><summary>
-
-### mdAutoRawTags preprocessor
-
-</summary>
-
-🧩 [Install via Plugin](https://github.com/anydigital/eleventy-blades#install) — or copy-paste from
-[`src/processors/markdown.js`](https://github.com/anydigital/eleventy-blades/blob/main/src/processors/markdown.js)
-
-Prevents Nunjucks syntax from being processed in Markdown files by automatically wrapping `{{`, `}}`, `{%`, and `%}` with `{% raw %}` tags.
-
-**Why use this?** When writing documentation or tutorials about templating in Markdown files, you often want to show Nunjucks/Liquid syntax as literal text. This preprocessor automatically escapes these special characters so they display as-is instead of being processed by the template engine.
-
-**Example:**
-
-Before `mdAutoRawTags`, writing this in Markdown:
-
-```markdown
-### Using {{ variable }} to output variables
-```
-
-Would try to process `{{ variable }}` as a template variable. With `mdAutoRawTags`, it displays exactly as written.
-
-</details>
-
-<details><summary>
-
-### mdAutoNl2br converter
-
-</summary>
-
-🧩 [Install via Plugin](https://github.com/anydigital/eleventy-blades#install) — or copy-paste from
-[`src/processors/markdown.js`](https://github.com/anydigital/eleventy-blades/blob/main/src/processors/markdown.js)
-
-Automatically converts `\n` sequences to `<br>` tags in Markdown content. This is particularly useful for adding line breaks inside Markdown tables where standard newlines don't work.
-
-**Why use this?** Markdown tables don't support multi-line content in cells. By using `\n` in your content, this preprocessor will convert it to `<br>` tags, allowing you to display line breaks within table cells and other content.
-
-**Example:**
-
-In your Markdown file:
-
-```markdown
-| Column 1               | Column 2                          |
-| ---------------------- | --------------------------------- |
-| Line 1\nLine 2\nLine 3 | Another cell\nWith multiple lines |
-```
-
-Will render as:
-
-```html
-<td>Line 1<br />Line 2<br />Line 3</td>
-<td>Another cell<br />With multiple lines</td>
-```
-
-**Note:** This processes literal `\n` sequences (backslash followed by 'n'), not actual newline characters. Type `\n` in your source files where you want line breaks.
-
-</details>
 
 <!--section:filters-h2-->
 

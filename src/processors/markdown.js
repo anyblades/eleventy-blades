@@ -1,3 +1,4 @@
+// <!--section:code-->```js
 /**
  * Transform Nunjucks syntax in content by wrapping it with raw tags
  *
@@ -56,3 +57,70 @@ export function mdAutoNl2br(eleventyConfig) {
     };
   });
 }
+/*```
+
+<!--section:docs-->
+### mdAutoRawTags preprocessor {#auto-raw}
+
+Prevents Nunjucks syntax from being processed in Markdown files by automatically wrapping `{{`, `}}`, `{%`, and `%}` with `{% raw %}` tags.
+
+**Why use this?** When writing documentation or tutorials about templating in Markdown files, you often want to show Nunjucks/Liquid syntax as literal text. This preprocessor automatically escapes these special characters so they display as-is instead of being processed by the template engine.
+
+**Example:**
+
+Before `mdAutoRawTags`, writing this in Markdown:
+
+```markdown
+### Using {{ variable }} to output variables
+```
+
+Would try to process `{{ variable }}` as a template variable. With `mdAutoRawTags`, it displays exactly as written.
+
+### mdAutoNl2br converter {#auto-nl2br}
+
+Automatically converts `\n` sequences to `<br>` tags in Markdown content. This is particularly useful for adding line breaks inside Markdown tables where standard newlines don't work.
+
+**Why use this?** Markdown tables don't support multi-line content in cells. By using `\n` in your content, this preprocessor will convert it to `<br>` tags, allowing you to display line breaks within table cells and other content.
+
+**Example:**
+
+In your Markdown file:
+
+```markdown
+| Column 1               | Column 2                          |
+| ---------------------- | --------------------------------- |
+| Line 1\nLine 2\nLine 3 | Another cell\nWith multiple lines |
+```
+
+Will render as:
+
+```html
+<td>Line 1<br />Line 2<br />Line 3</td>
+<td>Another cell<br />With multiple lines</td>
+```
+
+**Note:** This processes literal `\n` sequences (backslash followed by 'n'), not actual newline characters. Type `\n` in your source files where you want line breaks.
+
+Automatically converts `\n` sequences to `<br>` tags in Markdown content. This is particularly useful for adding line breaks inside Markdown tables where standard newlines don't work.
+
+**Why use this?** Markdown tables don't support multi-line content in cells. By using `\n` in your content, this preprocessor will convert it to `<br>` tags, allowing you to display line breaks within table cells and other content.
+
+**Example:**
+
+In your Markdown file:
+
+```markdown
+| Column 1               | Column 2                          |
+| ---------------------- | --------------------------------- |
+| Line 1\nLine 2\nLine 3 | Another cell\nWith multiple lines |
+```
+
+Will render as:
+
+```html
+<td>Line 1<br />Line 2<br />Line 3</td>
+<td>Another cell<br />With multiple lines</td>
+```
+
+**Note:** This processes literal `\n` sequences (backslash followed by 'n'), not actual newline characters. Type `\n` in your source files where you want line breaks.
+*/
