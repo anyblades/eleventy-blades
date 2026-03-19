@@ -99,3 +99,9 @@ export default function (eleventyConfig) {
 Or use a preconfigured template:
 
 [🥷 Build Awesome Starter ↗ &nbsp;<small>11ty + Tailwind + Typography + Blades</small>](https://github.com/anydigital/build-awesome-starter){role=button .outline}
+
+<!--section:gh-only-->
+---
+
+Featured by:
+- https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=anydigital
