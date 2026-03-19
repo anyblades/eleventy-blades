@@ -104,4 +104,4 @@ A filter that concatenates values to an attribute array, returning a new object 
 ]{% endcapture %}
 {% assign site = site | attr_concat: 'scripts', _ %}
 ```
-*/
+<!--section--> */

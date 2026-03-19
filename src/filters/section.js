@@ -122,4 +122,4 @@ This content appears in both the summary and the sidebar!
 - Sections start with: `<¡--section:NAME-->` or `<¡--section:NAME1,NAME2-->`
 - Sections end at the next `<¡--section*-->` marker or end of file
 - Whitespace around names and inside comments is automatically trimmed
-*/
+<!--section--> */

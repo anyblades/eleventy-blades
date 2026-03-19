@@ -75,4 +75,4 @@ A filter that merges arrays or objects together, similar to Twig's merge filter.
 } %}
 {% set pageMeta = defaultMeta | merge(page.data) %}
 ```
-*/
+<!--section--> */

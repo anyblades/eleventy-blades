@@ -62,4 +62,4 @@ A filter that filters a list of items by checking if an attribute array includes
   <h2>{{ post.data.title }}</h2>
 {% endfor %}
 ```
-*/
+<!--section--> */

@@ -1,3 +1,4 @@
+// <!--section:code-->```js
 /**
  * Remove the minimal common indentation from a multi-line string
  *
@@ -27,3 +28,8 @@ export function unindent(content) {
 export function unindentFilter(eleventyConfig) {
   eleventyConfig.addFilter("unindent", unindent);
 }
+/*```
+
+<!--section:docs-->
+### `unindent`
+<!--section--> */

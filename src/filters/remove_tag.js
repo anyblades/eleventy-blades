@@ -67,4 +67,4 @@ A filter that removes a specified HTML element from provided HTML content. It re
 
 {{ cleanContent | safe }}
 ```
-*/
+<!--section--> */

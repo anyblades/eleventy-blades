@@ -76,4 +76,4 @@ An inline conditional/ternary operator filter that returns one value if a condit
 {# Chain with other filters #}
 {% set cssClass = 'featured' | if: post.featured | upper %}
 ```
-*/
+<!--section--> */

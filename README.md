@@ -11,15 +11,16 @@ Ultimate blade kit for 11ty (Build Awesome).
 
 **Filters:**
 
+- [attr_concat](https://blades.ninja/build-awesome-11ty/#attr_concat),
+  [attr_includes](https://blades.ninja/build-awesome-11ty/#attr_includes),
+  [attr_set](https://blades.ninja/build-awesome-11ty/#attr_set)
+- [fetch](https://blades.ninja/build-awesome-11ty/#fetch) {data-marker=🥷}
 - [if](https://blades.ninja/build-awesome-11ty/#if)
 - [merge](https://blades.ninja/build-awesome-11ty/#merge)
-- [attr_set](https://blades.ninja/build-awesome-11ty/#attr_set),
-  [attr_concat](https://blades.ninja/build-awesome-11ty/#attr_concat),
-  [attr_includes](https://blades.ninja/build-awesome-11ty/#attr_includes)
-- [fetch](https://blades.ninja/build-awesome-11ty/#fetch) {data-marker=🥷}
-- [section](https://blades.ninja/build-awesome-11ty/#section) {data-marker=🥷}
 - [remove_tag](https://blades.ninja/build-awesome-11ty/#remove_tag),
   [strip_tag](https://blades.ninja/build-awesome-11ty/#strip_tag)
+- [section](https://blades.ninja/build-awesome-11ty/#section) {data-marker=🥷}
+- [unindent](https://blades.ninja/build-awesome-11ty/#unindent)
 
 </div><div>
 

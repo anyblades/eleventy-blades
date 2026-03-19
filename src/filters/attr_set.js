@@ -39,4 +39,4 @@ A filter that creates a new object with an overridden attribute value. This is u
 {% assign _ctx = null | attr_set: 'collections', collections %}
 {{ ... | renderContent: 'liquid,md', _ctx }}
 ```
-*/
+<!--section--> */

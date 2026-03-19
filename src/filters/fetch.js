@@ -115,4 +115,4 @@ npm install @11ty/eleventy-fetch
 {% set sharedContent = "_includes/shared/footer.html" | fetch %}
 {{ sharedContent | safe }}
 ```
-*/
+<!--section--> */
