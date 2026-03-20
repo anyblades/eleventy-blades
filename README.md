@@ -1,42 +1,34 @@
 <!--section:index-->
 <hgroup id="11ty"><small>Build Awesome plugin</small>
 
-## Eleventy blades <small>[<i>↗</i>](https://github.com/anydigital/eleventy-blades)</small>
+## [Eleventy blades](/build-awesome-11ty/)
 
 <p></p></hgroup>
 
-Ultimate blade kit for 11ty (Build Awesome).
-
-<div class="grid"><div>
-
-[**Filters**](https://blades.ninja/build-awesome-11ty/filters/)
+Ultimate blade kit for 11ty (Build Awesome):
 
 <!--prettier-ignore-->
-- [attr_concat](  https://blades.ninja/build-awesome-11ty/filters/#attr-concat),
-  [attr_includes](https://blades.ninja/build-awesome-11ty/filters/#attr-includes),
-  [attr_set](     https://blades.ninja/build-awesome-11ty/filters/#attr-set)
-- [fetch](        https://blades.ninja/build-awesome-11ty/filters/#fetch) {data-marker=🥷}
-- [if](           https://blades.ninja/build-awesome-11ty/filters/#if)
-- [merge](        https://blades.ninja/build-awesome-11ty/filters/#merge)
-- [remove_tag](   https://blades.ninja/build-awesome-11ty/filters/#remove-tag),
-  [strip_tag](    https://blades.ninja/build-awesome-11ty/filters/#strip-tag)
-- [section](      https://blades.ninja/build-awesome-11ty/filters/#section) {data-marker=🥷}
-- [unindent](     https://blades.ninja/build-awesome-11ty/filters/#unindent)
+- [Filters](              https://blades.ninja/build-awesome-11ty/filters/)
+  - [attr_concat](        https://blades.ninja/build-awesome-11ty/filters/#attr-concat),
+    [attr_includes](      https://blades.ninja/build-awesome-11ty/filters/#attr-includes),
+    [attr_set](           https://blades.ninja/build-awesome-11ty/filters/#attr-set)
+  - [fetch](              https://blades.ninja/build-awesome-11ty/filters/#fetch) {data-marker=🥷}
+  - [if](                 https://blades.ninja/build-awesome-11ty/filters/#if)
+  - [merge](              https://blades.ninja/build-awesome-11ty/filters/#merge)
+  - [remove_tag](         https://blades.ninja/build-awesome-11ty/filters/#remove-tag),
+    [strip_tag](          https://blades.ninja/build-awesome-11ty/filters/#strip-tag)
+  - [section](            https://blades.ninja/build-awesome-11ty/filters/#section) {data-marker=🥷}
+  - [unindent](           https://blades.ninja/build-awesome-11ty/filters/#unindent)
+- [Processors](           https://blades.ninja/build-awesome-11ty/processors/)
+  - [Auto link favicons]( https://blades.ninja/build-awesome-11ty/processors/#auto-link-favicons) {data-marker=🥷}
+  - [Auto-raw tags](      https://blades.ninja/build-awesome-11ty/processors/#auto-raw)
+  - [Auto newlines-to-br](https://blades.ninja/build-awesome-11ty/processors/#auto-nl2br)
+- [Power tools](          https://blades.ninja/build-awesome-11ty/tools/)
+  - [Base config file](   https://blades.ninja/build-awesome-11ty/tools/#base-config) {data-marker=🥷}
+  - [Base npm scripts](   https://blades.ninja/build-awesome-11ty/tools/#base-scripts) {data-marker=🥷}
+  - [Data helpers](       https://blades.ninja/build-awesome-11ty/tools/#data-helpers)
 
-</div><div>
-
-[**Other**](https://blades.ninja/build-awesome-11ty/)
-
-<!--prettier-ignore-->
-- [Auto link favicons](     https://blades.ninja/build-awesome-11ty/#auto-link-favicons) {data-marker=🥷}
-- [Auto-raw tags](          https://blades.ninja/build-awesome-11ty/#auto-raw)
-- [Auto newlines-to-br](    https://blades.ninja/build-awesome-11ty/#auto-nl2br)
-- [Data helpers](           https://blades.ninja/build-awesome-11ty/#data-helpers)
-- [Base eleventy.config.js](https://blades.ninja/build-awesome-11ty/#base-config) {data-marker=🥷}
-- [Base npm scripts](       https://blades.ninja/build-awesome-11ty/#npm-scripts) {data-marker=🥷}
-
-</div></div>
-<br>
+{.unlist .columns}
 
 <!--section:index,install-->
 <details><summary role="button" class="outline"><b>Install Eleventy blades</b></summary>
@@ -55,7 +47,7 @@ Consider symlinking entire `eleventy.config.js`:
 ln -s ./node_modules/@anydigital/eleventy-blades/src/eleventy.config.js
 ```
 
-Learn more: https://blades.ninja/build-awesome-11ty/#base-config
+Learn more: https://blades.ninja/build-awesome-11ty/tools/#base-config
 
 Living examples:
 

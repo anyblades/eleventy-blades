@@ -1,4 +1,4 @@
-### Base 11ty npm scripts <small>via npm workspace</small> {#npm-scripts}
+### Base 11ty npm scripts <small>via npm workspace</small> {#base-scripts}
 
 This package provides a pre-configured `do` folder setup that helps organize your development workflow using npm workspaces. The `do` folder contains scripts for building and running your Eleventy project.
 
