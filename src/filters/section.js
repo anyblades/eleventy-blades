@@ -20,7 +20,7 @@ export function section(content, sectionName) {
 
   // Regex to match section markers with content up to the next section or end of string
   // Captures: (1) section names, (2) content until next section marker or end
-  const sectionRegex = /<!--section:([^>]+)-->([\s\S]*?)(?=<!--section|$)/g;
+  const sectionRegex = /<[!]--section:([^>]+)-->([\s\S]*?)(?=<[!]--section|$)/g;
 
   let results = [];
   let match;
@@ -49,11 +49,11 @@ export function section(content, sectionName) {
  *   {{ content | section('footer') }}
  *
  * Content format:
- *   <!--section:intro-->
+ *   <¡--section:intro-->
  *   This is the intro content
- *   <!--section:main-->
+ *   <¡--section:main-->
  *   This is the main content
- *   <!--section:footer,sidebar-->
+ *   <¡--section:footer,sidebar-->
  *   This appears in both footer and sidebar sections
  *
  * @param {Object} eleventyConfig - The Eleventy configuration object
