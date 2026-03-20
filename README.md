@@ -35,8 +35,10 @@ Ultimate blade kit for 11ty (Build Awesome).
 - [Base eleventy.config.js](https://blades.ninja/build-awesome-11ty/#base-config) {data-marker=🥷}
 - [Base npm scripts](       https://blades.ninja/build-awesome-11ty/#npm-scripts) {data-marker=🥷}
 
-</div></div><br>
+</div></div>
+<br>
 
+<!--section:index,install-->
 <details><summary role="button" class="outline"><b>Install Eleventy blades</b></summary>
 
 ```sh
