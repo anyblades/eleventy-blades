@@ -16,6 +16,12 @@ try {
 } catch (e) {
   // @uncenter/eleventy-plugin-toc not installed
 }
+let feedPlugin;
+try {
+  feedPlugin = (await import("@11ty/eleventy-plugin-rss")).feedPlugin;
+} catch (e) {
+  // @11ty/eleventy-plugin-rss not installed
+}
 /* Libraries */
 import markdownIt from "markdown-it";
 /* Dynamic libraries */
@@ -39,6 +45,7 @@ try {
 }
 /* Data */
 import yaml from "js-yaml";
+import { readFileSync } from "node:fs";
 
 /**
  * Eleventy Configuration
@@ -80,6 +87,25 @@ export default function (eleventyConfig) {
       ignoredElements: ["sub", "[data-is-anchor]"],
       ul: true,
       wrapper: (toc) => `<div data-is-toc>${toc}</div>`,
+    });
+  }
+  // https://www.11ty.dev/docs/plugins/rss/#virtual-template
+  if (feedPlugin) {
+    eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
+    let siteData = {};
+    try {
+      siteData = yaml.load(readFileSync(`${inputDir}/_data/site.yml`, "utf8"));
+    } catch (e) {
+      // _data/site.yml not found
+    }
+    eleventyConfig.addPlugin(feedPlugin, {
+      type: "atom", // or "rss", "json"
+      outputPath: "/feed.xml",
+      collection: {
+        name: "feed", // iterate over `collections.posts`
+        limit: 100, // 0 means no limit
+      },
+      metadata: siteData,
     });
   }
 
