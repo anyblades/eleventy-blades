@@ -23,9 +23,9 @@ Ultimate blade kit for 11ty (Build Awesome):
   - [unindent](           https://blades.ninja/build-awesome-11ty/filters/#unindent)
 - [Processors](           https://blades.ninja/build-awesome-11ty/processors/)
   - [Auto link favicons]( https://blades.ninja/build-awesome-11ty/processors/#auto-link-favicons) <!--{data-marker=🥷}-->
-  - [Auto-raw tags](      https://blades.ninja/build-awesome-11ty/processors/#auto-raw)
-  - [Auto newlines-to-br](https://blades.ninja/build-awesome-11ty/processors/#auto-nl2br)
-  - [Hidden markdown attrs<i>&nbsp;🆕</i>](https://blades.ninja/build-awesome-11ty/processors/#hidden-attrs) <!--{data-marker=🥷}-->
+  - [Auto-raw tags](      https://blades.ninja/build-awesome-11ty/processors/#md-auto-raw)
+  - [Auto newlines-to-br](https://blades.ninja/build-awesome-11ty/processors/#md-auto-br)
+  - [Hidden markdown attrs<i>&nbsp;🆕</i>](https://blades.ninja/build-awesome-11ty/processors/#md-hidden-attrs) <!--{data-marker=🥷}-->
 - [Power tools](          https://blades.ninja/build-awesome-11ty/tools/)
   - [Base config file](   https://blades.ninja/build-awesome-11ty/tools/#base-config) <!--{data-marker=🥷}-->
   - [Base npm scripts](   https://blades.ninja/build-awesome-11ty/tools/#base-scripts) <!--{data-marker=🥷}-->
