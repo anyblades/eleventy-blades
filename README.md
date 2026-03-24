@@ -30,6 +30,7 @@ Ultimate blade kit for 11ty (Build Awesome):
   - [Base config file](   https://blades.ninja/build-awesome-11ty/tools/#base-config) <!--{data-marker=🥷}-->
   - [Base npm scripts](   https://blades.ninja/build-awesome-11ty/tools/#base-scripts) <!--{data-marker=🥷}-->
   - [Data helpers](       https://blades.ninja/build-awesome-11ty/tools/#data-helpers)
+  - [Blades starters](    https://blades.ninja/build-awesome-11ty/tools/#starters) <!--{data-marker=🥷}-->
 
 <!--{.unlist .columns}-->
 
