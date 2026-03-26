@@ -1,6 +1,6 @@
 {
   "name": "@anydigital/eleventy-blades",
-  "version": "0.28.0-alpha.11",
+  "version": "0.28.0-alpha.12",
   "description": "A collection of helpful utilities and filters for Eleventy (11ty)",
   "type": "module",
   "main": "./src/index.js",
