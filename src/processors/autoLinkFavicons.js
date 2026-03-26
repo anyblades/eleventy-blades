@@ -35,14 +35,7 @@ export function cleanLinkText(linkText, domain) {
  * @returns {string} The HTML string
  */
 export function buildFaviconLink(attrs, domain, text) {
-  let updatedAttrs = attrs;
-
-  // Check if attrs already contains a target attribute
-  if (!/target\s*=/.test(attrs)) {
-    updatedAttrs = updatedAttrs + ' target="_blank"';
-  }
-
-  return `<a ${updatedAttrs} data-has-favicon><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64">${text}</a>`;
+  return `<a ${attrs}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64">&nbsp;</i>${text}</a>`;
 }
 
 /**

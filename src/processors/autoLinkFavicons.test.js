@@ -90,7 +90,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com/docs"', "example.com", "/docs");
     assert.equal(
       result,
-      '<a href="https://example.com/docs" target="_blank" data-has-favicon><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64">/docs</a>',
+      '<a href="https://example.com/docs"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64">&nbsp;</i>/docs</a>',
     );
   });
 
@@ -98,7 +98,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com" class="link"', "example.com", "text");
     assert.equal(
       result,
-      '<a href="https://example.com" class="link" target="_blank" data-has-favicon><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64">text</a>',
+      '<a href="https://example.com" class="link"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64">&nbsp;</i>text</a>',
     );
   });
 
@@ -107,16 +107,11 @@ describe("buildFaviconLink", () => {
     assert.match(result, /sz=64/);
   });
 
-  it("should include data-has-favicon attribute", () => {
-    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
-    assert.match(result, /data-has-favicon/);
-  });
-
   it("should handle different domains", () => {
     const result = buildFaviconLink('href="https://github.com/repo"', "github.com", "/repo");
     assert.equal(
       result,
-      '<a href="https://github.com/repo" target="_blank" data-has-favicon><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64">/repo</a>',
+      '<a href="https://github.com/repo"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64">&nbsp;</i>/repo</a>',
     );
   });
 
@@ -136,7 +131,7 @@ describe("transformLink", () => {
     );
     assert.match(
       result,
-      /<img src="https:\/\/www\.google\.com\/s2\/favicons\?domain=example\.com&sz=64">\/docs<\/a>/,
+      /<i><img src="https:\/\/www\.google\.com\/s2\/favicons\?domain=example\.com&sz=64">&nbsp;<\/i>\/docs<\/a>/,
     );
   });
 
@@ -149,7 +144,7 @@ describe("transformLink", () => {
       "https://example.com/a",
       "https://example.com/a",
     );
-    assert.match(result, /<img[^>]*>example\.com\/a<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>example\.com\/a<\/a>/);
   });
 
   it("should not transform custom link text without URL", () => {
@@ -166,7 +161,7 @@ describe("transformLink", () => {
       "https://example.com",
       "example.com",
     );
-    assert.match(result, /<img[^>]*>example\.com<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>example\.com<\/a>/);
   });
 
   it("should transform links ending with slash only (shows domain)", () => {
@@ -177,7 +172,7 @@ describe("transformLink", () => {
       "https://example.com/",
       "https://example.com/",
     );
-    assert.match(result, /<img[^>]*>example\.com<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>example\.com<\/a>/);
   });
 
   it("should handle invalid URLs gracefully", () => {
@@ -193,7 +188,7 @@ describe("transformLink", () => {
       "http://example.com/docs",
       "http://example.com/docs",
     );
-    assert.match(result, /<img[^>]*>\/docs<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>\/docs<\/a>/);
   });
 
   it("should work with https:// protocol", () => {
@@ -203,7 +198,7 @@ describe("transformLink", () => {
       "https://example.com/docs",
       "https://example.com/docs",
     );
-    assert.match(result, /<img[^>]*>\/docs<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>\/docs<\/a>/);
   });
 
   it("should handle longer paths correctly", () => {
@@ -213,7 +208,7 @@ describe("transformLink", () => {
       "https://example.com/path/to/document",
       "https://example.com/path/to/document",
     );
-    assert.match(result, /<img[^>]*>\/path\/to\/document<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>\/path\/to\/document<\/a>/);
   });
 
   it("should not transform when linkText doesn't look like URL", () => {
@@ -234,7 +229,7 @@ describe("transformLink", () => {
       "https://example.com/docs",
       "example.com/docs",
     );
-    assert.match(result, /<img[^>]*>\/docs<\/a>/);
+    assert.match(result, /<i><img[^>]*>&nbsp;<\/i>\/docs<\/a>/);
   });
 
   it("should handle malformed URLs by returning original match", () => {
@@ -395,7 +390,7 @@ describe("replaceLinksInHtml", () => {
     const html = '<a href="https://example.com/docs">https://example.com/docs</a>';
     const result = replaceLinksInHtml(html, transformLink);
     // transformLink should add favicon for plain URL links
-    assert.match(result, /<img src="https:\/\/www\.google\.com\/s2\/favicons\?domain=example\.com&sz=64">/);
+    assert.match(result, /<i><img src="https:\/\/www\.google\.com\/s2\/favicons\?domain=example\.com&sz=64">&nbsp;<\/i>/);
     assert.match(result, /\/docs<\/a>/);
   });
 
