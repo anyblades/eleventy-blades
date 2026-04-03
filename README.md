@@ -8,7 +8,6 @@ Ultimate blade kit for 11ty (Build Awesome).
 
 ## Documentation
 
-<!--section:toc-->
 <!--prettier-ignore-->
 - [Filters](              https://blades.ninja/build-awesome-11ty/filters/)
   - [attr_concat](        https://blades.ninja/build-awesome-11ty/filters/#attr-concat),
