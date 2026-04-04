@@ -39,6 +39,8 @@ Ultimate blade kit for 11ty (Build Awesome).
 
 ## Install
 
+<!--section:docs,install-->
+
 ```sh
 npm install @anydigital/eleventy-blades
 ```
@@ -118,6 +120,8 @@ Or use a <mark>fully preconfigured template</mark> as an alternative option:
 [🥷 Bladeswitch Starter ↗ &nbsp;<small style="white-space: nowrap">11ty + Pico + Blades</small>](https://github.com/anydigital/bladeswitch)<!--{role=button .outline}-->
 
 </nav>
+
+<!--section:docs-->
 
 ---
 
