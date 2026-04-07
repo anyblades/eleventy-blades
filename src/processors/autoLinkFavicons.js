@@ -121,15 +121,15 @@ Automatically adds favicon images from Google's favicon service to links that di
 Before processing:
 
 ```html
-<a href="https://github.com/anydigital/eleventy-blades">https://github.com/anydigital/eleventy-blades</a>
+<a href="https://github.com/anyblades/eleventy-blades">https://github.com/anyblades/eleventy-blades</a>
 ```
 
 After processing:
 
 ```html
-<a href="https://github.com/anydigital/eleventy-blades" class="whitespace-nowrap" target="_blank">
+<a href="https://github.com/anyblades/eleventy-blades" class="whitespace-nowrap" target="_blank">
   <i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=32" /></i>
-  <span>/anydigital/eleventy-blades</span>
+  <span>/anyblades/eleventy-blades</span>
 </a>
 ```
 

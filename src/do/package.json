@@ -1,5 +1,5 @@
 {
-  "name": "@anydigital/eleventy-blades-do",
+  "name": "@anyblades/eleventy-blades-do",
   "private": true,
   "scripts": {
     "build": "npm run tw && npm run 11ty -- $ELTY_OPTIONS",

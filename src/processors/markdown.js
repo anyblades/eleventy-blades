@@ -5,7 +5,7 @@
 This preprocessor wraps template syntax `{{, }}, {%, %}` with `{% raw %}` tags
 to prevent them from being processed by the template engine in Markdown files.
 
-Usage example: https://github.com/anydigital/eleventy-blades/blob/main/src/eleventy.config.js
+Usage example: https://github.com/anyblades/eleventy-blades/blob/main/src/eleventy.config.js
 
 How it works:
 ```js */
@@ -29,7 +29,7 @@ inside markdown tables where standard newlines don't work.
 
 > **NOTE:** This processes literal `\n` sequences (backslash followed by 'n'), not actual newline characters. Type `\n` in your source files where you want line breaks.
 
-Usage example: https://github.com/anydigital/eleventy-blades/blob/main/src/eleventy.config.js
+Usage example: https://github.com/anyblades/eleventy-blades/blob/main/src/eleventy.config.js
 
 How it works:
 ```js */
@@ -57,7 +57,7 @@ HTML parsers but expanded before markdown-it processes them.
 Implemented as a core rule so the transformation runs on the raw source
 before markdown-it-attrs (or any other plugin) parses the content.
 
-Usage example: https://github.com/anydigital/eleventy-blades/blob/main/src/eleventy.config.js
+Usage example: https://github.com/anyblades/eleventy-blades/blob/main/src/eleventy.config.js
 
 How it works:
 ```js */

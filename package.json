@@ -1,5 +1,5 @@
 {
-  "name": "@anydigital/eleventy-blades",
+  "name": "@anyblades/eleventy-blades",
   "version": "0.28.0-beta.2",
   "description": "A collection of helpful utilities and filters for Eleventy (11ty)",
   "type": "module",
@@ -28,12 +28,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anydigital/eleventy-blades.git"
+    "url": "git+https://github.com/anyblades/eleventy-blades.git"
   },
   "bugs": {
-    "url": "https://github.com/anydigital/eleventy-blades/issues"
+    "url": "https://github.com/anyblades/eleventy-blades/issues"
   },
-  "homepage": "https://github.com/anydigital/eleventy-blades#readme",
+  "homepage": "https://github.com/anyblades/eleventy-blades#readme",
   "peerDependencies": {
     "@11ty/eleventy": "^3.0.0 || ^4.0.0-alpha.6"
   },

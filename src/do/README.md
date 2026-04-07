@@ -4,10 +4,10 @@ This package provides a pre-configured `do` folder setup that helps organize you
 
 **Installation:**
 
-1. Install https://github.com/anydigital/eleventy-blades to reuse pre-defined 11ty scripts from there:
+1. Install https://github.com/anyblades/eleventy-blades to reuse pre-defined 11ty scripts from there:
 
 ```sh
-npm install @anydigital/eleventy-blades
+npm install @anyblades/eleventy-blades
 ```
 
 2. Create a helper folder `do` to symlink the `do/package.json` within:
@@ -15,7 +15,7 @@ npm install @anydigital/eleventy-blades
 ```sh
 mkdir do
 cd ./do
-ln -s ../node_modules/@anydigital/eleventy-blades/src/do/package.json
+ln -s ../node_modules/@anyblades/eleventy-blades/src/do/package.json
 ```
 
 3. Finally register `do` folder as npm workspace in your root `package.json`:
@@ -38,9 +38,12 @@ ln -s ../node_modules/@anydigital/eleventy-blades/src/do/package.json
 - `npm start` to start 11ty dev server with live reload and Tailwind watch mode
 - `npm run stage` to build and serve production-like site locally
 - `npm run build` to finally build the site for production
-- all available scripts: https://github.com/anydigital/eleventy-blades/blob/main/src/do/package.json
+- all available scripts: https://github.com/anyblades/eleventy-blades/blob/main/src/do/package.json
 
-**Living example:** https://github.com/anydigital/sveleven
+Living examples:
+
+- https://github.com/anyblades/build-awesome-starter
+- https://github.com/anyblades/bladeswitch
 
 **Benefits:**
 

@@ -2,7 +2,7 @@
 
 /* Plugins */
 import { RenderPlugin } from "@11ty/eleventy";
-import eleventyBladesPlugin from "@anydigital/eleventy-blades";
+import eleventyBladesPlugin from "@anyblades/eleventy-blades";
 /* Dynamic plugins */
 let eleventyNavigationPlugin;
 try {
@@ -171,8 +171,8 @@ The package includes a fully-configured Eleventy config file `eleventy.config.js
 **Installation as simple as:**
 
 ```sh
-npm install @anydigital/eleventy-blades
-ln -s ./node_modules/@anydigital/eleventy-blades/src/eleventy.config.js
+npm install @anyblades/eleventy-blades
+ln -s ./node_modules/@anyblades/eleventy-blades/src/eleventy.config.js
 ```
 <!--section-->
 */

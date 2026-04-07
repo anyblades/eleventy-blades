@@ -1,4 +1,4 @@
-## <sub>Build Awesome /</sub><br> Eleventy blades <sup>![](https://img.shields.io/github/v/release/anydigital/eleventy-blades?label=&color=black)</sup>
+## <sub>Build Awesome /</sub><br> Eleventy blades <sup>![](https://img.shields.io/github/v/release/anyblades/eleventy-blades?label=&color=black)</sup>
 
 <!--section:summary-->
 
@@ -42,7 +42,7 @@ Ultimate blade kit for 11ty (Build Awesome).
 <!--section:docs,install-->
 
 ```sh
-npm install @anydigital/eleventy-blades
+npm install @anyblades/eleventy-blades
 ```
 
 Then choose one of the following options:
@@ -52,20 +52,20 @@ Then choose one of the following options:
 Consider symlinking entire `eleventy.config.js` as a set-and-forget zero-config zero-maintenance solution:
 
 ```sh
-ln -s ./node_modules/@anydigital/eleventy-blades/src/eleventy.config.js
+ln -s ./node_modules/@anyblades/eleventy-blades/src/eleventy.config.js
 ```
 
 Learn more: https://blades.ninja/11ty/tools/#base-config
 
 Living examples:
 
-- https://github.com/anydigital/build-awesome-starter
-- https://github.com/anydigital/bladeswitch
+- https://github.com/anyblades/build-awesome-starter
+- https://github.com/anyblades/bladeswitch
 
 <mark>B. Base config</mark> by Eleventy Blades with your additions/overrides in `eleventy.config.js`:
 
 ```js
-import baseConfig from "@anydigital/eleventy-blades/base-config";
+import baseConfig from "@anyblades/eleventy-blades/base-config";
 
 export default function (eleventyConfig) {
   baseConfig(eleventyConfig);
@@ -80,7 +80,7 @@ Living example: https://github.com/hostfurl/minformhf/blob/main/eleventy.config.
 <mark>C. Plug-in</mark> Eleventy Blades in your existing `eleventy.config.js`:
 
 ```js
-import eleventyBladesPlugin from "@anydigital/eleventy-blades";
+import eleventyBladesPlugin from "@anyblades/eleventy-blades";
 
 export default function (eleventyConfig) {
   eleventyConfig.addPlugin(eleventyBladesPlugin, {
@@ -96,7 +96,7 @@ export default function (eleventyConfig) {
 <mark>D. Individual imports</mark> from Eleventy Blades in your `eleventy.config.js`:
 
 ```js
-import { siteData, mdAutoRawTags, mdAutoNl2br, autoLinkFavicons, attrSetFilter, attrConcatFilter, ... } from "@anydigital/eleventy-blades";
+import { siteData, mdAutoRawTags, mdAutoNl2br, autoLinkFavicons, attrSetFilter, attrConcatFilter, ... } from "@anyblades/eleventy-blades";
 
 export default function (eleventyConfig) {
   siteData(eleventyConfig);
@@ -115,9 +115,9 @@ Or use a <mark>fully preconfigured template</mark> as an alternative option:
 
 <nav>
 
-[🥷 Build Awesome Starter ↗ &nbsp;<small style="white-space: nowrap">11ty + Tailwind + Typography + Blades</small>](https://github.com/anydigital/build-awesome-starter)<!--{role=button .outline}-->
+[🥷 Build Awesome Starter ↗ &nbsp;<small style="white-space: nowrap">11ty + Tailwind + Typography + Blades</small>](https://github.com/anyblades/build-awesome-starter)<!--{role=button .outline}-->
 
-[🥷 Bladeswitch Starter ↗ &nbsp;<small style="white-space: nowrap">11ty + Pico + Blades</small>](https://github.com/anydigital/bladeswitch)<!--{role=button .outline}-->
+[🥷 Bladeswitch Starter ↗ &nbsp;<small style="white-space: nowrap">11ty + Pico + Blades</small>](https://github.com/anyblades/bladeswitch)<!--{role=button .outline}-->
 
 </nav>
 
