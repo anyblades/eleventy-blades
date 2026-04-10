@@ -127,6 +127,7 @@ Or use a <mark>fully preconfigured template</mark> as an alternative option:
 
 Featured by:
 
+- https://11tybundle.dev/blog/11ty-bundle-88/
 - https://11tybundle.dev/blog/11ty-bundle-83/
 - https://11tybundle.dev/categories/getting-started/
 - https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=anydigital
