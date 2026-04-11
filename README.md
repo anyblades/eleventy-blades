@@ -10,34 +10,47 @@ Ultimate blade kit for 11ty (Build Awesome).
 
 <!--section:docs-->
 
-## [Documentation <i><small>→</small></i>](https://blades.ninja/build-awesome-11ty/)
+## [Documentation](https://blades.ninja/build-awesome-11ty/)
+
+### [Filters →](https://blades.ninja/build-awesome-11ty/filters/) <!--{href=/build-awesome-11ty/filters/}-->
 
 <!--prettier-ignore-->
-- [Filters](              https://blades.ninja/build-awesome-11ty/filters/)
-  - [attr_concat](        https://blades.ninja/build-awesome-11ty/filters/#attr-concat),
-    [attr_includes](      https://blades.ninja/build-awesome-11ty/filters/#attr-includes),
-    [attr_set](           https://blades.ninja/build-awesome-11ty/filters/#attr-set)
-  - [date](               https://blades.ninja/build-awesome-11ty/filters/#date)
-  - [fetch](              https://blades.ninja/build-awesome-11ty/filters/#fetch) <!--{data-marker=🥷}-->
-  - [if](                 https://blades.ninja/build-awesome-11ty/filters/#if)
-  - [markdownify](        https://blades.ninja/build-awesome-11ty/filters/#markdownify)
-  - [merge](              https://blades.ninja/build-awesome-11ty/filters/#merge)
-  - [remove_tag](         https://blades.ninja/build-awesome-11ty/filters/#remove-tag),
-    [strip_tag](          https://blades.ninja/build-awesome-11ty/filters/#strip-tag)
-  - [section](            https://blades.ninja/build-awesome-11ty/filters/#section) <!--{data-marker=🥷}-->
-  - [unindent](           https://blades.ninja/build-awesome-11ty/filters/#unindent)
-- [Processors](           https://blades.ninja/build-awesome-11ty/processors/)
-  - [Auto link favicons]( https://blades.ninja/build-awesome-11ty/processors/#auto-link-favicons) <!--{data-marker=🥷}-->
-  - [Auto-raw tags](      https://blades.ninja/build-awesome-11ty/processors/#md-auto-raw)
-  - [Auto newlines-to-br](https://blades.ninja/build-awesome-11ty/processors/#md-auto-br)
-  - [Hidden markdown attrs<i>&nbsp;🆕</i>](https://blades.ninja/build-awesome-11ty/processors/#md-hidden-attrs) <!--{data-marker=🥷}-->
-- [Power tools](          https://blades.ninja/build-awesome-11ty/tools/)
-  - [Base config file](   https://blades.ninja/build-awesome-11ty/tools/#base-config) <!--{data-marker=🥷}-->
-  - [Base npm scripts](   https://blades.ninja/build-awesome-11ty/tools/#base-scripts) <!--{data-marker=🥷}-->
-  - [Data helpers](       https://blades.ninja/build-awesome-11ty/tools/#data-helpers)
-  - [Blades starters](    https://blades.ninja/build-awesome-11ty/tools/#starters) <!--{data-marker=🥷}-->
+- [attr_concat](        https://blades.ninja/build-awesome-11ty/filters/#attr-concat),
+  [attr_includes](      https://blades.ninja/build-awesome-11ty/filters/#attr-includes),
+  [attr_set](           https://blades.ninja/build-awesome-11ty/filters/#attr-set)
+- [date](               https://blades.ninja/build-awesome-11ty/filters/#date)
+- [fetch](              https://blades.ninja/build-awesome-11ty/filters/#fetch) <!--{data-marker=🥷}-->
+- [if](                 https://blades.ninja/build-awesome-11ty/filters/#if)
+- [markdownify](        https://blades.ninja/build-awesome-11ty/filters/#markdownify)
+- [merge](              https://blades.ninja/build-awesome-11ty/filters/#merge)
+- [remove_tag](         https://blades.ninja/build-awesome-11ty/filters/#remove-tag),
+  [strip_tag](          https://blades.ninja/build-awesome-11ty/filters/#strip-tag)
+- [section](            https://blades.ninja/build-awesome-11ty/filters/#section) <!--{data-marker=🥷}-->
+- [unindent](           https://blades.ninja/build-awesome-11ty/filters/#unindent)
 
-<!--{.unlist .columns}-->
+<!--{.columns}-->
+
+<div><hr></div>
+
+### [Processors →](https://blades.ninja/build-awesome-11ty/processors/) <!--{href=/build-awesome-11ty/processors/}-->
+
+- [Auto link favicons](https://blades.ninja/build-awesome-11ty/processors/#auto-link-favicons) <!--{data-marker=🥷}-->
+- [Auto-raw tags](https://blades.ninja/build-awesome-11ty/processors/#md-auto-raw)
+- [Auto newlines-to-br](https://blades.ninja/build-awesome-11ty/processors/#md-auto-br)
+- [Hidden markdown attrs<i>&nbsp;🆕</i>](https://blades.ninja/build-awesome-11ty/processors/#md-hidden-attrs) <!--{data-marker=🥷}-->
+
+<!--{.columns}-->
+
+<div><hr></div>
+
+### [Power tools →](https://blades.ninja/build-awesome-11ty/tools/) <!--{href=/build-awesome-11ty/tools/}-->
+
+- [Base config file](https://blades.ninja/build-awesome-11ty/tools/#base-config) <!--{data-marker=🥷}-->
+- [Base npm scripts](https://blades.ninja/build-awesome-11ty/tools/#base-scripts) <!--{data-marker=🥷}-->
+- [Data helpers](https://blades.ninja/build-awesome-11ty/tools/#data-helpers)
+- [Blades starters](https://blades.ninja/build-awesome-11ty/tools/#starters) <!--{data-marker=🥷}-->
+
+<!--{.columns}-->
 
 ---
 
