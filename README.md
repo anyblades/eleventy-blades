@@ -8,9 +8,11 @@ Ultimate blade kit for 11ty (Build Awesome).
 [![](https://img.shields.io/badge/Code-gainsboro?logo=github&logoColor=black&style=for-the-badge)](https://github.com/anyblades/eleventy-blades)
 [![](https://img.shields.io/github/stars/anyblades/eleventy-blades?label=Star&labelColor=gainsboro&color=silver&style=for-the-badge)](https://github.com/anyblades/eleventy-blades)
 
-<!--section:docs-->
+<!--section:gh-only-->
 
 ## [Documentation](https://blades.ninja/build-awesome-11ty/)
+
+<!--section:docs-->
 
 ### [Filters →](https://blades.ninja/build-awesome-11ty/filters/) <!--{href=/build-awesome-11ty/filters/}-->
 
@@ -30,8 +32,6 @@ Ultimate blade kit for 11ty (Build Awesome).
 
 <!--{.columns}-->
 
-<div><hr></div>
-
 ### [Processors →](https://blades.ninja/build-awesome-11ty/processors/) <!--{href=/build-awesome-11ty/processors/}-->
 
 - [Auto link favicons](https://blades.ninja/build-awesome-11ty/processors/#auto-link-favicons) <!--{data-marker=🥷}-->
@@ -40,8 +40,6 @@ Ultimate blade kit for 11ty (Build Awesome).
 - [Hidden markdown attrs<i>&nbsp;🆕</i>](https://blades.ninja/build-awesome-11ty/processors/#md-hidden-attrs) <!--{data-marker=🥷}-->
 
 <!--{.columns}-->
-
-<div><hr></div>
 
 ### [Power tools →](https://blades.ninja/build-awesome-11ty/tools/) <!--{href=/build-awesome-11ty/tools/}-->
 
