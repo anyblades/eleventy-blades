@@ -87,7 +87,7 @@ export default function (eleventyConfig) {
 }
 ```
 
-Living example: https://github.com/hostfurl/minformhf/blob/main/eleventy.config.js
+Living example: https://github.com/johnheenan/minform/blob/main/eleventy.config.js
 
 ###### <mark>C. Plug-in</mark> Eleventy Blades in existing `eleventy.config.js`:
 
@@ -127,8 +127,8 @@ export default function (eleventyConfig) {
 
 - https://github.com/anyblades/build-awesome-starter
 - https://github.com/anyblades/bladeswitch starter
-- https://github.com/johnheenan/minform
-- https://github.com/hostfurl/minformhf
+- https://github.com/johnheenan/minform starter
+- https://github.com/hostfurl/minformhf starter
 
 <!--section:featured-->
 
