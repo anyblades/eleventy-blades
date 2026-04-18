@@ -53,7 +53,7 @@ A filter that filters a list of items by checking if an attribute array includes
 
 **Why use this?** When working with Eleventy collections, you often need to filter items based on tags or other array attributes in front matter. The `attr_includes` filter provides a flexible way to filter by any array attribute, with support for nested properties using dot notation.
 
-#### Example: Get all posts that include `#javascript` tag
+##### Example: Get all posts that include `#javascript` tag
 
 ```jinja2 {data-caption="in .njk:"}
 {% set js_posts = collections.all | attr_includes('data.tags', '#javascript') %}

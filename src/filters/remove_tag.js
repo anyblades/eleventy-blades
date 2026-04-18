@@ -60,7 +60,7 @@ A filter that removes a specified HTML element from provided HTML content. It re
 
 **Security note:** While this filter can help sanitize HTML content, it should not be relied upon as the sole security measure. For critical security requirements, use a dedicated HTML sanitization library on the server side before content reaches your templates.
 
-#### Example: Remove all script tags from content <!-- @TODO: better examples -->
+##### Example: Remove all script tags from content <!-- @TODO: better examples -->
 
 ```jinja2
 {% set cleanContent = htmlContent | remove_tag('script') %}

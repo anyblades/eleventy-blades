@@ -80,13 +80,13 @@ A filter that concatenates values to an attribute array, returning a new object 
 - Logs an error if the existing attribute is not an array
 - `TBC:` Supports nested attributes (e.g., `data.tags`)
 
-#### Example: Add tags to a post object in `.njk`:
+##### Example: Add tags to a post object in `.njk`:
 
 ```jinja2
 {% set enhancedPost = post | attr_concat('tags', ['featured', 'popular']) %}
 ```
 
-#### `PRO` Example: Add scripts and styles to the `site` object in `.liquid`:
+##### `PRO` Example: Add scripts and styles to the `site` object in `.liquid`:
 
 ```liquid
 {% capture _ %}[

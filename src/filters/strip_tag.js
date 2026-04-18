@@ -57,7 +57,7 @@ A filter that strips a specified HTML element from content while keeping its inn
 - Case-insensitive matching
 - Non-destructive: Returns a new string, leaves the original unchanged
 
-#### Example: Unwrap a wrapping `<div>` from content
+##### Example: Unwrap a wrapping `<div>` from content
 
 ```jinja2
 {% set unwrapped = htmlContent | strip_tag('div') %}

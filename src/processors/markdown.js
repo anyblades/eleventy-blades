@@ -47,7 +47,7 @@ export function transformNl2br(content) {
 }
 /*```
 
-### Hidden Markdown attributes using HTML comments 🆕 <sub>`<!--{...}-—>` trick via `mdAutoUncommentAttrs` converter</sub> {#md-hidden-attrs}
+### Hidden Markdown attributes using HTML comments <sub>`<!--{...}-—>` trick via `mdAutoUncommentAttrs` converter</sub> {#md-hidden-attrs}
 
 This function amends the markdown library to automatically expand
 HTML-comment-wrapped attribute blocks `<!—-{...}-->` to their raw form

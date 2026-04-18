@@ -33,7 +33,7 @@ export function attrSetFilter(eleventyConfig) {
 
 A filter that creates a new object with an overridden attribute value. This is useful for modifying data objects in templates without mutating the original. Or even constructing an object from scratch.
 
-#### Example: How to pass object(s) as argument(s) to a filter in `.liquid`?
+##### Example: How to pass object(s) as argument(s) to a filter in `.liquid`?
 
 ```liquid {data-caption="trick for '| renderContent' filter"}
 {% assign _ctx = null | attr_set: 'collections', collections %}
