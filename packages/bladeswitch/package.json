@@ -1,6 +1,7 @@
 {
   "name": "@anyblades/bladeswitch",
   "version": "0.0.1-dev",
+  "type": "module",
   "author": "Anton Staroverov",
   "license": "MIT",
   "dependencies": {
