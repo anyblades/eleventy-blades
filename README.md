@@ -1,8 +1,8 @@
-# 🥷 *Eleventy Bl*ades
-
 <!--section:summary-->
 
-Ultimate blade kit for 11ty (Build Awesome).
+# Eleventy 🥷 *Bl*ades
+
+<big>Ultimate blade kit for 11ty (Build Awesome).</big>
 
 ![](https://img.shields.io/github/v/release/anyblades/eleventy-blades?label=&color=darkslategray&style=for-the-badge&include_prereleases)
 [![](https://img.shields.io/badge/Code-gainsboro?logo=github&logoColor=black&style=for-the-badge)](https://github.com/anyblades/eleventy-blades)
