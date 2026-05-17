@@ -123,8 +123,6 @@ export default function (eleventyConfig) {
 
 ###### <mark>E. Included with</mark>
 
-<!--section:gh-only-->
-
 - https://github.com/anyblades/build-awesome-starter
 - https://github.com/anyblades/bladeswitch starter
 - https://github.com/johnheenan/minform starter
@@ -134,7 +132,7 @@ export default function (eleventyConfig) {
 
 ---
 
-Featured by: <!--A-Z-->
+## <sup>Featured by</sup><!--A-Z-->
 
 - https://11tybundle.dev/blog/11ty-bundle-83/
 - https://11tybundle.dev/blog/11ty-bundle-88/
