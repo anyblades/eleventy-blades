@@ -2,14 +2,11 @@
   "name": "@anyblades/eleventy-blades-do",
   "private": true,
   "scripts": {
-    "build": "npm run tw && npm run 11ty -- $ELTY_OPTIONS",
-    "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- --watch",
-    "prerestart": "npm run 11ty:clean",
+    "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- $TW_OPTIONS --watch",
     "stage": "npm run 11ty:clean; npm run build && serve ../_site",
+    "build": "npm run tw -- $TW_OPTIONS && npm run 11ty -- $ELTY_OPTIONS",
     "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy",
     "11ty:clean": "rm -r ../_site",
-    "11ty:debug": "DEBUG=* npm run 11ty --",
-    "tw": "cd ../ && tailwindcss -i ./_styles/styles.css -o ./_public/styles.css",
-    "tw:debug": "DEBUG=* npm run tw --"
+    "tw": "cd ../ && tailwindcss"
   }
 }
