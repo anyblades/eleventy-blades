@@ -44,7 +44,7 @@ try {
   // markdown-it-attrs not installed
 }
 /* Data */
-import yaml from "js-yaml";
+import YAML from "yaml";
 /* System */
 import fs from "node:fs";
 import path from "node:path";
@@ -105,9 +105,9 @@ export default function (eleventyConfig) {
     eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
     let siteData = {};
     try {
-      siteData = yaml.load(fs.readFileSync(`${inputDir}/_data/site.yml`, "utf8"));
+      siteData = YAML.parse(fs.readFileSync(`${inputDir}/_data/site.yaml`, "utf8"));
     } catch (e) {
-      // _data/site.yml not found
+      // _data/site.yaml not found
     }
     eleventyConfig.addPlugin(feedPlugin, {
       type: "atom", // or "rss", "json"
@@ -136,7 +136,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
 
   /* Data */
-  eleventyConfig.addDataExtension("yml", (contents) => yaml.load(contents));
+  eleventyConfig.addDataExtension("yaml", (contents) => YAML.parse(contents));
 
   /* Build */
   eleventyConfig.addPassthroughCopy(
