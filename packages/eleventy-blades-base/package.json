@@ -1,7 +1,8 @@
 {
   "name": "@anyblades/eleventy-blades-base",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "type": "module",
+  "main": "./eleventy.config.js",
   "dependencies": {
     "@11ty/eleventy-navigation": "^1.0.5",
     "@11ty/eleventy-plugin-rss": "^3.0.0",
@@ -19,6 +20,5 @@
   "=== METADATA": "===",
   "author": "Anton Staroverov",
   "license": "MIT",
-  "=== UNSORTED": "===",
-  "main": "index.js"
+  "=== UNSORTED": "==="
 }
