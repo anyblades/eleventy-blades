@@ -13,7 +13,6 @@ import { mergeFilter, merge } from "./filters/merge.js";
 import { removeTagFilter, removeTag } from "./filters/remove_tag.js";
 import { stripTagFilter, stripTag } from "./filters/strip_tag.js";
 import { ifFilter, iff } from "./filters/if.js";
-import { attrConcatFilter, attrConcat } from "./filters/attr_concat.js";
 import { sectionFilter, section as sectionFn } from "./filters/section.js";
 import { unindentFilter, unindent } from "./filters/unindent.js";
 import { siteData } from "./siteData.js";
@@ -43,7 +42,11 @@ try {
  * @param {Array<string>} options.filters - Array of filter names to enable: 'attr_set', 'attr_includes', 'merge', 'remove_tag', 'strip_tag', 'if', 'attr_concat', 'section', 'fetch' (default: [])
  * @param {boolean} options.siteData - Enable site.year and site.prod global data (default: false)
  */
-export default function eleventyBladesPlugin(eleventyConfig, options = {}) {
+export default async function (eleventyConfig, options = {
+  filters: [
+    'attr_concat'
+  ],
+}) {
   const plugins = {
     mdAutoRawTags,
     mdAutoNl2br,
@@ -64,7 +67,7 @@ export default function eleventyBladesPlugin(eleventyConfig, options = {}) {
     remove_tag: removeTagFilter,
     strip_tag: stripTagFilter,
     if: ifFilter,
-    attr_concat: attrConcatFilter,
+    // attr_concat: attrConcatFilter,
     section: sectionFilter,
     unindent: unindentFilter,
     ...(fetchFilter && { fetch: fetchFilter }),
@@ -73,9 +76,18 @@ export default function eleventyBladesPlugin(eleventyConfig, options = {}) {
     },
   };
   if (Array.isArray(options.filters)) {
-    options.filters.forEach((filterName) => {
+    options.filters.forEach(async (filterName) => {
       if (filters[filterName]) {
         filters[filterName](eleventyConfig);
+      }
+      else {
+        try {
+          const filterFunc = (await import("../filters/" + filterName + ".js")).default;
+          eleventyConfig.addFilter(filterName, filterFunc);
+        }
+        catch (error) {
+          console.log("Error loading filter: " + filterName);
+        }
       }
     });
   }
@@ -94,29 +106,8 @@ export {
   removeTagFilter,
   stripTagFilter,
   ifFilter,
-  attrConcatFilter,
   sectionFilter,
   unindentFilter,
   fetchFilter,
   siteData,
-};
-
-// Export transform/utility functions for advanced usage
-export {
-  transformAutoRaw,
-  transformNl2br,
-  transformUncommentAttrs,
-  isPlainUrlText,
-  cleanLinkText,
-  buildFaviconLink,
-  transformLink,
-  replaceLinksInHtml,
-  merge,
-  removeTag,
-  stripTag,
-  iff,
-  attrConcat,
-  attrSet,
-  sectionFn as section,
-  unindent,
 };

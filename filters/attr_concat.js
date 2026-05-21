@@ -10,7 +10,7 @@
  * @param {Array|string|*} values - Values to concatenate (array, JSON string array, or single value)
  * @returns {Object} A new object with the combined unique array
  */
-export function attrConcat(obj, attr, values) {
+export default function (obj, attr, values) {
   // Get the existing attribute value, default to empty array if not present
   const existingArray = obj?.[attr] || [];
 
@@ -49,18 +49,6 @@ export function attrConcat(obj, attr, values) {
     ...obj,
     [attr]: combinedArray,
   };
-}
-
-/**
- * attr_concat filter - Concatenate values to an attribute array
- *
- * This filter takes an object, an attribute name, and values to append.
- * It returns a new object with the attribute as a combined array of unique items.
- *
- * @param {Object} eleventyConfig - The Eleventy configuration object
- */
-export function attrConcatFilter(eleventyConfig) {
-  eleventyConfig.addFilter("attr_concat", attrConcat);
 }
 /*```
 
