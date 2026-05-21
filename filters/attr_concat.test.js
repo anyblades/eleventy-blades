@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { attrConcat } from "./attr_concat.js";
+import attrConcat from "./attr_concat.js";
 
 describe("attrConcat", () => {
   it("should concatenate array values to existing array attribute", () => {
