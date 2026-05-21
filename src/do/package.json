@@ -1,6 +1,6 @@
 {
-  "name": "@anyblades/eleventy-blades-do",
   "private": true,
+  "name": "do",
   "scripts": {
     "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- $TW_OPTIONS --watch",
     "stage": "npm run 11ty:clean; npm run build && serve ../_site",
