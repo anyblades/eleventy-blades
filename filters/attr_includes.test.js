@@ -1,8 +1,8 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { attrIncludes, attrIncludesFilter } from "./attr_includes.js";
+import attrIncludes from "./attr_includes.js";
 
-describe("attrIncludes (core logic)", () => {
+describe("attrIncludes", () => {
   it("should only work with array attributes, not exact matches", () => {
     const collection = [
       { category: "blog", title: "Post 1" },
@@ -121,25 +121,5 @@ describe("attrIncludes (core logic)", () => {
 
     const result = attrIncludes(collection, "data.nonexistent.path", "value");
     assert.strictEqual(result.length, 0);
-  });
-});
-
-describe("attrIncludesFilter (Eleventy integration)", () => {
-  it("should register the filter with eleventyConfig", () => {
-    let registeredName;
-    let registeredFn;
-
-    const mockEleventyConfig = {
-      addFilter(name, fn) {
-        registeredName = name;
-        registeredFn = fn;
-      },
-    };
-
-    attrIncludesFilter(mockEleventyConfig);
-
-    assert.strictEqual(registeredName, "attr_includes");
-    assert.strictEqual(typeof registeredFn, "function");
-    assert.strictEqual(registeredFn, attrIncludes);
   });
 });

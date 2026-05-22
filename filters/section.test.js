@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { section } from "./section.js";
+import section from "./section.js";
 
 describe("section", () => {
   it("should extract a single named section", () => {

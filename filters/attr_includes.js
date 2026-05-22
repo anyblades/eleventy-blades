@@ -16,7 +16,7 @@ const { get } = lodash;
  * @param {*} targetValue - The value to match against
  * @returns {Array} Filtered collection
  */
-export function attrIncludes(collection, attrName, targetValue) {
+export default function (collection, attrName, targetValue) {
   // If no targetValue, return original collection
   if (!targetValue) {
     return collection;
@@ -34,15 +34,6 @@ export function attrIncludes(collection, attrName, targetValue) {
     // Otherwise skip this item
     return false;
   });
-}
-
-/**
- * Registers the attr_includes filter with Eleventy
- *
- * @param {Object} eleventyConfig - The Eleventy configuration object
- */
-export function attrIncludesFilter(eleventyConfig) {
-  eleventyConfig.addFilter("attr_includes", attrIncludes);
 }
 /*```
 

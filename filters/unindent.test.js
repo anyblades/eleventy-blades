@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
-import { unindent } from "./unindent.js";
+import unindent from "./unindent.js";
 
 test("unindent - removes common leading spaces", () => {
   const input = "    hello\n    world";

@@ -6,7 +6,7 @@
  * @param {string} tagName - The tag name to strip (opening/closing tags removed, inner content kept)
  * @returns {string} The HTML with the specified tag stripped but its inner content preserved
  */
-export function stripTag(html, tagName) {
+export default function (html, tagName) {
   if (!html || typeof html !== "string") {
     return html;
   }
@@ -27,18 +27,6 @@ export function stripTag(html, tagName) {
   result = result.replace(closingRegex, "");
 
   return result;
-}
-
-/**
- * strip_tag filter - Strip a specified HTML element, keeping its inner content
- *
- * Usage in templates:
- *   {{ htmlContent | strip_tag('div') }}
- *
- * @param {Object} eleventyConfig - The Eleventy configuration object
- */
-export function stripTagFilter(eleventyConfig) {
-  eleventyConfig.addFilter("strip_tag", stripTag);
 }
 /*```
 

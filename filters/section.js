@@ -6,7 +6,7 @@
  * @param {string} sectionName - The section name(s) to extract
  * @returns {string} The extracted section content
  */
-export function section(content, sectionName) {
+export default function (content, sectionName) {
   if (!content || typeof content !== "string") {
     return content;
   }
@@ -20,7 +20,7 @@ export function section(content, sectionName) {
 
   // Regex to match section markers with content up to the next section or end of string
   // Captures: (1) section names, (2) content until next section marker or end
-  const sectionRegex = /<[!]--section:([^>]+)-->([\s\S]*?)(?=<[!]--section|$)/g;
+  const sectionRegex = /<!--section:([^>]+)-->([\s\S]*?)(?=<!--section|$)/g;
 
   let results = [];
   let match;
@@ -39,27 +39,6 @@ export function section(content, sectionName) {
 
   // Join all matching sections
   return results.join("");
-}
-
-/**
- * section filter - Extract a named section from content
- *
- * Usage in templates:
- *   {{ content | section('intro') }}
- *   {{ content | section('footer') }}
- *
- * Content format:
- *   <¡--section:intro-->
- *   This is the intro content
- *   <¡--section:main-->
- *   This is the main content
- *   <¡--section:footer,sidebar-->
- *   This appears in both footer and sidebar sections
- *
- * @param {Object} eleventyConfig - The Eleventy configuration object
- */
-export function sectionFilter(eleventyConfig) {
-  eleventyConfig.addFilter("section", section);
 }
 /*```
 

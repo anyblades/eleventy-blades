@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert";
-import { attrSet } from "./attr_set.js";
+import attrSet from "./attr_set.js";
 
 test("attrSet - sets a single attribute", () => {
   const result = attrSet({ a: 1 }, "b", 2);

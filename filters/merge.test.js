@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { merge } from './merge.js';
+import merge from './merge.js';
 
 test('merge - merges two objects', () => {
   const result = merge({ a: 1, b: 2 }, { c: 3, d: 4 });
@@ -30,7 +30,7 @@ test('merge - handles undefined first argument', () => {
 test('merge - does not modify original objects', () => {
   const original = { a: 1 };
   const result = merge(original, { b: 2 });
-  
+
   assert.deepStrictEqual(original, { a: 1 });
   assert.deepStrictEqual(result, { a: 1, b: 2 });
 });

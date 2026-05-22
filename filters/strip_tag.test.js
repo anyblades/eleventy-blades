@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert";
-import { stripTag } from "./strip_tag.js";
+import stripTag from "./strip_tag.js";
 
 describe("stripTag", () => {
   it("should strip a tag but keep its inner content", () => {

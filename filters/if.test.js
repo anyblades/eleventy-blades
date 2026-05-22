@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert";
-import { iff } from "./if.js";
+import iff from "./if.js";
 
 test("iff returns trueValue when condition is truthy", () => {
   assert.strictEqual(iff("yes", true, "no"), "yes");

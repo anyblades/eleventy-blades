@@ -6,7 +6,7 @@
  * @param {string} tagName - The tag name to remove
  * @returns {string} The HTML with the specified tag removed
  */
-export function removeTag(html, tagName) {
+export default function (html, tagName) {
   if (!html || typeof html !== "string") {
     return html;
   }
@@ -28,18 +28,6 @@ export function removeTag(html, tagName) {
   result = result.replace(selfClosingRegex, "");
 
   return result;
-}
-
-/**
- * remove_tag filter - Remove specified HTML element from provided HTML
- *
- * Usage in templates:
- *   {{ htmlContent | remove_tag('script') }}
- *
- * @param {Object} eleventyConfig - The Eleventy configuration object
- */
-export function removeTagFilter(eleventyConfig) {
-  eleventyConfig.addFilter("remove_tag", removeTag);
 }
 /*```
 
