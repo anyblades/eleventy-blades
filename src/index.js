@@ -1,13 +1,5 @@
 import { readdirSync } from "node:fs";
 import { mdAutoRawTags, mdAutoNl2br, mdAutoUncommentAttrs, transformAutoRaw, transformNl2br, transformUncommentAttrs } from "./processors/markdown.js";
-import {
-  autoLinkFavicons,
-  isPlainUrlText,
-  cleanLinkText,
-  buildFaviconLink,
-  transformLink,
-  replaceLinksInHtml,
-} from "./processors/autoLinkFavicons.js";
 
 /**
  * 11ty Blades Plugin
@@ -41,7 +33,7 @@ export default async function (eleventyConfig, options = {}) {
       eleventyConfig.addFilter(filterName, filterFunc);
     }
     catch (error) {
-      console.log("^ SKIPPING ^");
+      console.log("^ SKIPPED ^");
     }
   };
   delete options.filters;
@@ -52,13 +44,13 @@ export default async function (eleventyConfig, options = {}) {
     .map((f) => f.replace(/\.js$/, ""));
   console.log(features);
   for (const featureName of features) {
-    console.log("Adding feature: " + featureName + "...");
+    console.log("Enabling feature: " + featureName + "...");
     try {
       const featureConfig = (await import("../features/" + featureName + ".js")).default;
       featureConfig(eleventyConfig);
     }
     catch (error) {
-      console.log("^ SKIPPING ^");
+      console.log("^ SKIPPED ^");
     }
   }
 
@@ -66,7 +58,6 @@ export default async function (eleventyConfig, options = {}) {
     mdAutoRawTags,
     mdAutoNl2br,
     mdAutoUncommentAttrs,
-    autoLinkFavicons,
   };
   Object.entries(options).forEach(([key, enabled]) => {
     if (key !== "filters" && enabled && plugins[key]) {
@@ -80,5 +71,4 @@ export {
   mdAutoRawTags,
   mdAutoNl2br,
   mdAutoUncommentAttrs,
-  autoLinkFavicons,
 };

@@ -91,7 +91,7 @@ export function replaceLinksInHtml(content, transformer) {
  *
  * @param {Object} eleventyConfig - The Eleventy configuration object
  */
-export function autoLinkFavicons(eleventyConfig) {
+export default function (eleventyConfig) {
   eleventyConfig.addTransform("autoLinkFavicons", function (content) {
     if (this.page.outputPath && this.page.outputPath.endsWith(".html")) {
       return replaceLinksInHtml(content, transformLink);
