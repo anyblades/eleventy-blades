@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs";
 import { mdAutoRawTags, mdAutoNl2br, mdAutoUncommentAttrs, transformAutoRaw, transformNl2br, transformUncommentAttrs } from "./processors/markdown.js";
 import {
   autoLinkFavicons,
@@ -25,20 +26,13 @@ import { siteData } from "./siteData.js";
  * @param {boolean} options.siteData - Enable site.year and site.prod global data (default: false)
  */
 export default async function (eleventyConfig, options = {}) {
-  // Fallback to default list if options.filters doesn't exist
-  options.filters ??= [
-    "attr_concat",
-    "attr_includes",
-    "attr_set",
-    "date",
-    "fetch",
-    "if",
-    "merge",
-    "remove_tag",
-    "section",
-    "strip_tag",
-    "unindent",
-  ];
+
+  /* Fallback to default list if options.filters doesn't exist
+   * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
+   */
+  options.filters ??= readdirSync(new URL("../filters", import.meta.url))
+    .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
+    .map((f) => f.replace(/\.js$/, ""));
 
   const plugins = {
     mdAutoRawTags,
