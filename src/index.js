@@ -1,5 +1,4 @@
 import { readdirSync } from "node:fs";
-import { mdAutoRawTags, mdAutoNl2br, mdAutoUncommentAttrs, transformAutoRaw, transformNl2br, transformUncommentAttrs } from "./processors/markdown.js";
 
 /**
  * 11ty Blades Plugin
@@ -42,7 +41,6 @@ export default async function (eleventyConfig, options = {}) {
   const features = /*Object.keys(options) ??*/ readdirSync(new URL("../features", import.meta.url))
     .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
     .map((f) => f.replace(/\.js$/, ""));
-  console.log(features);
   for (const featureName of features) {
     console.log("Enabling feature: " + featureName + "...");
     try {
@@ -53,22 +51,4 @@ export default async function (eleventyConfig, options = {}) {
       console.log("^ SKIPPED ^");
     }
   }
-
-  const plugins = {
-    mdAutoRawTags,
-    mdAutoNl2br,
-    mdAutoUncommentAttrs,
-  };
-  Object.entries(options).forEach(([key, enabled]) => {
-    if (key !== "filters" && enabled && plugins[key]) {
-      plugins[key](eleventyConfig);
-    }
-  });
 }
-
-// Export individual helpers for granular usage
-export {
-  mdAutoRawTags,
-  mdAutoNl2br,
-  mdAutoUncommentAttrs,
-};
