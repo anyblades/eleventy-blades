@@ -12,38 +12,36 @@ import fs from "fs/promises";
  *
  * @param {Object} eleventyConfig - The Eleventy configuration object
  */
-export function fetchFilter(eleventyConfig) {
-  eleventyConfig.addFilter("fetch", async function (url) {
-    if (!url) {
-      throw new Error("fetch filter requires a URL or path");
+export default async function (url) {
+  if (!url) {
+    throw new Error("fetch filter requires a URL or path");
+  }
+
+  // Get the input directory from Eleventy config
+  const inputDir = this.eleventy.directories.input;
+
+  // Check if it's a URL or local path
+  const isUrl = url.startsWith("http://") || url.startsWith("https://");
+
+  try {
+    if (isUrl) {
+      // Handle remote URLs with eleventy-fetch
+      const cacheDirectory = path.join(inputDir, "_downloads");
+      const content = await EleventyFetch(url, {
+        duration: "1d", // Cache for 1 day by default
+        type: "text", // Return as text
+        directory: cacheDirectory,
+      });
+      return content.toString(); // toString() handles bytes cache (inside eleventyComputed)
+    } else {
+      // Handle local file paths relative to input directory
+      const filePath = path.join(inputDir, url);
+      const content = await fs.readFile(filePath, "utf-8");
+      return content;
     }
-
-    // Get the input directory from Eleventy config
-    const inputDir = this.eleventy.directories.input;
-
-    // Check if it's a URL or local path
-    const isUrl = url.startsWith("http://") || url.startsWith("https://");
-
-    try {
-      if (isUrl) {
-        // Handle remote URLs with eleventy-fetch
-        const cacheDirectory = path.join(inputDir, "_downloads");
-        const content = await EleventyFetch(url, {
-          duration: "1d", // Cache for 1 day by default
-          type: "text", // Return as text
-          directory: cacheDirectory,
-        });
-        return content.toString(); // toString() handles bytes cache (inside eleventyComputed)
-      } else {
-        // Handle local file paths relative to input directory
-        const filePath = path.join(inputDir, url);
-        const content = await fs.readFile(filePath, "utf-8");
-        return content;
-      }
-    } catch (error) {
-      throw new Error(`Failed to fetch ${url}: ${error.message}`);
-    }
-  });
+  } catch (error) {
+    throw new Error(`Failed to fetch ${url}: ${error.message}`);
+  }
 }
 /*```
 

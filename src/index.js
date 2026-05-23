@@ -9,16 +9,6 @@ import {
 } from "./processors/autoLinkFavicons.js";
 import { siteData } from "./siteData.js";
 
-// Conditionally import fetchFilter only if @11ty/eleventy-fetch is available
-let fetchFilter = null;
-try {
-  await import("@11ty/eleventy-fetch");
-  const fetchModule = await import("./filters/fetch.js");
-  fetchFilter = fetchModule.fetchFilter;
-} catch (error) {
-  // @11ty/eleventy-fetch not available, fetch filter will be disabled
-}
-
 /**
  * 11ty Blades Plugin
  *
@@ -64,7 +54,6 @@ export default async function (eleventyConfig, options = {}) {
   });
 
   const filters = {
-    ...(fetchFilter && { fetch: fetchFilter }),
     date: (eleventyConfig) => {
       eleventyConfig.addFilter("date", (dateVal) => new Date(dateVal).toISOString().split("T")[0]);
     },
@@ -76,11 +65,12 @@ export default async function (eleventyConfig, options = {}) {
     }
     else {
       try {
+        if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
         const filterFunc = (await import("../filters/" + filterName + ".js")).default;
         eleventyConfig.addFilter(filterName, filterFunc);
       }
       catch (error) {
-        console.log("^ ERROR ^");
+        console.log("^ SKIPPING ^");
       }
     }
   };
