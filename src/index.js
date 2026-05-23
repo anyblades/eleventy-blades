@@ -53,25 +53,15 @@ export default async function (eleventyConfig, options = {}) {
     }
   });
 
-  const filters = {
-    date: (eleventyConfig) => {
-      eleventyConfig.addFilter("date", (dateVal) => new Date(dateVal).toISOString().split("T")[0]);
-    },
-  };
   for (const filterName of options.filters) {
     console.log("Adding filter: " + filterName + "...");
-    if (filters[filterName]) {
-      filters[filterName](eleventyConfig);
+    try {
+      if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
+      const filterFunc = (await import("../filters/" + filterName + ".js")).default;
+      eleventyConfig.addFilter(filterName, filterFunc);
     }
-    else {
-      try {
-        if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
-        const filterFunc = (await import("../filters/" + filterName + ".js")).default;
-        eleventyConfig.addFilter(filterName, filterFunc);
-      }
-      catch (error) {
-        console.log("^ SKIPPING ^");
-      }
+    catch (error) {
+      console.log("^ SKIPPING ^");
     }
   };
 }
