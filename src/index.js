@@ -8,7 +8,6 @@ import {
   transformLink,
   replaceLinksInHtml,
 } from "./processors/autoLinkFavicons.js";
-import { siteData } from "./siteData.js";
 
 /**
  * 11ty Blades Plugin
@@ -27,26 +26,13 @@ import { siteData } from "./siteData.js";
  */
 export default async function (eleventyConfig, options = {}) {
 
-  /* Fallback to default list if options.filters doesn't exist
+  /* FILTERS
+   * Fallback to default list if options.filters doesn't exist
    * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
    */
   options.filters ??= readdirSync(new URL("../filters", import.meta.url))
     .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
     .map((f) => f.replace(/\.js$/, ""));
-
-  const plugins = {
-    mdAutoRawTags,
-    mdAutoNl2br,
-    mdAutoUncommentAttrs,
-    autoLinkFavicons,
-    siteData,
-  };
-  Object.entries(options).forEach(([key, enabled]) => {
-    if (key !== "filters" && enabled && plugins[key]) {
-      plugins[key](eleventyConfig);
-    }
-  });
-
   for (const filterName of options.filters) {
     console.log("Adding filter: " + filterName + "...");
     try {
@@ -58,6 +44,35 @@ export default async function (eleventyConfig, options = {}) {
       console.log("^ SKIPPING ^");
     }
   };
+  delete options.filters;
+
+  /* FEATURES */
+  const features = /*Object.keys(options) ??*/ readdirSync(new URL("../features", import.meta.url))
+    .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
+    .map((f) => f.replace(/\.js$/, ""));
+  console.log(features);
+  for (const featureName of features) {
+    console.log("Adding feature: " + featureName + "...");
+    try {
+      const featureConfig = (await import("../features/" + featureName + ".js")).default;
+      featureConfig(eleventyConfig);
+    }
+    catch (error) {
+      console.log("^ SKIPPING ^");
+    }
+  }
+
+  const plugins = {
+    mdAutoRawTags,
+    mdAutoNl2br,
+    mdAutoUncommentAttrs,
+    autoLinkFavicons,
+  };
+  Object.entries(options).forEach(([key, enabled]) => {
+    if (key !== "filters" && enabled && plugins[key]) {
+      plugins[key](eleventyConfig);
+    }
+  });
 }
 
 // Export individual helpers for granular usage
@@ -66,5 +81,4 @@ export {
   mdAutoNl2br,
   mdAutoUncommentAttrs,
   autoLinkFavicons,
-  siteData,
 };

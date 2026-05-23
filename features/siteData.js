@@ -6,7 +6,7 @@
  *
  * @param {Object} eleventyConfig - The Eleventy configuration object
  */
-export function siteData(eleventyConfig) {
+export default function (eleventyConfig) {
   eleventyConfig.addGlobalData("site.prod", () => process.env.ELEVENTY_RUN_MODE === "build");
   eleventyConfig.addGlobalData("site.year", () => new Date().getFullYear());
 }
