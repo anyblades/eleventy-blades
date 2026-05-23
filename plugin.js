@@ -21,14 +21,14 @@ export default async function (eleventyConfig, options = {}) {
    * Fallback to default list if options.filters doesn't exist
    * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
    */
-  options.filters ??= readdirSync(new URL("../filters", import.meta.url))
+  options.filters ??= readdirSync(new URL("./filters", import.meta.url))
     .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
     .map((f) => f.replace(/\.js$/, ""));
   for (const filterName of options.filters) {
     console.log("Adding filter: " + filterName + "...");
     try {
       if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
-      const filterFunc = (await import("../filters/" + filterName + ".js")).default;
+      const filterFunc = (await import("./filters/" + filterName + ".js")).default;
       eleventyConfig.addFilter(filterName, filterFunc);
     }
     catch (error) {
@@ -38,13 +38,13 @@ export default async function (eleventyConfig, options = {}) {
   delete options.filters;
 
   /* FEATURES */
-  const features = /*Object.keys(options) ??*/ readdirSync(new URL("../features", import.meta.url))
+  const features = Object.keys(options) ?? readdirSync(new URL("./features", import.meta.url))
     .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
     .map((f) => f.replace(/\.js$/, ""));
   for (const featureName of features) {
     console.log("Enabling feature: " + featureName + "...");
     try {
-      const featureConfig = (await import("../features/" + featureName + ".js")).default;
+      const featureConfig = (await import("./features/" + featureName + ".js")).default;
       featureConfig(eleventyConfig);
     }
     catch (error) {
