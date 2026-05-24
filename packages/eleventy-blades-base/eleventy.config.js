@@ -57,23 +57,22 @@ import path from "node:path";
 export default function (eleventyConfig) {
   const inputDir = eleventyConfig.directories.input;
 
-  /* Jekyll parity */
-  eleventyConfig.addPassthroughCopy("assets");
   eleventyConfig.addGlobalData("layout", "default");
+
+  /* Jekyll templates compatibility */
+  eleventyConfig.addFilter("relative_url", (content) => content); // dummy
   eleventyConfig.setLiquidOptions({
     dynamicPartials: false, // allows unquoted Jekyll-style includes
     root: [
       eleventyConfig.directories.includes,
-      inputDir + "../_includes", // for shared multisite includes
       fs.realpathSync(path.resolve("./node_modules/@anyblades/blades/_includes")), // for symlinks to work after https://github.com/harttle/liquidjs/pull/870
     ],
   });
-  eleventyConfig.addFilter("relative_url", (content) => content); // dummy
 
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
-  if (eleventyNavigationPlugin) eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(eleventyBladesPlugin);
+  if (eleventyNavigationPlugin) eleventyConfig.addPlugin(eleventyNavigationPlugin);
   if (pluginTOC) {
     eleventyConfig.addPlugin(pluginTOC, {
       ignoredElements: [".header-anchor", "sub"],
@@ -123,7 +122,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy(
     {
       _public: ".",
-      ...(inputDir !== "." && { [`${inputDir}/_public`]: "." }),
+      [`${inputDir}/_public`]: ".",
     },
     { expand: true }, // This follows/resolves symbolic links
   );
