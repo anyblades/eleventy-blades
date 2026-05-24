@@ -1,6 +1,6 @@
 import { readdirSync } from "node:fs";
 
-const listModulesAsObject = (dir) =>
+export const discoverModules = (dir) =>
   Object.fromEntries(
     readdirSync(new URL(dir, import.meta.url))
       .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
@@ -28,7 +28,7 @@ export default async function (eleventyConfig, options = {}) {
    * Fallback to default list if options.filters doesn't exist
    * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
    */
-  const filters = Object.assign({}, listModulesAsObject("./filters"), options.filters);
+  const filters = Object.assign({}, discoverModules("./filters"), options.filters);
   const filterNames = Object.entries(filters).filter(([, v]) => v);
   for (const [filterName] of filterNames) {
     console.log("Adding filter: " + filterName + "...");
@@ -43,7 +43,7 @@ export default async function (eleventyConfig, options = {}) {
   };
 
   /* FEATURES */
-  const features = Object.assign({}, listModulesAsObject("./features"), options);
+  const features = Object.assign({}, discoverModules("./features"), options);
   delete features.filters;
   const featureNames = Object.entries(features).filter(([, v]) => v);
   for (const [featureName] of featureNames) {
