@@ -1,9 +1,11 @@
 import { readdirSync } from "node:fs";
 
-const listModules = (dir) =>
-  readdirSync(new URL(dir, import.meta.url))
-    .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
-    .map((f) => f.replace(/\.js$/, ""));
+const listModulesAsObject = (dir) =>
+  Object.fromEntries(
+    readdirSync(new URL(dir, import.meta.url))
+      .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
+      .map((f) => [f.replace(/\.js$/, ""), true])
+  );
 
 /**
  * 11ty Blades Plugin
@@ -17,7 +19,7 @@ const listModules = (dir) =>
  * @param {boolean} options.mdAutoNl2br - Enable mdAutoNl2br for \n to <br> conversion (default: false)
  * @param {boolean} options.mdAutoUncommentAttrs - Enable mdAutoUncommentAttrs to expand <!--{...}--> to {...} (default: false)
  * @param {boolean} options.autoLinkFavicons - Enable autoLinkFavicons to add favicons to plain text links (default: false)
- * @param {Array<string>} options.filters - Array of filter names to enable: 'attr_set', 'attr_includes', 'merge', 'remove_tag', 'strip_tag', 'if', 'attr_concat', 'section', 'unindent', 'fetch' (default: [])
+ * @param {Object} options.filters - Object of filter names to enable, e.g. { attr_set: true, fetch: true } (default: all filters enabled)
  * @param {boolean} options.siteData - Enable site.year and site.prod global data (default: false)
  */
 export default async function (eleventyConfig, options = {}) {
@@ -26,8 +28,9 @@ export default async function (eleventyConfig, options = {}) {
    * Fallback to default list if options.filters doesn't exist
    * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
    */
-  options.filters ??= listModules("./filters");
-  for (const filterName of options.filters) {
+  const filters = Object.assign({}, listModulesAsObject("./filters"), options.filters);
+  for (const [filterName, enabled] of Object.entries(filters)) {
+    if (!enabled) continue;
     console.log("Adding filter: " + filterName + "...");
     try {
       if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
@@ -35,21 +38,21 @@ export default async function (eleventyConfig, options = {}) {
       eleventyConfig.addFilter(filterName, filterFunc);
     }
     catch (error) {
-      console.log("^ SKIPPED ^");
+      console.log("^ N/A ^");
     }
   };
-  delete options.filters;
 
   /* FEATURES */
-  const features = Object.keys(options) ?? listModules("./features");
-  for (const featureName of features) {
+  const features = Object.assign({}, listModulesAsObject("./features"), options.features);
+  for (const [featureName, enabled] of Object.entries(features)) {
+    if (!enabled) continue;
     console.log("Enabling feature: " + featureName + "...");
     try {
       const featureConfig = (await import("./features/" + featureName + ".js")).default;
       featureConfig(eleventyConfig);
     }
     catch (error) {
-      console.log("^ SKIPPED ^");
+      console.log("^ N/A ^");
     }
   }
 }
