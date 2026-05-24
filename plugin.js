@@ -29,8 +29,8 @@ export default async function (eleventyConfig, options = {}) {
    * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
    */
   const filters = Object.assign({}, listModulesAsObject("./filters"), options.filters);
-  for (const [filterName, enabled] of Object.entries(filters)) {
-    if (!enabled) continue;
+  const filterNames = Object.entries(filters).filter(([, v]) => v);
+  for (const [filterName] of filterNames) {
     console.log("Adding filter: " + filterName + "...");
     try {
       if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
@@ -43,9 +43,10 @@ export default async function (eleventyConfig, options = {}) {
   };
 
   /* FEATURES */
-  const features = Object.assign({}, listModulesAsObject("./features"), options.features);
-  for (const [featureName, enabled] of Object.entries(features)) {
-    if (!enabled) continue;
+  const features = Object.assign({}, listModulesAsObject("./features"), options);
+  delete features.filters;
+  const featureNames = Object.entries(features).filter(([, v]) => v);
+  for (const [featureName] of featureNames) {
     console.log("Enabling feature: " + featureName + "...");
     try {
       const featureConfig = (await import("./features/" + featureName + ".js")).default;
