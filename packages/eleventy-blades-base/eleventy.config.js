@@ -73,13 +73,7 @@ export default function (eleventyConfig) {
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
   if (eleventyNavigationPlugin) eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(eleventyBladesPlugin, {
-    mdAutoNl2br: true,
-    mdAutoUncommentAttrs: true,
-    mdAutoRawTags: true,
-    autoLinkFavicons: true,
-    siteData: true,
-  });
+  eleventyConfig.addPlugin(eleventyBladesPlugin);
   if (pluginTOC) {
     eleventyConfig.addPlugin(pluginTOC, {
       ignoredElements: [".header-anchor", "sub"],
