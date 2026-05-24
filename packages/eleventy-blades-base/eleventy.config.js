@@ -3,46 +3,8 @@
 /* Plugins */
 import { RenderPlugin } from "@11ty/eleventy";
 import eleventyBladesPlugin from "@anyblades/eleventy-blades";
-/* Dynamic plugins */
-let eleventyNavigationPlugin;
-try {
-  eleventyNavigationPlugin = (await import("@11ty/eleventy-navigation")).default;
-} catch (e) {
-  // @11ty/eleventy-navigation not installed
-}
-let pluginTOC;
-try {
-  pluginTOC = (await import("@uncenter/eleventy-plugin-toc")).default;
-} catch (e) {
-  // @uncenter/eleventy-plugin-toc not installed
-}
-let feedPlugin;
-try {
-  feedPlugin = (await import("@11ty/eleventy-plugin-rss")).feedPlugin;
-} catch (e) {
-  // @11ty/eleventy-plugin-rss not installed
-}
 /* Libraries */
 import markdownIt from "markdown-it";
-/* Dynamic libraries */
-let slugify;
-try {
-  slugify = (await import("@sindresorhus/slugify")).default;
-} catch (e) {
-  // @sindresorhus/slugify not installed
-}
-let markdownItAnchor;
-try {
-  markdownItAnchor = (await import("markdown-it-anchor")).default;
-} catch (e) {
-  // markdown-it-anchor not installed
-}
-let markdownItAttrs;
-try {
-  markdownItAttrs = (await import("markdown-it-attrs")).default;
-} catch (e) {
-  // markdown-it-attrs not installed
-}
 /* Data */
 import YAML from "yaml";
 /* System */
@@ -54,7 +16,7 @@ import path from "node:path";
  * @param {Object} eleventyConfig - The Eleventy configuration object
  * @returns {Object} The Eleventy configuration object
  */
-export default function (eleventyConfig) {
+export default async function (eleventyConfig) {
   const inputDir = eleventyConfig.directories.input;
 
   eleventyConfig.addGlobalData("layout", "default");
@@ -72,19 +34,28 @@ export default function (eleventyConfig) {
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyBladesPlugin);
-  if (eleventyNavigationPlugin) eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  if (pluginTOC) {
+  /* Optional plugins */
+  try {
+    console.log("Loading plugin: @11ty/eleventy-navigation...");
+    const eleventyNavigationPlugin = (await import("@11ty/eleventy-navigation")).default;
+    eleventyConfig.addPlugin(eleventyNavigationPlugin);
+  } catch (e) { console.log("^ N/A ^") }
+  try {
+    console.log("Loading plugin: @uncenter/eleventy-plugin-toc...");
+    const pluginTOC = (await import("@uncenter/eleventy-plugin-toc")).default;
     eleventyConfig.addPlugin(pluginTOC, {
       ignoredElements: [".header-anchor", "sub"],
       ul: true,
       wrapper: (toc) => `${toc}`,
     });
-  }
-  // https://www.11ty.dev/docs/plugins/rss/#virtual-template
-  if (feedPlugin) {
+  } catch (e) { console.log("^ N/A ^") }
+  try {
+    console.log("Loading plugin: @11ty/eleventy-plugin-rss..."); // per https://www.11ty.dev/docs/plugins/rss/#virtual-template
+    const { feedPlugin } = await import("@11ty/eleventy-plugin-rss");
     eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
     let siteData = {};
     try {
+      //TODO: switch to pkg.site?
       siteData = YAML.parse(fs.readFileSync(`${inputDir}/_data/site.yaml`, "utf8"));
     } catch (e) {
       // _data/site.yaml not found
@@ -98,20 +69,28 @@ export default function (eleventyConfig) {
       },
       metadata: siteData,
     });
-  }
+  } catch (e) { console.log("^ N/A ^") }
 
   /* Libraries */
   let md = markdownIt({
     html: true,
     linkify: true,
   });
-  if (markdownItAnchor) {
+  /* Optional libraries */
+  try {
+    console.log("Loading library: markdown-it-anchor...");
+    const slugify = (await import("@sindresorhus/slugify")).default;
+    const markdownItAnchor = (await import("markdown-it-anchor")).default;
     md = md.use(markdownItAnchor, {
       slugify: slugify, // @TODO: TRICKS
       permalink: markdownItAnchor.permalink.ariaHidden(),
     });
-  }
-  if (markdownItAttrs) md = md.use(markdownItAttrs);
+  } catch (e) { console.log("^ N/A ^") }
+  try {
+    console.log("Loading library: markdown-it-attrs...");
+    const markdownItAttrs = (await import("markdown-it-attrs")).default;
+    md = md.use(markdownItAttrs);
+  } catch (e) { console.log("^ N/A ^") }
   eleventyConfig.setLibrary("md", md);
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
 
