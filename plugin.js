@@ -1,5 +1,10 @@
 import { readdirSync } from "node:fs";
 
+const listModules = (dir) =>
+  readdirSync(new URL(dir, import.meta.url))
+    .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
+    .map((f) => f.replace(/\.js$/, ""));
+
 /**
  * 11ty Blades Plugin
  *
@@ -21,9 +26,7 @@ export default async function (eleventyConfig, options = {}) {
    * Fallback to default list if options.filters doesn't exist
    * By using import.meta.url, Node figures out exactly where your script is installed inside their node_modules folder and targets the directory relative to that script.
    */
-  options.filters ??= readdirSync(new URL("./filters", import.meta.url))
-    .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
-    .map((f) => f.replace(/\.js$/, ""));
+  options.filters ??= listModules("./filters");
   for (const filterName of options.filters) {
     console.log("Adding filter: " + filterName + "...");
     try {
@@ -38,9 +41,7 @@ export default async function (eleventyConfig, options = {}) {
   delete options.filters;
 
   /* FEATURES */
-  const features = Object.keys(options) ?? readdirSync(new URL("./features", import.meta.url))
-    .filter((f) => f.endsWith(".js") && !f.endsWith(".test.js"))
-    .map((f) => f.replace(/\.js$/, ""));
+  const features = Object.keys(options) ?? listModules("./features");
   for (const featureName of features) {
     console.log("Enabling feature: " + featureName + "...");
     try {
