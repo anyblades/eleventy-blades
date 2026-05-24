@@ -31,7 +31,7 @@ export default async function (eleventyConfig, options = {}) {
   const filters = Object.assign({}, discoverModules("./filters"), options.filters);
   const filterNames = Object.entries(filters).filter(([, v]) => v);
   for (const [filterName] of filterNames) {
-    console.log("Adding filter: " + filterName + "...");
+    console.log("Loading filter: " + filterName + "...");
     try {
       if (filterName == 'fetch') await import("@11ty/eleventy-fetch");
       const filterFunc = (await import("./filters/" + filterName + ".js")).default;
@@ -47,7 +47,7 @@ export default async function (eleventyConfig, options = {}) {
   delete features.filters;
   const featureNames = Object.entries(features).filter(([, v]) => v);
   for (const [featureName] of featureNames) {
-    console.log("Enabling feature: " + featureName + "...");
+    console.log("Loading feature: " + featureName + "...");
     try {
       const featureConfig = (await import("./features/" + featureName + ".js")).default;
       featureConfig(eleventyConfig);
