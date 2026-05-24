@@ -19,18 +19,6 @@ import path from "node:path";
 export default async function (eleventyConfig) {
   const inputDir = eleventyConfig.directories.input;
 
-  eleventyConfig.addGlobalData("layout", "default");
-
-  /* Jekyll templates compatibility */
-  eleventyConfig.addFilter("relative_url", (content) => content); // dummy
-  eleventyConfig.setLiquidOptions({
-    dynamicPartials: false, // allows unquoted Jekyll-style includes
-    root: [
-      eleventyConfig.directories.includes,
-      fs.realpathSync(path.resolve("./node_modules/@anyblades/blades/_includes")), // for symlinks to work after https://github.com/harttle/liquidjs/pull/870
-    ],
-  });
-
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyBladesPlugin);
@@ -96,6 +84,7 @@ export default async function (eleventyConfig) {
 
   /* Data */
   eleventyConfig.addDataExtension("yaml", (contents) => YAML.parse(contents));
+  eleventyConfig.addGlobalData("layout", "default");
 
   /* Build */
   eleventyConfig.addPassthroughCopy(
@@ -105,6 +94,16 @@ export default async function (eleventyConfig) {
     },
     { expand: true }, // This follows/resolves symbolic links
   );
+
+  /* Jekyll templates compatibility */
+  eleventyConfig.addFilter("relative_url", (content) => content); // dummy
+  eleventyConfig.setLiquidOptions({
+    dynamicPartials: false, // allows unquoted Jekyll-style includes
+    root: [
+      eleventyConfig.directories.includes,
+      fs.realpathSync(path.resolve("./node_modules/@anyblades/blades/_includes")), // for symlinks to work after https://github.com/harttle/liquidjs/pull/870
+    ],
+  });
 
   /* Dev tools */
   // Follow symlinks in Chokidar used by 11ty to watch files
