@@ -1,13 +1,18 @@
 // <!--section:code-->```js
 
-/* Plugins */
+/* Plugins (core > official > contrib) */
 import { RenderPlugin } from "@11ty/eleventy";
+import { feedPlugin } from "@11ty/eleventy-plugin-rss";
+import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 import eleventyBladesPlugin from "@anyblades/eleventy-blades";
-/* Libraries */
+import pluginTOC from '@uncenter/eleventy-plugin-toc';
+/* Libraries (A-Z) */
 import markdownIt from "markdown-it";
-/* Data */
+import markdownItAnchor from "markdown-it-anchor";
+import markdownItAttrs from "markdown-it-attrs";
+import slugify from '@sindresorhus/slugify';
 import YAML from "yaml";
-/* System */
+/* System (A-Z) */
 import fs from "node:fs";
 import path from "node:path";
 
@@ -25,64 +30,40 @@ export default async function (eleventyConfig) {
 
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
+  eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(eleventyBladesPlugin);
-  /* Optional plugins */
+  eleventyConfig.addPlugin(pluginTOC, {
+    ignoredElements: [".header-anchor", "sub"],
+    ul: true,
+    wrapper: (toc) => `${toc}`,
+  });
+  // Feed plugin
+  let siteData = {};
   try {
-    console.log("Loading plugin: @11ty/eleventy-navigation...");
-    const eleventyNavigationPlugin = (await import("@11ty/eleventy-navigation")).default;
-    eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  } catch (e) { console.log("^ N/A ^") }
-  try {
-    console.log("Loading plugin: @uncenter/eleventy-plugin-toc...");
-    const pluginTOC = (await import("@uncenter/eleventy-plugin-toc")).default;
-    eleventyConfig.addPlugin(pluginTOC, {
-      ignoredElements: [".header-anchor", "sub"],
-      ul: true,
-      wrapper: (toc) => `${toc}`,
-    });
-  } catch (e) { console.log("^ N/A ^") }
-  try {
-    console.log("Loading plugin: @11ty/eleventy-plugin-rss..."); // per https://www.11ty.dev/docs/plugins/rss/#virtual-template
-    const { feedPlugin } = await import("@11ty/eleventy-plugin-rss");
-    eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
-    let siteData = {};
-    try {
-      //TODO: switch to pkg.site?
-      siteData = YAML.parse(fs.readFileSync(`${inputDir}/_data/site.yaml`, "utf8"));
-    } catch (e) {
-      // _data/site.yaml not found
-    }
-    eleventyConfig.addPlugin(feedPlugin, {
-      type: "atom", // or "rss", "json"
-      outputPath: "/feed.xml",
-      collection: {
-        name: "feed", // iterate over `collections.posts`
-        limit: 100, // 0 means no limit
-      },
-      metadata: siteData,
-    });
-  } catch (e) { console.log("^ N/A ^") }
+    //TODO: switch to pkg.site?
+    siteData = YAML.parse(fs.readFileSync(`${inputDir}/_data/site.yaml`, "utf8"));
+  } catch (e) {
+    // _data/site.yaml not found
+  }
+  eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
+  eleventyConfig.addPlugin(feedPlugin, {
+    type: "atom", // or "rss", "json"
+    outputPath: "/feed.xml",
+    collection: {
+      name: "feed", // iterate over `collections.posts`
+      limit: 100, // 0 means no limit
+    },
+    metadata: siteData,
+  });
 
   /* Libraries */
   let md = markdownIt({
     html: true,
     linkify: true,
-  });
-  /* Optional libraries */
-  try {
-    console.log("Loading library: markdown-it-anchor...");
-    const slugify = (await import("@sindresorhus/slugify")).default;
-    const markdownItAnchor = (await import("markdown-it-anchor")).default;
-    md = md.use(markdownItAnchor, {
-      slugify: slugify, // @TODO: TRICKS
-      permalink: markdownItAnchor.permalink.ariaHidden(),
-    });
-  } catch (e) { console.log("^ N/A ^") }
-  try {
-    console.log("Loading library: markdown-it-attrs...");
-    const markdownItAttrs = (await import("markdown-it-attrs")).default;
-    md = md.use(markdownItAttrs);
-  } catch (e) { console.log("^ N/A ^") }
+  }).use(markdownItAnchor, {
+    slugify: slugify, // @TODO: TRICKS
+    permalink: markdownItAnchor.permalink.ariaHidden(),
+  }).use(markdownItAttrs);
   eleventyConfig.setLibrary("md", md);
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
 
@@ -93,8 +74,10 @@ export default async function (eleventyConfig) {
   /* Build */
   eleventyConfig.addPassthroughCopy(
     {
+      // From current working directory
       _public: "./",
       media: "./media/",
+      // Additionally from input dirs like `../` or `./site-1`
       [`${inputDir}/_public/`]: "./",
       [`${inputDir}/media/`]: "./media/",
     },
