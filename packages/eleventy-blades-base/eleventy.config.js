@@ -114,7 +114,8 @@ export default async function (eleventyConfig) {
   /* Dev tools */
   eleventyConfig.setChokidarConfig({ followSymlinks: true }); // follow symlinks in Chokidar used by 11ty to watch files
   if (inputDir == '../') {
-    eleventyConfig.watchIgnores.add(`../.11ty/${outputDir}`); // avoid circular watching
+    eleventyConfig.watchIgnores.add(`../.11ty/${outputDir}`); // !!! avoid circular watching
+    eleventyConfig.watchIgnores.add("../.11ty/node_modules/"); // avoid performance issues
   }
 }
 /*```
