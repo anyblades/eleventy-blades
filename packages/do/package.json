@@ -3,10 +3,11 @@
   "name": "do",
   "scripts": {
     "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- $TW_OPTIONS --watch",
-    "stage": "npm run 11ty:clean; npm run build && serve ../_site",
+    "stage": "npm run 11ty:clean; npm run build && serve ../_site/",
     "build": "npm run tw -- $TW_OPTIONS && npm run 11ty -- $ELTY_OPTIONS",
     "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy",
     "11ty:clean": "rm -r ../_site",
-    "tw": "cd ../ && tailwindcss"
+    "tw": "cd ../ && tailwindcss",
+    "dev:blades": "cd ../ && npm install --install-links file:../eleventy-blades/packages/eleventy-blades-base file:../eleventy-blades file:../blades && cd ./node_modules/@anyblades/ && rm -r ./*blades* && ln -s ../../../*blades* ./"
   }
 }
