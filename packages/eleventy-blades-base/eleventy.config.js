@@ -70,6 +70,11 @@ export default async function (eleventyConfig) {
   /* Data */
   eleventyConfig.addDataExtension("yaml", (contents) => YAML.parse(contents));
   eleventyConfig.addGlobalData("layout", "default");
+  eleventyConfig.addTemplate("sitemap.xml.njk", "", {
+    permalink: "/sitemap.xml",
+    layout: "blades/sitemap.xml.njk",
+    eleventyExcludeFromCollections: true
+  });
 
   /* Build */
   eleventyConfig.addPassthroughCopy(
