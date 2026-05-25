@@ -8,6 +8,6 @@
     "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy",
     "11ty:clean": "rm -r ../_site",
     "tw": "cd ../ && tailwindcss",
-    "dev:blades": "cd ../ && npm install --install-links file:../eleventy-blades/packages/eleventy-blades-base file:../eleventy-blades file:../blades && cd ./node_modules/@anyblades/ && rm -r ./*blades* && ln -s ../../../*blades* ./"
+    "dev:blades": "cd ../ && __=$(npm root -g)/@anyblades/ && npm install --install-links file:${__}eleventy-blades/packages/eleventy-blades-base file:${__}eleventy-blades file:${__}blades && cd ./node_modules/@anyblades/ && rm -r ./*blades* && ln -s ${__}/*blades* ./"
   }
 }
