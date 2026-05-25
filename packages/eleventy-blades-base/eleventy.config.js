@@ -18,6 +18,10 @@ import path from "node:path";
  */
 export default async function (eleventyConfig) {
   const inputDir = eleventyConfig.directories.input;
+  const outputDir = eleventyConfig.directories.output;
+  if (inputDir == '../') {
+    eleventyConfig.setIncludesDirectory("./.11ty/_includes/");
+  }
 
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
@@ -89,8 +93,10 @@ export default async function (eleventyConfig) {
   /* Build */
   eleventyConfig.addPassthroughCopy(
     {
-      _public: ".",
-      [`${inputDir}/_public`]: ".",
+      _public: "./",
+      media: "./media/",
+      [`${inputDir}/_public/`]: "./",
+      [`${inputDir}/media/`]: "./media/",
     },
     { expand: true }, // This follows/resolves symbolic links
   );
@@ -106,8 +112,10 @@ export default async function (eleventyConfig) {
   });
 
   /* Dev tools */
-  // Follow symlinks in Chokidar used by 11ty to watch files
-  eleventyConfig.setChokidarConfig({ followSymlinks: true });
+  eleventyConfig.setChokidarConfig({ followSymlinks: true }); // follow symlinks in Chokidar used by 11ty to watch files
+  if (inputDir == '../') {
+    eleventyConfig.watchIgnores.add(`../.11ty/${outputDir}`); // avoid circular watching
+  }
 }
 /*```
 
