@@ -22,6 +22,9 @@ import path from "node:path";
  * @returns {Object} The Eleventy configuration object
  */
 export default async function (eleventyConfig) {
+  const { default: pkg } = await import(`${process.cwd()}/package.json`, { with: { type: "json" } });
+
+  /* Dirs */
   const inputDir = eleventyConfig.directories.input;
   const outputDir = eleventyConfig.directories.output;
   if (inputDir == '../') {
@@ -38,22 +41,15 @@ export default async function (eleventyConfig) {
     wrapper: (toc) => `${toc}`,
   });
   // Feed plugin
-  let siteData = {};
-  try {
-    //TODO: switch to pkg.site?
-    siteData = YAML.parse(fs.readFileSync(`${inputDir}/_data/site.yaml`, "utf8"));
-  } catch (e) {
-    // _data/site.yaml not found
-  }
   eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
-  eleventyConfig.addPlugin(feedPlugin, {
+  eleventyConfig.addPlugin(feedPlugin, { // per https://www.11ty.dev/docs/plugins/rss/#virtual-template
     type: "atom", // or "rss", "json"
     outputPath: "/feed.xml",
     collection: {
-      name: "feed", // iterate over `collections.posts`
+      name: "feed",
       limit: 100, // 0 means no limit
     },
-    metadata: siteData,
+    metadata: pkg.site,
   });
 
   /* Libraries */
@@ -89,7 +85,8 @@ export default async function (eleventyConfig) {
     { expand: true }, // This follows/resolves symbolic links
   );
 
-  /* Jekyll templates compatibility */
+  /* Internal */
+  // Jekyll templates compatibility
   eleventyConfig.addFilter("relative_url", (content) => content); // dummy
   eleventyConfig.setLiquidOptions({
     dynamicPartials: false, // allows unquoted Jekyll-style includes
@@ -98,8 +95,7 @@ export default async function (eleventyConfig) {
       fs.realpathSync(path.resolve("./node_modules/@anyblades/blades/_includes")), // for symlinks to work after https://github.com/harttle/liquidjs/pull/870
     ],
   });
-
-  /* Dev tools */
+  // Dev tools
   eleventyConfig.setChokidarConfig({ followSymlinks: true }); // follow symlinks in Chokidar used by 11ty to watch files
   if (inputDir == '../') {
     eleventyConfig.watchIgnores.add(`../.11ty/${outputDir}`); // !!! avoid circular watching
