@@ -41,7 +41,7 @@ export default async function (eleventyConfig) {
     wrapper: (toc) => `${toc}`,
   });
   // Feed plugin
-  eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.revised));
+  eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.date || item.data.revised));
   eleventyConfig.addPlugin(feedPlugin, { // per https://www.11ty.dev/docs/plugins/rss/#virtual-template
     type: "atom", // or "rss", "json"
     outputPath: "/feed.xml",
