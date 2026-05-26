@@ -28,6 +28,9 @@ export default async function (eleventyConfig) {
   const inputDir = eleventyConfig.directories.input;
   const outputDir = eleventyConfig.directories.output;
   if (inputDir == '../') {
+    // Per https://www.11ty.dev/docs/config/#directory-for-includes
+    // Order matters, put this at the top of your configuration file.
+    // This is relative to your input directory!
     eleventyConfig.setIncludesDirectory("./.11ty/_includes/");
   }
 
