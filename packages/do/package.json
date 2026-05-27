@@ -2,12 +2,15 @@
   "private": true,
   "name": "do",
   "scripts": {
-    "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- $TW_OPTIONS --watch",
+    "--- START": "1) `&` to run in parallel 2) `tw` is last to stay alive",
+    "start": "npm run 11ty -- --serve --incremental & npm run tw -- --watch",
+    "--- STAGE": "1) `rm -r` w/o trailing slash to avoid symlink catastrophe! 2) `;` to bypass no dir errors",
     "stage": "rm -r ../_site; npm run build && serve ../_site/",
-    "build": "npm run tw -- $TW_OPTIONS; npm run 11ty -- $ELTY_OPTIONS",
-    "===:": "===",
-    "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy",
-    "tw": "[ -z \"$TW_OPTIONS\" ] || (cd ../ && tailwindcss)",
+    "--- BUILD": "`;` to make `tw` optional",
+    "build": "npm run tw; npm run 11ty",
+    "--- INNER": "---",
+    "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy ${ELTY_OPTIONS}",
+    "tw": "[ -n \"$TW_OPTIONS\" ] && cd ../ && tailwindcss ${TW_OPTIONS}",
     "dev:blades": "cd ../ && __=$(npm root -g)/@anyblades/ && npm install --install-links file:${__}eleventy-blades/packages/eleventy-blades-base file:${__}eleventy-blades file:${__}blades && cd ./node_modules/@anyblades/ && rm -r ./*blades* && ln -s ${__}/*blades* ./"
   }
 }
