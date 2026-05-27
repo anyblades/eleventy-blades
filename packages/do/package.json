@@ -5,6 +5,7 @@
     "start": "npm run 11ty -- $ELTY_OPTIONS --serve --incremental & npm run tw -- $TW_OPTIONS --watch",
     "stage": "rm -r ../_site; npm run build && serve ../_site/",
     "build": "npm run tw -- $TW_OPTIONS; npm run 11ty -- $ELTY_OPTIONS",
+    "===:": "===",
     "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy",
     "tw": "[ -z \"$TW_OPTIONS\" ] || (cd ../ && tailwindcss)",
     "dev:blades": "cd ../ && __=$(npm root -g)/@anyblades/ && npm install --install-links file:${__}eleventy-blades/packages/eleventy-blades-base file:${__}eleventy-blades file:${__}blades && cd ./node_modules/@anyblades/ && rm -r ./*blades* && ln -s ${__}/*blades* ./"
