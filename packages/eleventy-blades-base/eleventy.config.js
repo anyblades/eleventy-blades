@@ -27,7 +27,8 @@ export default async function (eleventyConfig) {
   /* Dirs */
   const inputDir = eleventyConfig.directories.input;
   const outputDir = eleventyConfig.directories.output;
-  if (inputDir == '../') {
+  const cwdIsDotEleventy = path.basename(process.cwd()) === '.11ty';
+  if (cwdIsDotEleventy) {
     // Per https://www.11ty.dev/docs/config/#directory-for-includes
     // Order matters, put this at the top of your configuration file.
     // This is relative to your input directory!
@@ -100,7 +101,7 @@ export default async function (eleventyConfig) {
   });
   // Dev tools
   eleventyConfig.setChokidarConfig({ followSymlinks: true }); // follow symlinks in Chokidar used by 11ty to watch files
-  if (inputDir == '../') {
+  if (cwdIsDotEleventy) {
     eleventyConfig.watchIgnores.add(`../.11ty/${outputDir}`); // !!! avoid circular watching
     eleventyConfig.watchIgnores.add("../.11ty/node_modules/"); // avoid performance issues
   }
