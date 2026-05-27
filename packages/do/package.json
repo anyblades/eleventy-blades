@@ -10,7 +10,7 @@
     "build": "npm run tw; npm run 11ty",
     "--- INNER": "---",
     "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy ${ELTY_OPTIONS}",
-    "tw": "[ -n \"$TW_OPTIONS\" ] && cd ../ && tailwindcss ${TW_OPTIONS}",
+    "tw": "[ -z \"$TW_OPTIONS\" ] && exit 0; cd ../ && tailwindcss ${TW_OPTIONS}",
     "dev:blades": "cd ../ && __=$(npm root -g)/@anyblades/ && npm install --install-links file:${__}eleventy-blades/packages/eleventy-blades-base file:${__}eleventy-blades file:${__}blades && cd ./node_modules/@anyblades/ && rm -r ./*blades* && ln -s ${__}/*blades* ./"
   }
 }
