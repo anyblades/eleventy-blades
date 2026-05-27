@@ -2,8 +2,9 @@
   "private": true,
   "name": "do",
   "scripts": {
-    "--- START": "1) `trap/wait` for graceful exit 2) `&` for parallel run 3) `tw` is last to stay alive",
-    "start": "trap 'kill 0' INT; npm run 11ty -- --serve --incremental & npm run tw -- --watch & wait",
+    "--- START": "with-tw: 1) `&` for parallel run 2) `tw` is last to stay alive 3) trap/wait for graceful exit",
+    "start": "npm run 11ty -- --serve --incremental",
+    "start:with-tw": "trap 'kill 0' INT; npm start & npm run tw -- --watch & wait",
     "--- STAGE": "1) `rm -r` w/o trailing slash to avoid symlink catastrophe! 2) `;` to bypass no dir errors",
     "stage": "rm -r ../_site; npm run build && serve ../_site/",
     "--- BUILD": "`;` to make `tw` optional",
