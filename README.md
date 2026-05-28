@@ -1,6 +1,6 @@
 <!--section:summary-->
 
-# Eleventy 🥷 *Bl*ades
+# Eleventy *Bl*ades
 
 <big>Ultimate blade kit for 11ty (Build Awesome).</big>
 
