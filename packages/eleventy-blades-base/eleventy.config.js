@@ -21,7 +21,7 @@ import path from "node:path";
  * @param {Object} eleventyConfig - The Eleventy configuration object
  * @returns {Object} The Eleventy configuration object
  */
-export default async function (eleventyConfig) {
+export default async function (eleventyConfig, pluginOptions = {}) {
   const { default: pkg } = await import(`${process.cwd()}/package.json`, { with: { type: "json" } });
 
   /* Dirs */
@@ -38,7 +38,7 @@ export default async function (eleventyConfig) {
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(eleventyBladesPlugin);
+  eleventyConfig.addPlugin(eleventyBladesPlugin, pluginOptions.plugins?.['@anyblades/eleventy-blades'] ?? {});
   eleventyConfig.addPlugin(pluginTOC, {
     ignoredElements: [".header-anchor", "sub"],
     ul: true,
@@ -68,7 +68,7 @@ export default async function (eleventyConfig) {
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
 
   /* Data */
-  eleventyConfig.addDataExtension("yaml", (contents) => YAML.parse(contents));
+  eleventyConfig.addDataExtension("yml,yaml", (contents) => YAML.parse(contents));
   eleventyConfig.addGlobalData("layout", "default");
   eleventyConfig.addTemplate("sitemap.xml.njk", "", {
     permalink: "/sitemap.xml",
