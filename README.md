@@ -10,42 +10,58 @@
 
 <!--section:gh-only-->
 
-## [Documentation ↗](https://blades.ninja/build-awesome-11ty/)
+## Documentation
 
-### [Filters](https://blades.ninja/build-awesome-11ty/filters/)
-
-<!-- ToC from https://blades.ninja/build-awesome-11ty/#filters -->
-<ul class="columns"><li><a href="https://blades.ninja/build-awesome-11ty/filters/#attr-concat" tabindex="-1">attr_concat</a></li><p></p>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#attr-includes" tabindex="-1">attr_includes</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#attr-set" tabindex="-1">attr_set</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#date" tabindex="-1">date</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#fetch" tabindex="-1">fetch</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#if" tabindex="-1">if</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#markdownify" tabindex="-1">markdownify</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#merge" tabindex="-1">merge</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#remove-tag" tabindex="-1">remove_tag</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#section" tabindex="-1">section</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#strip-tag" tabindex="-1">strip_tag</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#unindent" tabindex="-1">unindent</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/filters/#install" tabindex="-1">Install</a></li></ul>
-
-### [Processors](https://blades.ninja/build-awesome-11ty/processors/)
-
-<!-- ToC from https://blades.ninja/build-awesome-11ty/#processors -->
-<ul class="columns"><li><a href="https://blades.ninja/build-awesome-11ty/processors/#auto-link-favicons" tabindex="-1">autoLinkFavicons postprocessor (transformer)</a></li><p></p>
-<li><a href="https://blades.ninja/build-awesome-11ty/processors/#md-auto-raw" tabindex="-1">mdAutoRawTags preprocessor</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/processors/#md-auto-br" tabindex="-1">mdAutoNl2br converter</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/processors/#md-hidden-attrs" tabindex="-1">Hidden Markdown attributes using HTML comments</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/processors/#install" tabindex="-1">Install</a></li></ul>
-
-### [Power tools](https://blades.ninja/build-awesome-11ty/tools/)
-
-<!-- ToC from https://blades.ninja/build-awesome-11ty/#tools -->
-<ul class="columns"><li><a href="https://blades.ninja/build-awesome-11ty/tools/#starters" tabindex="-1">Modern starters</a></li><p></p>
-<li><a href="https://blades.ninja/build-awesome-11ty/tools/#base-config" tabindex="-1">Base eleventy.config.js</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/tools/#base-scripts" tabindex="-1">Base 11ty npm scripts via npm workspace</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/tools/#data-helpers" tabindex="-1">Data helpers</a></li>
-<li><a href="https://blades.ninja/build-awesome-11ty/tools/#more" tabindex="-1">More</a><ul><li><a href="https://blades.ninja/build-awesome-11ty/tools/#find-and-kill-11ty-processes" tabindex="-1">Find and kill 11ty processes</a></li></ul></li></ul>
+<ul class="columns">
+  
+  <li>
+    <strong><a href="/plugin/">Get started</a></strong>
+    <ul><li><a href="https://11ty.blades.ninja/plugin/">Plugin</a></li>
+<li><a href="https://11ty.blades.ninja/base/">Base package</a></li>
+<li><a href="https://11ty.blades.ninja/scripts/">Useful scripts</a></li>
+<li><a href="https://11ty.blades.ninja/starters/">Starter projects</a></li></ul>
+  </li>
+  
+  <li>
+    <strong><a href="/features/">Features</a></strong>
+    <ul><li><a href="https://11ty.blades.ninja/features/">Overview</a></li>
+<li><a href="https://11ty.blades.ninja/features/site-globals/">Site globals</a></li>
+<li><a href="https://11ty.blades.ninja/features/link-favicons/">Automatic link favicons</a></li>
+<li><a href="https://11ty.blades.ninja/features/markdown-auto-raw/">Markdown auto-raw tags</a></li>
+<li><a href="https://11ty.blades.ninja/features/markdown-hidden-attrs/">Markdown hidden attrs</a></li>
+<li><a href="https://11ty.blades.ninja/features/markdown-newlines/">Markdown newlines</a></li></ul>
+  </li>
+  
+  <li>
+    <strong><a href="/templates/">Templates</a></strong>
+    <ul><li><a href="https://blades.ninja/html/starter/">HTML base ↗</a></li>
+<li><a href="https://blades.ninja/html/links/">Links ↗</a></li>
+<li><a href="https://blades.ninja/html/sitemap/">Sitemap ↗</a></li>
+<li><a href="https://11ty.blades.ninja/templates/">More</a></li></ul>
+  </li>
+  
+  <li>
+    <strong><a href="/filters/">Filters</a></strong>
+    <ul><li><a href="https://11ty.blades.ninja/filters/attr_concat/">attr_concat</a></li>
+<li><a href="https://11ty.blades.ninja/filters/attr_includes/">attr_includes</a></li>
+<li><a href="https://11ty.blades.ninja/filters/attr_set/">attr_set</a></li>
+<li><a href="https://11ty.blades.ninja/filters/date/">date</a></li>
+<li><a href="https://11ty.blades.ninja/filters/fetch/">fetch</a></li>
+<li><a href="https://11ty.blades.ninja/filters/if/">if</a></li>
+<li><a href="https://11ty.blades.ninja/filters/markdownify/">markdownify</a></li>
+<li><a href="https://11ty.blades.ninja/filters/merge/">merge</a></li>
+<li><a href="https://11ty.blades.ninja/filters/remove_tag/">remove_tag</a></li>
+<li><a href="https://11ty.blades.ninja/filters/section/">section</a></li>
+<li><a href="https://11ty.blades.ninja/filters/strip_tag/">strip_tag</a></li>
+<li><a href="https://11ty.blades.ninja/filters/unindent/">unindent</a></li></ul>
+  </li>
+  
+  <li>
+    <strong><a href="/awesome/">Awesome</a></strong>
+    
+  </li>
+  
+</ul>
 
 ---
 
