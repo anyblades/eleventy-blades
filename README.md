@@ -149,8 +149,7 @@ export default function (eleventyConfig) {
 ## <sup>Featured by</sup><!--A-Z-->
 
 - [awesome-11ty-buildawesome](https://github.com/anyblades/awesome-11ty-buildawesome)
-- [hamatti.org](https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=anydigital)
-- https://11tybundle.dev/blog/11ty-bundle-83/
+- [hamatti.org](https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=section%20filter)
 - https://11tybundle.dev/blog/11ty-bundle-88/
 
 <!--{.markerless .columns}-->
