@@ -1,13 +1,12 @@
 // <!--section:code-->```js
 /**
- * Check if link text looks like a plain URL or domain
+ * Check if a URL is external (absolute http/https)
  *
- * @param {string} linkText - The text content of the link
- * @param {string} domain - The domain extracted from the URL
- * @returns {boolean} True if the link text appears to be a plain URL
+ * @param {string} url - The URL to check
+ * @returns {boolean} True if the URL starts with http:// or https://
  */
-export function isPlainUrlText(linkText, domain) {
-  return linkText.trim().includes(domain) || linkText.trim().match(/^https?:\/\//) !== null;
+export function isExternalUrl(url) {
+  return /^https?:\/\//.test(url);
 }
 
 /**
@@ -50,11 +49,11 @@ export function buildFaviconLink(attrs, domain, text) {
 export function transformLink(match, attrs, url, linkText) {
   try {
     // Extract domain from URL
-    const urlObj = new URL(url, "http://dummy.com");
+    const urlObj = new URL(url);
     const domain = urlObj.hostname;
 
     // Only add favicon if link text looks like a plain URL/domain
-    if (isPlainUrlText(linkText, domain)) {
+    if (isExternalUrl(url) && !linkText.includes("↗")) {
       const cleanedText = cleanLinkText(linkText, domain);
       return buildFaviconLink(attrs, domain, cleanedText);
     }

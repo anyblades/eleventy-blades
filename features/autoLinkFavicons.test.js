@@ -1,43 +1,37 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import {
-  isPlainUrlText,
+  isExternalUrl,
   cleanLinkText,
   buildFaviconLink,
   transformLink,
   replaceLinksInHtml,
 } from "./autoLinkFavicons.js";
 
-describe("isPlainUrlText", () => {
-  it("should return true when linkText contains domain", () => {
-    assert.equal(isPlainUrlText("example.com", "example.com"), true);
-    assert.equal(isPlainUrlText("https://example.com/path", "example.com"), true);
-    assert.equal(isPlainUrlText("Visit example.com for more", "example.com"), true);
+describe("isExternalUrl", () => {
+  it("should return true for http:// URLs", () => {
+    assert.equal(isExternalUrl("http://example.com"), true);
+    assert.equal(isExternalUrl("http://example.com/path"), true);
   });
 
-  it("should return true when linkText starts with http://", () => {
-    assert.equal(isPlainUrlText("http://example.com", "example.com"), true);
-    assert.equal(isPlainUrlText("http://other.com/path", "other.com"), true);
+  it("should return true for https:// URLs", () => {
+    assert.equal(isExternalUrl("https://example.com"), true);
+    assert.equal(isExternalUrl("https://example.com/path"), true);
   });
 
-  it("should return true when linkText starts with https://", () => {
-    assert.equal(isPlainUrlText("https://example.com", "example.com"), true);
-    assert.equal(isPlainUrlText("https://other.com/path", "other.com"), true);
+  it("should return false for relative URLs", () => {
+    assert.equal(isExternalUrl("/docs/guide"), false);
+    assert.equal(isExternalUrl("./relative"), false);
+    assert.equal(isExternalUrl("page.html"), false);
   });
 
-  it("should return false for custom link text without domain", () => {
-    assert.equal(isPlainUrlText("Click here", "example.com"), false);
-    assert.equal(isPlainUrlText("Read more", "example.com"), false);
-    assert.equal(isPlainUrlText("Documentation", "example.com"), false);
+  it("should return false for empty string", () => {
+    assert.equal(isExternalUrl(""), false);
   });
 
-  it("should handle whitespace in linkText", () => {
-    assert.equal(isPlainUrlText("  example.com  ", "example.com"), true);
-    assert.equal(isPlainUrlText("  https://example.com  ", "example.com"), true);
-  });
-
-  it("should return false for empty linkText", () => {
-    assert.equal(isPlainUrlText("", "example.com"), false);
+  it("should return false for protocol-relative and other schemes", () => {
+    assert.equal(isExternalUrl("//example.com"), false);
+    assert.equal(isExternalUrl("mailto:user@example.com"), false);
   });
 });
 
@@ -147,9 +141,9 @@ describe("transformLink", () => {
     assert.match(result, /<i><img[^>]*><\/i> example\.com\/a<\/a>/);
   });
 
-  it("should not transform custom link text without URL", () => {
-    const match = '<a href="https://example.com/docs">Click here</a>';
-    const result = transformLink(match, 'href="https://example.com/docs"', "https://example.com/docs", "Click here");
+  it("should not transform links when URL is not external", () => {
+    const match = '<a href="/docs">Click here</a>';
+    const result = transformLink(match, 'href="/docs"', "/docs", "Click here");
     assert.equal(result, match);
   });
 
@@ -178,6 +172,12 @@ describe("transformLink", () => {
   it("should handle invalid URLs gracefully", () => {
     const match = '<a href="not-a-url">not-a-url</a>';
     const result = transformLink(match, 'href="not-a-url"', "not-a-url", "not-a-url");
+    assert.equal(result, match);
+  });
+
+  it("should not transform links whose text already contains ↗", () => {
+    const match = '<a href="https://example.com/docs">example.com ↗</a>';
+    const result = transformLink(match, 'href="https://example.com/docs"', "https://example.com/docs", "example.com ↗");
     assert.equal(result, match);
   });
 
@@ -211,25 +211,24 @@ describe("transformLink", () => {
     assert.match(result, /<i><img[^>]*><\/i> \/path\/to\/document<\/a>/);
   });
 
-  it("should not transform when linkText doesn't look like URL", () => {
-    const match = '<a href="https://example.com/page">Read the documentation</a>';
+  it("should transform any external URL regardless of link text", () => {
     const result = transformLink(
-      match,
+      '<a href="https://example.com/page">Read the documentation</a>',
       'href="https://example.com/page"',
       "https://example.com/page",
       "Read the documentation",
     );
-    assert.equal(result, match);
+    assert.match(result, /<i><img[^>]*><\/i>/);
   });
 
-  it("should transform when linkText contains domain even without protocol", () => {
+  it("should transform external URL even when linkText contains domain without protocol", () => {
     const result = transformLink(
       '<a href="https://example.com/docs">example.com/docs</a>',
       'href="https://example.com/docs"',
       "https://example.com/docs",
       "example.com/docs",
     );
-    assert.match(result, /<i><img[^>]*><\/i> \/docs<\/a>/);
+    assert.match(result, /<i><img[^>]*><\/i>/);
   });
 
   it("should handle malformed URLs by returning original match", () => {
@@ -394,11 +393,11 @@ describe("replaceLinksInHtml", () => {
     assert.match(result, /\/docs<\/a>/);
   });
 
-  it("should not transform custom link text when using transformLink", () => {
+  it("should transform external links even with custom text when using transformLink", () => {
     const html = '<a href="https://example.com/docs">Click here</a>';
     const result = replaceLinksInHtml(html, transformLink);
-    // transformLink should not add favicon for custom text
-    assert.equal(result, html);
+    // transformLink now adds favicon for any external URL
+    assert.match(result, /img src=/);
   });
 
   it("should handle multiple links with mixed transformation results", () => {
