@@ -1,14 +1,10 @@
+# Eleventy *Bl*ades &nbsp;![](https://img.shields.io/github/v/release/anyblades/eleventy-blades?label=&color=darkslategray)
+
 <!--section:summary-->
 
-# Eleventy *Bl*ades
+<h1><mark>Ultimate blade kit</mark> <small>for</small> 11ty / Build&nbsp;Awesome</h1>
 
-<big>Ultimate blade kit for 11ty (Build Awesome).</big>
-
-Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin.
-
-![](https://img.shields.io/github/v/release/anyblades/eleventy-blades?label=&color=darkslategray&style=for-the-badge&include_prereleases)
-[![](https://img.shields.io/badge/Code-gainsboro?logo=github&logoColor=black&style=for-the-badge)](https://github.com/anyblades/eleventy-blades)
-[![](https://img.shields.io/github/stars/anyblades/eleventy-blades?label=Star&labelColor=gainsboro&color=silver&style=for-the-badge)](https://github.com/anyblades/eleventy-blades)
+<big>Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin.</big>
 
 <!--section:gh-only-->
 
