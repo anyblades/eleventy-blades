@@ -34,7 +34,8 @@ export function cleanLinkText(linkText, domain) {
  * @returns {string} The HTML string
  */
 export function buildFaviconLink(attrs, domain, text) {
-  return `<a ${attrs}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64"></i> ${text}</a>`;
+  const wrappedText = /<[a-z]/i.test(text) ? `<span>${text}</span>` : text;
+  return `<a ${attrs}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64"></i> ${wrappedText}</a>`;
 }
 
 /**
@@ -49,19 +50,17 @@ export function buildFaviconLink(attrs, domain, text) {
 export function transformLink(match, attrs, url, linkText) {
   try {
     // Extract domain from URL
-    const urlObj = new URL(url);
-    const domain = urlObj.hostname;
+    const domain = new URL(url).hostname;
 
     // Only add favicon if link text looks like a plain URL/domain
     if (isExternalUrl(url) && !linkText.includes("↗")) {
       const cleanedText = cleanLinkText(linkText, domain);
       return buildFaviconLink(attrs, domain, cleanedText);
     }
-    return match; // @TODO: throw?
   } catch (e) {
-    // If URL parsing fails, return original match
-    return match;
+    // URL parsing failed — fall through and return original match
   }
+  return match;
 }
 
 /**
@@ -71,14 +70,14 @@ export function transformLink(match, attrs, url, linkText) {
  * using the provided transform function. The regex captures:
  * - Group 1: All attributes including href
  * - Group 2: The URL from the href attribute
- * - Group 3: The link text content
+ * - Group 3: The link text content (plain text, or text wrapped in <em>/<strong>)
  *
  * @param {string} content - The HTML content to process
  * @param {Function} transformer - Function to transform each link (receives match, attrs, url, linkText)
  * @returns {string} The HTML content with transformed links
  */
 export function replaceLinksInHtml(content, transformer) {
-  return content.replace(/<a\s+([^>]*href=["']([^"']+)["'][^>]*)>([^<]+)<\/a>/gi, transformer);
+  return content.replace(/<a\s+([^>]*href=["']([^"']+)["'][^>]*)>([^<]*(?:<\/?(?:em|strong)>[^<]*)*)<\/a>/gi, transformer);
 }
 
 /**

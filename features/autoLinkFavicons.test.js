@@ -113,6 +113,27 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com"', "example.com", "custom text");
     assert.match(result, /> custom text<\/a>$/);
   });
+
+  it("should not wrap plain text in a span", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "/docs");
+    assert.match(result, /> \/docs<\/a>$/);
+    assert.doesNotMatch(result, /<span>/);
+  });
+
+  it("should wrap text containing HTML tags in a span", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "<em>Example</em>");
+    assert.match(result, /> <span><em>Example<\/em><\/span><\/a>$/);
+  });
+
+  it("should wrap text containing strong tags in a span", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "<strong>Bold</strong>");
+    assert.match(result, /> <span><strong>Bold<\/strong><\/span><\/a>$/);
+  });
+
+  it("should wrap text with mixed HTML and plain text in a span", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "Visit <em>Example</em> site");
+    assert.match(result, /> <span>Visit <em>Example<\/em> site<\/span><\/a>$/);
+  });
 });
 
 describe("transformLink", () => {
@@ -374,7 +395,7 @@ describe("replaceLinksInHtml", () => {
     const html = '<a href="https://example.com"><span>Link</span></a>';
     const transformer = (match) => "REPLACED";
     const result = replaceLinksInHtml(html, transformer);
-    // Should not match because regex expects [^<]+ for link text (no nested tags)
+    // Only <em> and <strong> are allowed inside <a>; other tags are not matched
     assert.equal(result, html);
   });
 
@@ -447,5 +468,58 @@ describe("replaceLinksInHtml", () => {
     const transformer = (match, attrs, url, linkText) => `[${linkText}](${url})`;
     const result = replaceLinksInHtml(html, transformer);
     assert.equal(result, "[Link1](https://example.com)[Link2](https://other.com)");
+  });
+});
+
+describe("replaceLinksInHtml - em and strong inside link text", () => {
+  const passThrough = (match, attrs, url, linkText) => `[${linkText}](${url})`;
+
+  it("should match link text wrapped in <em>", () => {
+    const html = '<a href="https://example.com"><em>Example</em></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<em>Example</em>](https://example.com)");
+  });
+
+  it("should match link text wrapped in <strong>", () => {
+    const html = '<a href="https://example.com"><strong>Example</strong></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<strong>Example</strong>](https://example.com)");
+  });
+
+  it("should match plain text mixed with <em>", () => {
+    const html = '<a href="https://example.com">Visit <em>Example</em> site</a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[Visit <em>Example</em> site](https://example.com)");
+  });
+
+  it("should match plain text mixed with <strong>", () => {
+    const html = '<a href="https://example.com">Visit <strong>Example</strong> site</a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[Visit <strong>Example</strong> site](https://example.com)");
+  });
+
+  it("should match link text with both <em> and <strong>", () => {
+    const html = '<a href="https://example.com"><em>Foo</em> and <strong>Bar</strong></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<em>Foo</em> and <strong>Bar</strong>](https://example.com)");
+  });
+
+  it("should not match <em> with attributes", () => {
+    const html = '<a href="https://example.com"><em class="x">Example</em></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    // <em class="x"> is not a bare <em> tag — should not be matched
+    assert.equal(result, html);
+  });
+
+  it("should not match other nested tags such as <span>", () => {
+    const html = '<a href="https://example.com"><span>Example</span></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, html);
+  });
+
+  it("should not match <img> inside link text", () => {
+    const html = '<a href="https://example.com"><img src="icon.png"> Example</a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, html);
   });
 });

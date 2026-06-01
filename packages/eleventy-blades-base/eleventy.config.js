@@ -64,6 +64,9 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     slugify: slugify, // @TODO: TRICKS
     permalink: markdownItAnchor.permalink.ariaHidden(),
   }).use(markdownItAttrs);
+  await import("markdown-it-deflist").then(({ default: markdownItDeflist }) => {
+    md.use(markdownItDeflist);
+  }).catch(() => { /* optional – skip if not installed */ });
   eleventyConfig.setLibrary("md", md);
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
 
