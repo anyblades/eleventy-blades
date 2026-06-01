@@ -41,6 +41,8 @@ eleventyConfig.addPlugin(eleventyBladesPlugin, {
 
 A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
 
+---
+
 ### `baseConfig` method
 
 ```sh
@@ -75,6 +77,22 @@ Live examples:
 - https://github.com/johnheenan/minform/blob/main/eleventy.config.js
 - https://github.com/hostfurl/minformhf/blob/main/eleventy.config.js
 
+---
+
+### `--config` CLI method
+
+```sh
+npm install @anyblades/eleventy-blades-base
+eleventy --config=./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js
+```
+
+Live examples:
+
+- https://github.com/anyblades/subtle/blob/main/.11ty/package.json
+- https://github.com/anyblades/buildawesome-starters/blob/main/package.json
+
+---
+
 ###### <mark>A. All-in</mark> managed by Eleventy Blades:
 
 Consider symlinking entire `eleventy.config.js` as a set-and-forget zero-config zero-maintenance solution:
@@ -89,22 +107,6 @@ Living examples:
 
 - https://github.com/anyblades/build-awesome-starter
 - https://github.com/anyblades/bladeswitch
-
-###### <mark>D. Individual imports</mark> from Eleventy Blades in `eleventy.config.js`:
-
-```js
-import { siteData, mdAutoRawTags, mdAutoNl2br, autoLinkFavicons, attrSetFilter, attrConcatFilter, ... } from "@anyblades/eleventy-blades";
-
-export default function (eleventyConfig) {
-  siteData(eleventyConfig);
-  mdAutoRawTags(eleventyConfig);
-  mdAutoNl2br(eleventyConfig);
-  autoLinkFavicons(eleventyConfig);
-  attrSetFilter(eleventyConfig);
-  attrConcatFilter(eleventyConfig);
-  ...
-}
-```
 
 ###### <mark>E. Included with</mark>
 
