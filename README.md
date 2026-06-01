@@ -93,27 +93,21 @@ Live examples:
 
 ---
 
-###### <mark>A. All-in</mark> managed by Eleventy Blades:
-
-Consider symlinking entire `eleventy.config.js` as a set-and-forget zero-config zero-maintenance solution:
+### Symlink method
 
 ```sh
-ln -s ./node_modules/@anyblades/eleventy-blades/src/eleventy.config.js
+npm install @anyblades/eleventy-blades-base
+ln -s ./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js
+eleventy
 ```
 
-Learn more: https://blades.ninja/11ty/tools/#base-config
+---
 
-Living examples:
+### More ways to get started
 
-- https://github.com/anyblades/build-awesome-starter
-- https://github.com/anyblades/bladeswitch
-
-###### <mark>E. Included with</mark>
-
-- https://github.com/anyblades/build-awesome-starter
-- https://github.com/anyblades/bladeswitch starter
-- https://github.com/johnheenan/minform starter
-- https://github.com/hostfurl/minformhf starter
+- https://subtle.blades.ninja/ micro-starter
+- https://github.com/anyblades/buildawesome-starters multi-site starter
+- https://tw.11ty.blades.ninja/ Tailwind CLI starter
 
 <!--section:gh-only-->
 
