@@ -8,6 +8,87 @@
 
 <!--section:gh-only-->
 
+---
+
+## Quick start
+
+<!--section:install-->
+
+```sh
+npm install @anyblades/eleventy-blades
+```
+
+Then choose one of the following options:
+
+### Standard `addPlugin` method
+
+In your 11ty config:
+
+```js
+import eleventyBladesPlugin from "@anyblades/eleventy-blades";
+
+export default function (eleventyConfig) {
+  eleventyConfig.addPlugin(eleventyBladesPlugin);
+}
+```
+
+A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
+
+###### <mark>A. All-in</mark> managed by Eleventy Blades:
+
+Consider symlinking entire `eleventy.config.js` as a set-and-forget zero-config zero-maintenance solution:
+
+```sh
+ln -s ./node_modules/@anyblades/eleventy-blades/src/eleventy.config.js
+```
+
+Learn more: https://blades.ninja/11ty/tools/#base-config
+
+Living examples:
+
+- https://github.com/anyblades/build-awesome-starter
+- https://github.com/anyblades/bladeswitch
+
+###### <mark>B. Base config</mark> by Eleventy Blades with overrides in `eleventy.config.js`:
+
+```js
+import baseConfig from "@anyblades/eleventy-blades/base-config";
+
+export default function (eleventyConfig) {
+  baseConfig(eleventyConfig);
+
+  // Your additions/overrides
+  ...
+}
+```
+
+Living example: https://github.com/johnheenan/minform/blob/main/eleventy.config.js
+
+###### <mark>D. Individual imports</mark> from Eleventy Blades in `eleventy.config.js`:
+
+```js
+import { siteData, mdAutoRawTags, mdAutoNl2br, autoLinkFavicons, attrSetFilter, attrConcatFilter, ... } from "@anyblades/eleventy-blades";
+
+export default function (eleventyConfig) {
+  siteData(eleventyConfig);
+  mdAutoRawTags(eleventyConfig);
+  mdAutoNl2br(eleventyConfig);
+  autoLinkFavicons(eleventyConfig);
+  attrSetFilter(eleventyConfig);
+  attrConcatFilter(eleventyConfig);
+  ...
+}
+```
+
+###### <mark>E. Included with</mark>
+
+- https://github.com/anyblades/build-awesome-starter
+- https://github.com/anyblades/bladeswitch starter
+- https://github.com/johnheenan/minform starter
+- https://github.com/hostfurl/minformhf starter
+
+<!--section:gh-only-->
+
 ## Documentation
 
 <ul class="columns">
@@ -60,87 +141,6 @@
   </li>
   
 </ul>
-
----
-
-<!--section:install-->
-
-## Install
-
-```sh
-npm install @anyblades/eleventy-blades
-```
-
-Then choose one of the following options:
-
-###### <mark>A. All-in</mark> managed by Eleventy Blades:
-
-Consider symlinking entire `eleventy.config.js` as a set-and-forget zero-config zero-maintenance solution:
-
-```sh
-ln -s ./node_modules/@anyblades/eleventy-blades/src/eleventy.config.js
-```
-
-Learn more: https://blades.ninja/11ty/tools/#base-config
-
-Living examples:
-
-- https://github.com/anyblades/build-awesome-starter
-- https://github.com/anyblades/bladeswitch
-
-###### <mark>B. Base config</mark> by Eleventy Blades with overrides in `eleventy.config.js`:
-
-```js
-import baseConfig from "@anyblades/eleventy-blades/base-config";
-
-export default function (eleventyConfig) {
-  baseConfig(eleventyConfig);
-
-  // Your additions/overrides
-  ...
-}
-```
-
-Living example: https://github.com/johnheenan/minform/blob/main/eleventy.config.js
-
-###### <mark>C. Plug-in</mark> Eleventy Blades in existing `eleventy.config.js`:
-
-```js
-import eleventyBladesPlugin from "@anyblades/eleventy-blades";
-
-export default function (eleventyConfig) {
-  eleventyConfig.addPlugin(eleventyBladesPlugin, {
-    mdAutoRawTags: true,
-    mdAutoNl2br: true,
-    autoLinkFavicons: true,
-    siteData: true,
-    filters: ["attr_set", "attr_concat", ...],
-  });
-}
-```
-
-###### <mark>D. Individual imports</mark> from Eleventy Blades in `eleventy.config.js`:
-
-```js
-import { siteData, mdAutoRawTags, mdAutoNl2br, autoLinkFavicons, attrSetFilter, attrConcatFilter, ... } from "@anyblades/eleventy-blades";
-
-export default function (eleventyConfig) {
-  siteData(eleventyConfig);
-  mdAutoRawTags(eleventyConfig);
-  mdAutoNl2br(eleventyConfig);
-  autoLinkFavicons(eleventyConfig);
-  attrSetFilter(eleventyConfig);
-  attrConcatFilter(eleventyConfig);
-  ...
-}
-```
-
-###### <mark>E. Included with</mark>
-
-- https://github.com/anyblades/build-awesome-starter
-- https://github.com/anyblades/bladeswitch starter
-- https://github.com/johnheenan/minform starter
-- https://github.com/hostfurl/minformhf starter
 
 <!--section:featured-->
 
