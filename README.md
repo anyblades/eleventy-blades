@@ -30,7 +30,7 @@ export default function (eleventyConfig) {
 }
 ```
 
-You can pass options like this:
+You can toggle features/filters like this:
 
 ```js
 eleventyConfig.addPlugin(eleventyBladesPlugin, {
@@ -59,7 +59,7 @@ export default async function (eleventyConfig) {
 }
 ```
 
-You can pass plugin options like this:
+You can toggle features/filters like this:
 
 ```js
 await baseConfig(eleventyConfig, {
@@ -93,7 +93,7 @@ Live examples:
 
 ---
 
-### Symlink method
+### `ln -s` symlink method
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -104,6 +104,8 @@ eleventy
 ---
 
 ### More ways to get started
+
+Eleventy *Bl*ades plugin is included out-of-the-box with:
 
 - https://subtle.blades.ninja/ micro-starter
 - https://github.com/anyblades/buildawesome-starters multi-site starter
