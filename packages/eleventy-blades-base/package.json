@@ -1,13 +1,13 @@
 {
   "name": "@anyblades/eleventy-blades-base",
-  "version": "0.4.8",
+  "version": "0.5.0",
   "type": "module",
   "main": "./eleventy.config.js",
   "dependencies": {
     "@11ty/eleventy-navigation": "^1.0.5",
     "@11ty/eleventy-plugin-rss": "^3.0.0",
     "@anyblades/blades": "^2.2.2",
-    "@anyblades/eleventy-blades": "^0.29.0-beta.8",
+    "@anyblades/eleventy-blades": "^0.30.0-alpha",
     "@uncenter/eleventy-plugin-toc": "^2.1.1",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
