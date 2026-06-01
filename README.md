@@ -14,7 +14,9 @@
 
 <!--section:install-->
 
-### `addPlugin` method
+There are 4 ways to get started:
+
+### Plugin install
 
 ```sh
 npm install @anyblades/eleventy-blades
@@ -43,7 +45,7 @@ A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/
 
 ---
 
-### `baseConfig` method
+### Base config install
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -79,7 +81,7 @@ Live examples:
 
 ---
 
-### `--config` CLI method
+### Config CLI method
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -93,7 +95,7 @@ Live examples:
 
 ---
 
-### `ln -s` symlink method
+### Config symlink method
 
 ```sh
 npm install @anyblades/eleventy-blades-base
