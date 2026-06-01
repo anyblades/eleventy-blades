@@ -14,15 +14,13 @@
 
 <!--section:install-->
 
+### `addPlugin` method
+
 ```sh
 npm install @anyblades/eleventy-blades
 ```
 
-Then choose one of the following options:
-
-### Standard `addPlugin` method
-
-In your 11ty config:
+Then `addPlugin` to your 11ty config:
 
 ```js
 import eleventyBladesPlugin from "@anyblades/eleventy-blades";
@@ -32,7 +30,50 @@ export default function (eleventyConfig) {
 }
 ```
 
+You can pass options like this:
+
+```js
+eleventyConfig.addPlugin(eleventyBladesPlugin, {
+  mdAutoRawTags: false,
+  filters: { markdownify: false },
+});
+```
+
 A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
+
+### `baseConfig` method
+
+```sh
+npm install @anyblades/eleventy-blades-base
+```
+
+Then use `baseConfig` in your 11ty config:
+
+```js
+import baseConfig from "@anyblades/eleventy-blades-base";
+
+export default async function (eleventyConfig) {
+  await baseConfig(eleventyConfig);
+}
+```
+
+You can pass plugin options like this:
+
+```js
+await baseConfig(eleventyConfig, {
+  plugins: {
+    "@anyblades/eleventy-blades": {
+      mdAutoRawTags: false,
+      filters: { markdownify: false },
+    },
+  },
+});
+```
+
+Live examples:
+
+- https://github.com/johnheenan/minform/blob/main/eleventy.config.js
+- https://github.com/hostfurl/minformhf/blob/main/eleventy.config.js
 
 ###### <mark>A. All-in</mark> managed by Eleventy Blades:
 
@@ -48,21 +89,6 @@ Living examples:
 
 - https://github.com/anyblades/build-awesome-starter
 - https://github.com/anyblades/bladeswitch
-
-###### <mark>B. Base config</mark> by Eleventy Blades with overrides in `eleventy.config.js`:
-
-```js
-import baseConfig from "@anyblades/eleventy-blades/base-config";
-
-export default function (eleventyConfig) {
-  baseConfig(eleventyConfig);
-
-  // Your additions/overrides
-  ...
-}
-```
-
-Living example: https://github.com/johnheenan/minform/blob/main/eleventy.config.js
 
 ###### <mark>D. Individual imports</mark> from Eleventy Blades in `eleventy.config.js`:
 
