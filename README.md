@@ -45,7 +45,7 @@ A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/
 
 ---
 
-### Base config install
+### Base config
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -81,7 +81,7 @@ Live examples:
 
 ---
 
-### Config CLI method
+### Config CLI
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -95,7 +95,7 @@ Live examples:
 
 ---
 
-### Config symlink method
+### Config symlink
 
 ```sh
 npm install @anyblades/eleventy-blades-base
