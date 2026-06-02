@@ -14,9 +14,9 @@
 
 <!--section:install-->
 
-There are 4 ways to get started:
+There are 5 ways to get started:
 
-### A. Plugin install
+### <mark>A.</mark> Plugin install
 
 ```sh
 npm install @anyblades/eleventy-blades
@@ -45,7 +45,7 @@ A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/
 
 ---
 
-### B. Base config
+### <mark>B.</mark> Base config
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -81,7 +81,7 @@ Live examples:
 
 ---
 
-### C. Config CLI
+### <mark>C.</mark> Config CLI
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -95,7 +95,7 @@ Live examples:
 
 ---
 
-### D. Config symlink
+### <mark>D.</mark> Config symlink
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -105,7 +105,7 @@ eleventy
 
 ---
 
-### More ways to get started
+### <mark>E.</mark> Starter projects
 
 Eleventy *Bl*ades plugin is included out-of-the-box with:
 
