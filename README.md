@@ -111,7 +111,7 @@ Eleventy *Bl*ades plugin is included out-of-the-box with:
 
 - https://subtle.blades.ninja/ micro-starter
 - https://github.com/anyblades/buildawesome-starters multi-site starter
-- https://tw.11ty.blades.ninja/ Tailwind CLI starter
+  - https://tw.11ty.blades.ninja/ Tailwind version
 
 <!--section:gh-only-->
 
