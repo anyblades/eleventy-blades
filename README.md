@@ -41,7 +41,7 @@ eleventyConfig.addPlugin(eleventyBladesPlugin, {
 });
 ```
 
-A live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
+Live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
 
 ---
 
