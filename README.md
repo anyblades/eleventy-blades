@@ -171,10 +171,11 @@ Eleventy *Bl*ades plugin is included out-of-the-box with:
 
 ---
 
-## <sup>Featured by</sup><!--A-Z-->
+## <sup>Featured by</sup><!--Z-A-->
 
-- [awesome-11ty-buildawesome](https://github.com/anyblades/awesome-11ty-buildawesome)
-- [hamatti.org](https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=section%20filter)
+- https://www.11ty.dev/docs/plugins/community/
 - https://11tybundle.dev/blog/11ty-bundle-88/
+- [hamatti.org](https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=section%20filter)
+- [awesome-11ty-buildawesome](https://github.com/anyblades/awesome-11ty-buildawesome)
 
 <!--{.markerless .columns}-->
