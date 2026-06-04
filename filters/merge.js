@@ -1,13 +1,8 @@
-// <!--section:code-->```js
-/**
- * Merge objects together
- *
- * Shallow merges objects (later values override earlier ones)
- *
- * @param {Object} first - The first object
- * @param {...Object} rest - Additional objects to merge
- * @returns {Object} The merged result
- */
+/*<!--section:docs-->
+
+A filter that merges arrays or objects together, similar to Twig's merge filter. For arrays, it concatenates them. For objects, it performs a shallow merge where later values override earlier ones.
+
+<!--section:code-->```js */
 export default function (first, ...rest) {
   // If first argument is null or undefined, treat as empty object
   if (first === null || first === undefined) {
@@ -31,16 +26,9 @@ export default function (first, ...rest) {
   // If first is not an object, return empty object
   return {};
 }
-/*```
+/*```<!--section:docs-->
 
-<!--section:docs-->
-### `merge`
-
-A filter that merges arrays or objects together, similar to Twig's merge filter. For arrays, it concatenates them. For objects, it performs a shallow merge where later values override earlier ones.
-
-**Why use this?** When working with data in templates, you often need to combine multiple arrays or objects. The `merge` filter provides a clean way to merge data structures without writing custom JavaScript, making it easy to combine collections, merge configuration objects, or aggregate data from multiple sources.
-
-**Examples:** <!-- @TODO: better examples -->
+### Examples <!-- @TODO: better examples -->
 
 ```jinja2
 {# Merge configuration objects #}
@@ -60,4 +48,4 @@ A filter that merges arrays or objects together, similar to Twig's merge filter.
 } %}
 {% set pageMeta = defaultMeta | merge(page.data) %}
 ```
-<!--section--> */
+*/
