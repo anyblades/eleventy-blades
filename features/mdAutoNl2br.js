@@ -6,8 +6,7 @@ inside markdown tables where standard newlines don't work.
 
 > **NOTE:** This processes literal `\n` sequences (backslash followed by 'n'), not actual newline characters. Type `\n` in your source files where you want line breaks.
 
-### How it works
-```js */
+<!--section:code-->```js */
 export function transformNl2br(content) {
   // Replace double \n\n first, then single \n to avoid double conversion
   return content.replace(/\\n\\n/g, "<br>").replace(/\\n/g, "<br>");
