@@ -6,6 +6,8 @@
 
 <big>Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin.</big>
 
+Includes a [Base package](//11ty.blades.ninja/base/) and [Reusable npm scripts](//11ty.blades.ninja/scripts/) for a better developer experience.
+
 <!--section:gh-only-->
 
 ---
