@@ -1,4 +1,4 @@
-# Eleventy *Bl*ades &nbsp;![](https://img.shields.io/github/v/release/anyblades/eleventy-blades?filter=!base/*&label=&color=darkslategray)
+# Eleventy *Bl*ades &nbsp;<img src="https://img.shields.io/npm/v/@anyblades/eleventy-blades?label=&color=darkslategray">
 
 <!--section:summary-->
 
