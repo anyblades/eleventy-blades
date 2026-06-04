@@ -14,7 +14,7 @@ Includes [Base package](//11ty.blades.ninja/base/) and [Reusable npm scripts](//
 
 ## Quick start
 
-<!--section:install-->
+<!--section:install,plugin-->
 
 There are 5 ways to get started:
 
@@ -46,6 +46,8 @@ eleventyConfig.addPlugin(eleventyBladesPlugin, {
 Live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
 
 ---
+
+<!--section:install,config+starters-->
 
 ### <mark>B.</mark> Base config
 
