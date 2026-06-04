@@ -1,4 +1,9 @@
-// <!--section:code-->```js
+/*<!--section:docs-->
+
+A ready-to-go `eleventy.config.js` for popular 11ty plugins, bundled with npm scripts in one reusable, zero-maintenance package.
+
+### How it works
+```js */
 
 /* Plugins (core > official > contrib) */
 import { RenderPlugin } from "@11ty/eleventy";
@@ -109,34 +114,4 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     eleventyConfig.watchIgnores.add("../.11ty/node_modules/"); // avoid performance issues
   }
 }
-/*```
-
-<!--section:docs-->
-### Base `eleventy.config.js` {#base-config}
-
-The package includes a fully-configured Eleventy config file `eleventy.config.js` that you can symlink to your project to get:
-
-- All eleventy-blades plugins enabled
-- Eleventy Navigation plugin
-- Table of Contents plugin (conditionally loaded if installed)
-- Markdown-it with anchors and attributes
-- YAML data support
-- CLI input directory support
-- Symlink support for development
-- _and more_
-
-**Benefits of symlinking:**
-
-- **Always up-to-date**: Configuration automatically updates when you upgrade the package
-- **Less maintenance**: No need to manually sync configuration changes
-- **Quick setup**: Get started immediately with best-practice configurations
-- **Easy customization**: Override specific settings by creating your own config that imports from the symlinked version
-
-**Installation as simple as:**
-
-```sh
-npm install @anyblades/eleventy-blades
-ln -s ./node_modules/@anyblades/eleventy-blades/src/eleventy.config.js
-```
-<!--section-->
-*/
+//```
