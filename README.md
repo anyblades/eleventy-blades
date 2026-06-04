@@ -2,7 +2,7 @@
 
 <!--section:summary-->
 
-<h1><mark>Ultimate blade kit</mark> <small>for the</small> best 11ty <small class="faded">/</small> Build&nbsp;Awesome <mark>DX</mark></h1>
+<h1><mark>Ultimate blade kit</mark> for the <mark>best</mark> 11ty <mark>/</mark> Build&nbsp;Awesome <mark>DX</mark></h1>
 
 <big>Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin.</big>
 
