@@ -39,7 +39,7 @@ You can toggle features/filters like this:
 ```js
 eleventyConfig.addPlugin(eleventyBladesPlugin, {
   mdAutoRawTags: false,
-  filters: { markdownify: false },
+  filters: { attr_set: false },
 });
 ```
 
@@ -72,7 +72,7 @@ await baseConfig(eleventyConfig, {
   plugins: {
     "@anyblades/eleventy-blades": {
       mdAutoRawTags: false,
-      filters: { markdownify: false },
+      filters: { attr_set: false },
     },
   },
 });
