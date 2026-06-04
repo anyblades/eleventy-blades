@@ -25,11 +25,9 @@ export function buildFaviconLink(attrs, domain, text) {
 
 export function transformLink(match, attrs, url, linkText) {
   try {
-    // Extract domain from URL
     const domain = new URL(url).hostname;
 
-    // Only add favicon if link text looks like a plain URL/domain
-    if (isExternalUrl(url) && !linkText.includes("↗")) {
+    if (isExternalUrl(url)) {
       const cleanedText = cleanLinkText(linkText, domain);
       return buildFaviconLink(attrs, domain, cleanedText);
     }
