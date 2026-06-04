@@ -1,3 +1,4 @@
+//<!--section:code-->```js
 import { readdirSync } from "node:fs";
 
 export const discoverModules = (dir) =>
@@ -7,21 +8,6 @@ export const discoverModules = (dir) =>
       .map((f) => [f.replace(/\.js$/, ""), true])
   );
 
-/**
- * 11ty Blades Plugin
- *
- * A collection of helpful utilities and filters for Eleventy (11ty).
- * Can be used as a plugin or by importing individual helpers.
- *
- * @param {Object} eleventyConfig - The Eleventy configuration object
- * @param {Object} options - Plugin options
- * @param {boolean} options.mdAutoRawTags - Enable mdAutoRawTags preprocessor (default: false)
- * @param {boolean} options.mdAutoNl2br - Enable mdAutoNl2br for \n to <br> conversion (default: false)
- * @param {boolean} options.mdAutoUncommentAttrs - Enable mdAutoUncommentAttrs to expand <!--{...}--> to {...} (default: false)
- * @param {boolean} options.autoLinkFavicons - Enable autoLinkFavicons to add favicons to plain text links (default: false)
- * @param {Object} options.filters - Object of filter names to enable, e.g. { attr_set: true, fetch: true } (default: all filters enabled)
- * @param {boolean} options.siteData - Enable site.year and site.prod global data (default: false)
- */
 export default async function (eleventyConfig, options = {}) {
 
   /* FILTERS
@@ -57,3 +43,4 @@ export default async function (eleventyConfig, options = {}) {
     }
   }
 }
+//```
