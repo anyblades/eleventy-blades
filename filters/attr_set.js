@@ -1,29 +1,22 @@
-// <!--section:code-->```js
-/**
- * Override an attribute and return a new object
- *
- * @param {Object} obj - The object to modify
- * @param {string} key - The attribute name to set
- * @param {*} value - The value to set for the attribute
- * @returns {Object} A new object with the specified attribute set to the given value
- */
+/*<!--section:docs-->
+
+A filter that creates a new object with an overridden attribute value. This is useful for modifying data objects in templates without mutating the original. Or even constructing an object from scratch.
+
+<!--section:code-->```js */
 export default function (obj, key, value) {
   return {
     ...obj,
     [key]: value,
   };
 }
-/*```
+/*```<!--section:docs-->
 
-<!--section:docs-->
-### `attr_set`
+### Examples
 
-A filter that creates a new object with an overridden attribute value. This is useful for modifying data objects in templates without mutating the original. Or even constructing an object from scratch.
-
-##### Example: How to pass object(s) as argument(s) to a filter in `.liquid`?
+How to pass object(s) as argument(s) to a filter in `.liquid`?
 
 ```liquid {data-caption="trick for '| renderContent' filter"}
 {% assign _ctx = null | attr_set: 'collections', collections %}
 {{ ... | renderContent: 'liquid,md', _ctx }}
 ```
-<!--section--> */
+*/
