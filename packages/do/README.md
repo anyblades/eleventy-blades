@@ -1,8 +1,6 @@
-### Base 11ty npm scripts <small>via npm workspace</small> {#base-scripts}
-
 This package provides a pre-configured `do` folder setup that helps organize your development workflow using npm workspaces. The `do` folder contains scripts for building and running your Eleventy project.
 
-**Installation:**
+## Install
 
 1. Install https://github.com/anyblades/eleventy-blades to reuse pre-defined 11ty scripts from there:
 
@@ -14,8 +12,8 @@ npm install @anyblades/eleventy-blades
 
 ```sh
 mkdir do
-cd ./do
-ln -s ../node_modules/@anyblades/eleventy-blades/src/do/package.json
+cd do/
+ln -s ../node_modules/@anyblades/eleventy-blades/packages/do/package.json
 ```
 
 3. Finally register `do` folder as npm workspace in your root `package.json`:
@@ -38,16 +36,24 @@ ln -s ../node_modules/@anyblades/eleventy-blades/src/do/package.json
 - `npm start` to start 11ty dev server with live reload and Tailwind watch mode
 - `npm run stage` to build and serve production-like site locally
 - `npm run build` to finally build the site for production
-- all available scripts: https://github.com/anyblades/eleventy-blades/blob/main/src/do/package.json
+- all available scripts: https://github.com/anyblades/eleventy-blades/blob/main/packages/do/package.json
 
-Living examples:
+## Live examples
 
-- https://github.com/anyblades/build-awesome-starter
-- https://github.com/anyblades/bladeswitch
+- https://github.com/anyblades/buildawesome-starters
+- https://github.com/anyblades/subtle/tree/main/.11ty
+- https://github.com/johnheenan/minform
 
-**Benefits:**
+## Benefits
 
-- **Clean separation**: Keep build scripts separate from project configuration
-- **Reusable workflows**: Update scripts by upgrading the package
-- **Workspace isolation**: Scripts run in their own workspace context
-- **Easy maintenance**: No need to manually maintain build scripts
+**Clean separation**
+: Keep build scripts separate from project configuration
+
+**Reusable workflows**
+: Update scripts by upgrading the package
+
+**Workspace isolation**
+: Scripts run in their own workspace context
+
+**Easy maintenance**
+: No need to manually maintain build scripts
