@@ -2,13 +2,6 @@
 
 A filter that concatenates values to an attribute array, returning a new object with the combined array. Useful for adding items to arrays like tags, classes, or other list-based attributes.
 
-### Examples
-
-Add tags to a post object in `.njk`:
-
-```jinja2
-{% set enhancedPost = post | attr_concat('tags', ['featured', 'popular']) %}
-```
 <!--section:code-->```js */
 export default function (obj, attr, values) {
   // Get the existing attribute value, default to empty array if not present
@@ -50,4 +43,13 @@ export default function (obj, attr, values) {
     [attr]: combinedArray,
   };
 }
-//```
+/*```<!--section:docs-->
+
+### Examples
+
+Add tags to a post object in `.njk`:
+
+```jinja2
+{% set enhancedPost = post | attr_concat('tags', ['featured', 'popular']) %}
+```
+*/
