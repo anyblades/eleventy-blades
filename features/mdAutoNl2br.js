@@ -1,16 +1,12 @@
-/* <!--section:docs-->
+/*<!--section:docs-->
 
-### `mdAutoNl2br` converter {#md-auto-br}
-
-This function amends the markdown library to automatically convert `\n`
+`mdAutoNl2br` feature amends the markdown library to automatically convert `\n`
 to `<br>` tags in text content, which is particularly useful for line breaks
 inside markdown tables where standard newlines don't work.
 
 > **NOTE:** This processes literal `\n` sequences (backslash followed by 'n'), not actual newline characters. Type `\n` in your source files where you want line breaks.
 
-Usage example: https://github.com/anyblades/eleventy-blades/blob/main/src/eleventy.config.js
-
-How it works:
+### How it works
 ```js */
 export function transformNl2br(content) {
   // Replace double \n\n first, then single \n to avoid double conversion
@@ -24,5 +20,4 @@ export default function mdAutoNl2br(eleventyConfig) {
     };
   });
 }
-/*```
-<!--section--> */
+//```
