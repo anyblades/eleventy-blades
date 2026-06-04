@@ -1,8 +1,10 @@
 /*<!--section:docs-->
 
-`autoLinkFavicons` feature automatically adds favicon images from Google's favicon service to links that display plain URLs or domain names.
+`autoLinkFavicons` feature prepends a favicon image (from Google's favicon service) to external links whose text is a plain URL or contains only inline emphasis (`<em>`/`<strong>`) — skipping any link already decorated with an `↗` marker.
 
-This processor processes all HTML output files and adds inline favicon images next to link text that appears to be a plain URL.
+For each qualifying link the link text is cleaned (protocol prefix and trailing slash stripped; domain portion removed when significant path text remains), then wrapped in the original `<a>` tag preceded by `<i><img src="https://www.google.com/s2/favicons?…"></i>`. Any HTML already present in the link text is wrapped in a `<span>` so the favicon image stays a direct child of `<a>`. Only `.html` output files are processed.
+
+> Compatible with: https://blades.ninja/css/link-icon/ <i class="faded">← this link is a live example!</i>
 
 <!--section:code-->```js */
 export function isExternalUrl(url) {
@@ -25,10 +27,8 @@ export function buildFaviconLink(attrs, domain, text) {
 
 export function transformLink(match, attrs, url, linkText) {
   try {
-    // Extract domain from URL
     const domain = new URL(url).hostname;
 
-    // Only add favicon if link text looks like a plain URL/domain
     if (isExternalUrl(url) && !linkText.includes("↗")) {
       const cleanedText = cleanLinkText(linkText, domain);
       return buildFaviconLink(attrs, domain, cleanedText);
