@@ -72,7 +72,9 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     md.use(markdownItDeflist);
   }).catch(() => { /* optional – skip if not installed */ });
   eleventyConfig.setLibrary("md", md);
+  //<!--section:markdownify-->```js
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
+  //```<!--section-->
 
   /* Data */
   eleventyConfig.addDataExtension("yml,yaml", (contents) => YAML.parse(contents));
