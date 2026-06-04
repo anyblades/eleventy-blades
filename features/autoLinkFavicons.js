@@ -4,8 +4,7 @@
 
 This processor processes all HTML output files and adds inline favicon images next to link text that appears to be a plain URL.
 
-### How it works
-```js */
+<!--section:code-->```js */
 export function isExternalUrl(url) {
   return /^https?:\/\//.test(url);
 }
