@@ -1,4 +1,4 @@
-# Eleventy *Bl*ades &nbsp;<img src="https://img.shields.io/npm/v/@anyblades/eleventy-blades?label=&color=darkslategray">
+# Eleventy *Bl*ades &nbsp;<img src="https://img.shields.io/npm/v/@anyblades/eleventy-blades?label=&color=darkslategray"> <img src="https://img.shields.io/npm/v/@anyblades/eleventy-blades-base?label=base/&color=darkslategray">
 
 <!--section:summary-->
 
