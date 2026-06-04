@@ -1,11 +1,8 @@
-// <!--section:code-->```js
-/**
- * Extract a named section from content marked with HTML comments
- *
- * @param {string} content - The content to process
- * @param {string} sectionName - The section name(s) to extract
- * @returns {string} The extracted section content
- */
+/*<!--section:docs-->
+
+A filter that extracts a named section from content marked with HTML comments. This is useful for splitting a single content file (like a Markdown post) into multiple parts that can be displayed and styled independently in your templates.
+
+<!--section:code-->```js */
 export default function (content, sectionName) {
   if (!content || typeof content !== "string") {
     return content;
@@ -40,14 +37,9 @@ export default function (content, sectionName) {
   // Join all matching sections
   return results.join("");
 }
-/*```
+/*```<!--section:docs-->
 
-<!--section:docs-->
-### `section`
-
-A filter that extracts a named section from content marked with HTML comments. This is useful for splitting a single content file (like a Markdown post) into multiple parts that can be displayed and styled independently in your templates.
-
-**Usage:**
+## Usage <!-- @TODO: better examples -->
 
 1. Mark sections in your content file (e.g., `post.md`):
 
@@ -69,7 +61,7 @@ This is the main body of the post with all the details.
 This content appears in both the summary and the sidebar!
 ```
 
-2. Use the filter in your templates: <!-- @TODO: better examples -->
+2. Use the filter in your templates:
 
 ```jinja2
 {# Get the intro section #}
@@ -87,18 +79,4 @@ This content appears in both the summary and the sidebar!
   {{ content | section('sidebar') | safe }}
 </aside>
 ```
-
-**Features:**
-
-- **Multiple names**: A single section can have multiple names separated by commas: `<¡--section:name1,name2-->`
-- **Case-insensitive**: Section names are matched without regard to case
-- **Multiple occurrences**: If a section name appears multiple times, the filter concatenates all matching sections
-- **Non-destructive**: Returns extracted content without modifying the original input
-- **EOF support**: Sections continue until the next `<¡--section*-->` marker or the end of the file
-
-**Syntax Rules:**
-
-- Sections start with: `<¡--section:NAME-->` or `<¡--section:NAME1,NAME2-->`
-- Sections end at the next `<¡--section*-->` marker or end of file
-- Whitespace around names and inside comments is automatically trimmed
-<!--section--> */
+*/
