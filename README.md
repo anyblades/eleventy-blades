@@ -81,7 +81,7 @@ Live examples:
 
 ---
 
-### <mark>C.</mark> Config CLI
+### <mark>C.</mark> Config via CLI
 
 ```sh
 npm install @anyblades/eleventy-blades-base
@@ -95,7 +95,7 @@ Live examples:
 
 ---
 
-### <mark>D.</mark> Config symlink
+### <mark>D.</mark> Config via symlink
 
 ```sh
 npm install @anyblades/eleventy-blades-base
