@@ -425,7 +425,7 @@ describe("replaceLinksInHtml", () => {
     const html =
       '<a href="https://example.com/docs">https://example.com/docs</a> and <a href="https://other.com">Click</a>';
     const result = replaceLinksInHtml(html, transformLink);
-    // First link should be transformed (plain URL), second should not (custom text)
+    // Both links should be transformed (any external URL gets a favicon)
     assert.match(result, /img src=/);
     assert.match(result, /Click<\/a>/);
   });

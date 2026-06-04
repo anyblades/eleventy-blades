@@ -1,6 +1,6 @@
 /*<!--section:docs-->
 
-A filter that merges arrays or objects together, similar to Twig's merge filter. For arrays, it concatenates them. For objects, it performs a shallow merge where later values override earlier ones.
+A filter that shallow-merges objects together, similar to Twig's merge filter. Later values override earlier ones. Non-object arguments are ignored.
 
 <!--section:code-->```js */
 export default function (first, ...rest) {
