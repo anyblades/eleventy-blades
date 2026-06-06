@@ -178,6 +178,7 @@ Eleventy *Bl*ades plugin is included out-of-the-box with:
 - https://www.11ty.dev/docs/starter/#:~:text=blades
 - https://sveltiacms.app/en/docs/start#starter-templates:~:text=anyblades
 - https://github.com/johnheenan/minform#css-and-performance
+- https://github.com/hostfurl/minformhf
 
 <!--section:featured-->
 
