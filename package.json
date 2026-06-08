@@ -1,39 +1,37 @@
 {
   "name": "@anyblades/eleventy-blades",
-  "version": "1.0.0",
-  "description": "Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin",
+  "version": "1.0.1",
   "type": "module",
   "main": "./plugin.js",
-  "scripts": {
-    "test": "node --test ./**/*.test.js",
-    "prepublishOnly": "npm run test"
-  },
-  "keywords": [
-    "11ty",
-    "eleventy",
-    "plugin",
-    "helpers",
-    "filters",
-    "markdown",
-    "nunjucks"
-  ],
-  "author": "Anton Staroverov",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/anyblades/eleventy-blades.git"
-  },
-  "bugs": {
-    "url": "https://github.com/anyblades/eleventy-blades/issues"
-  },
-  "homepage": "https://github.com/anyblades/eleventy-blades#readme",
   "peerDependencies": {
     "@11ty/eleventy": "^3.0.0 || ^4.0.0-alpha.6"
   },
   "engines": {
     "node": ">=18.0.0"
   },
+  "=== DEV ONLY": "===",
+  "scripts": {
+    "test": "node --test ./**/*.test.js",
+    "prepublishOnly": "npm run test"
+  },
   "devDependencies": {
     "@11ty/lodash-custom": "^4.17.21"
-  }
+  },
+  "=== METADATA": "===",
+  "author": "Anton Staroverov",
+  "description": "Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin",
+  "homepage": "https://11ty.blades.ninja/",
+  "keywords": [
+    "11ty",
+    "buildawesome",
+    "eleventy",
+    "filters",
+    "plugin"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anyblades/eleventy-blades.git"
+  },
+  "===": "==="
 }
