@@ -20,16 +20,26 @@ import YAML from "yaml";
 import fs from "node:fs";
 import path from "node:path";
 
-/** Helper: Merges pkg.site defaults with 11ty data cascade site overrides. */
-const siteData = (pkg, data) => ({ ...pkg.site, ...data.site });
-
 /**
  * Eleventy Configuration
  * @param {Object} eleventyConfig - The Eleventy configuration object
  * @returns {Object} The Eleventy configuration object
  */
 export default async function (eleventyConfig, pluginOptions = {}) {
-  const { default: pkg } = await import(`${process.cwd()}/package.json`, { with: { type: "json" } });
+  const siteData = (data) => {
+    const pkg = data.pkg.site ?? {};
+    const site = data.site ?? {};
+    // pkg → site → data (page-level); [].concat wraps strings or spreads arrays
+    const merge = (key) => [...(pkg[key] ?? []), ...(site[key] ?? []), ...[].concat(data[key] ?? [])];
+    return {
+      ...pkg,
+      ...site, // scalar overrides: site wins over pkg
+      inline_styles: merge("inline_styles"), // data.inline_styles is a string
+      inline_scripts: merge("inline_scripts"), // data.inline_scripts is a string
+      styles: merge("styles"), // data.styles is an array
+      scripts: merge("scripts"), // data.scripts is an array
+    };
+  };
 
   /* Dirs */
   const inputDir = eleventyConfig.directories.input;
@@ -65,7 +75,7 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     },
     templateData: {
       eleventyComputed: {
-        metadata: (data) => siteData(pkg, data),
+        metadata: (data) => siteData(data),
       },
     },
   });
@@ -95,14 +105,12 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   /* Data */
   eleventyConfig.addDataExtension("yml,yaml", (contents) => YAML.parse(contents));
   eleventyConfig.addGlobalData("layout", "default");
+  eleventyConfig.addGlobalData("eleventyComputed", { site: (data) => siteData(data) });
   // Sitemap
   eleventyConfig.addTemplate("sitemap.xml.njk", "", {
     permalink: "/sitemap.xml",
     layout: "blades/sitemap.xml.njk",
     eleventyExcludeFromCollections: true,
-    eleventyComputed: {
-      site: (data) => siteData(pkg, data),
-    },
   });
 
   /* Build */
