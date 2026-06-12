@@ -10,6 +10,7 @@ import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 import eleventyBladesPlugin from "@anyblades/eleventy-blades";
 import pluginTOC from "@uncenter/eleventy-plugin-toc";
+import { siteData } from "@anyblades/eleventy-blades/features/siteData.js";
 /* Libraries (A-Z) */
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
@@ -26,21 +27,6 @@ import path from "node:path";
  * @returns {Object} The Eleventy configuration object
  */
 export default async function (eleventyConfig, pluginOptions = {}) {
-  const siteData = (data) => {
-    const pkg = data.pkg.site ?? {};
-    const site = data.site ?? {};
-    // pkg → site → data (page-level); [].concat wraps strings or spreads arrays
-    const merge = (key) => [...(pkg[key] ?? []), ...(site[key] ?? []), ...[].concat(data[key] ?? [])];
-    return {
-      ...pkg,
-      ...site, // scalar overrides: site wins over pkg
-      inline_styles: merge("inline_styles"), // data.inline_styles is a string
-      inline_scripts: merge("inline_scripts"), // data.inline_scripts is a string
-      styles: merge("styles"), // data.styles is an array
-      scripts: merge("scripts"), // data.scripts is an array
-    };
-  };
-
   /* Dirs */
   const inputDir = eleventyConfig.directories.input;
   const outputDir = eleventyConfig.directories.output;
@@ -105,7 +91,6 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   /* Data */
   eleventyConfig.addDataExtension("yml,yaml", (contents) => YAML.parse(contents));
   eleventyConfig.addGlobalData("layout", "default");
-  eleventyConfig.addGlobalData("eleventyComputed", { site: (data) => siteData(data) });
   // Sitemap
   eleventyConfig.addTemplate("sitemap.xml.njk", "", {
     permalink: "/sitemap.xml",
