@@ -104,6 +104,16 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     permalink: "/sitemap.xml",
     layout: "blades/sitemap.xml.njk",
     eleventyExcludeFromCollections: true,
+    eleventyComputed: {
+      site: (data) => {
+        const site = {
+          ...pkg.site, // default values from package.json
+          ...data.site, // overrides from 11ty data cascade
+        };
+        // console.log("[site]", site);
+        return site;
+      },
+    },
   });
 
   /* Build */
