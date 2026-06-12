@@ -1,11 +1,17 @@
 /*<!--section:docs-->
 
-`siteData` feature adds global `site` data to your Eleventy project, providing commonly needed values that can be accessed in all templates:
+Adds global `site` data via `eleventyComputed`. All scalar fields from `pkg.site` (`package.json`) and `data.site` (`_data/site.*`) are spread onto `site`; page-level wins over pkg. The asset keys below are **merged** (pkg → site → page) rather than overridden; page-level strings are auto-wrapped in an array (so you can use a simple `inline_styles` as a string in front matter).
 
-| Variable          | Value                                                                                                        |
-| ----------------- | ------------------------------------------------------------------------------------------------------------ |
-| `{{ site.year }}` | The current year as a number (e.g., `2026`)                                                                  |
-| `{{ site.prod }}` | Boolean indicating if running in production mode (`true` for `eleventy build`, `false` for `eleventy serve`) |
+| Variable                    | Value / Description                                                          |
+| --------------------------- | ---------------------------------------------------------------------------- |
+| `{{ site.year }}`           | Current year (e.g. `2026`)                                                   |
+| `{{ site.prod }}`           | `true` for `eleventy build`, `false` for `eleventy serve`                    |
+| `{{ site.styles }}`         | Merged array of stylesheet URLs                                              |
+| `{{ site.scripts }}`        | Merged array of script URLs                                                  |
+| `{{ site.inline_styles }}`  | Merged array of inline CSS strings                                           |
+| `{{ site.inline_scripts }}` | Merged array of inline JS strings                                            |
+
+The named export `siteData(data)` is also usable directly (e.g. as RSS feed metadata).
 
 <!--section:code-->```js */
 export const siteData = (data) => {
