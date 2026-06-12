@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "type": "module",
   "main": "./plugin.js",
+  "exports": {
+    ".": "./plugin.js",
+    "./features/*": "./features/*"
+  },
   "peerDependencies": {
     "@11ty/eleventy": "^3.0.0 || ^4.0.0-alpha.6"
   },
