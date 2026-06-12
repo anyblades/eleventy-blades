@@ -63,12 +63,12 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     templateData: {
       eleventyComputed: {
         metadata: (data) => {
-          const metadata = {
+          const site = {
             ...pkg.site, // default values from package.json
             ...data.site, // overrides from 11ty data cascade
           };
-          // console.log("[metadata]", metadata);
-          return metadata;
+          // console.log("[site] for metadata", site);
+          return site;
         },
       },
     },
