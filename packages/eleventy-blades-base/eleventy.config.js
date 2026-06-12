@@ -9,12 +9,12 @@ import { RenderPlugin } from "@11ty/eleventy";
 import { feedPlugin } from "@11ty/eleventy-plugin-rss";
 import eleventyNavigationPlugin from "@11ty/eleventy-navigation";
 import eleventyBladesPlugin from "@anyblades/eleventy-blades";
-import pluginTOC from '@uncenter/eleventy-plugin-toc';
+import pluginTOC from "@uncenter/eleventy-plugin-toc";
 /* Libraries (A-Z) */
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import markdownItAttrs from "markdown-it-attrs";
-import slugify from '@sindresorhus/slugify';
+import slugify from "@sindresorhus/slugify";
 import YAML from "yaml";
 /* System (A-Z) */
 import fs from "node:fs";
@@ -31,7 +31,7 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   /* Dirs */
   const inputDir = eleventyConfig.directories.input;
   const outputDir = eleventyConfig.directories.output;
-  const cwdIsDotEleventy = path.basename(process.cwd()) === '.11ty';
+  const cwdIsDotEleventy = path.basename(process.cwd()) === ".11ty";
   if (cwdIsDotEleventy) {
     // Per https://www.11ty.dev/docs/config/#directory-for-includes
     // Order matters, put this at the top of your configuration file.
@@ -42,35 +42,55 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   /* Plugins */
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(eleventyBladesPlugin, pluginOptions.plugins?.['@anyblades/eleventy-blades'] ?? {});
+  eleventyConfig.addPlugin(eleventyBladesPlugin, pluginOptions.plugins?.["@anyblades/eleventy-blades"] ?? {});
   eleventyConfig.addPlugin(pluginTOC, {
     ignoredElements: [".header-anchor", "sub"],
     ul: true,
     wrapper: (toc) => `${toc}`,
   });
   // Feed plugin
-  eleventyConfig.addCollection("feed", (collectionApi) => collectionApi.getAll().filter((item) => item.data.date || item.data.revised));
-  eleventyConfig.addPlugin(feedPlugin, { // per https://www.11ty.dev/docs/plugins/rss/#virtual-template
+  eleventyConfig.addCollection("feed", (collectionApi) =>
+    collectionApi.getAll().filter((item) => item.data.date || item.data.revised),
+  );
+  eleventyConfig.addPlugin(feedPlugin, {
+    // per https://www.11ty.dev/docs/plugins/rss/#virtual-template
     type: "atom", // or "rss", "json"
     outputPath: "/feed.xml",
     collection: {
       name: "feed",
       limit: 100, // 0 means no limit
     },
-    metadata: pkg.site,
+    templateData: {
+      eleventyComputed: {
+        metadata: (data) => {
+          const metadata = {
+            ...pkg.site, // default values from package.json
+            ...data.site, // overrides from 11ty data cascade
+          };
+          // console.log("[metadata]", metadata);
+          return metadata;
+        },
+      },
+    },
   });
 
   /* Libraries */
   let md = markdownIt({
     html: true,
     linkify: true,
-  }).use(markdownItAnchor, {
-    slugify: slugify, // @TODO: TRICKS
-    permalink: markdownItAnchor.permalink.ariaHidden(),
-  }).use(markdownItAttrs);
-  await import("markdown-it-deflist").then(({ default: markdownItDeflist }) => {
-    md.use(markdownItDeflist);
-  }).catch(() => { /* optional – skip if not installed */ });
+  })
+    .use(markdownItAnchor, {
+      slugify: slugify, // @TODO: TRICKS
+      permalink: markdownItAnchor.permalink.ariaHidden(),
+    })
+    .use(markdownItAttrs);
+  await import("markdown-it-deflist")
+    .then(({ default: markdownItDeflist }) => {
+      md.use(markdownItDeflist);
+    })
+    .catch(() => {
+      /* optional – skip if not installed */
+    });
   eleventyConfig.setLibrary("md", md);
   //```<!--section:code,markdownify-->```js
   eleventyConfig.addFilter("markdownify", (content) => md.render(String(content ?? "")));
@@ -79,10 +99,11 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   /* Data */
   eleventyConfig.addDataExtension("yml,yaml", (contents) => YAML.parse(contents));
   eleventyConfig.addGlobalData("layout", "default");
+  // Sitemap
   eleventyConfig.addTemplate("sitemap.xml.njk", "", {
     permalink: "/sitemap.xml",
     layout: "blades/sitemap.xml.njk",
-    eleventyExcludeFromCollections: true
+    eleventyExcludeFromCollections: true,
   });
 
   /* Build */
