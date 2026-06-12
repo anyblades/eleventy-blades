@@ -1,6 +1,6 @@
 /*<!--section:docs-->
 
-Adds global `site` data via `eleventyComputed`. All scalar fields from `pkg.site` (`package.json`) and `data.site` (`_data/site.*`) are spread onto `site`; page-level wins over pkg. The asset keys below are **merged** (pkg → site → page) rather than overridden; page-level strings are auto-wrapped in an array (so you can use a simple `inline_styles` as a string in front matter).
+`siteData` adds global `site` data via `eleventyComputed`. All scalar fields from `pkg.site` (`package.json`) and `data.site` (`_data/site.*`) are spread onto `site`; page-level wins over pkg. The asset keys below are **merged** (pkg → site → page) rather than overridden; page-level strings are auto-wrapped in an array (so you can use a simple `inline_styles` as a string in front matter).
 
 | Variable                    | Value / Description                                                          |
 | --------------------------- | ---------------------------------------------------------------------------- |
