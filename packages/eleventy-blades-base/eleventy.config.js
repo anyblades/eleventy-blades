@@ -20,6 +20,9 @@ import YAML from "yaml";
 import fs from "node:fs";
 import path from "node:path";
 
+/** Helper: Merges pkg.site defaults with 11ty data cascade site overrides. */
+const siteData = (pkg, data) => ({ ...pkg.site, ...data.site });
+
 /**
  * Eleventy Configuration
  * @param {Object} eleventyConfig - The Eleventy configuration object
@@ -62,14 +65,7 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     },
     templateData: {
       eleventyComputed: {
-        metadata: (data) => {
-          const site = {
-            ...pkg.site, // default values from package.json
-            ...data.site, // overrides from 11ty data cascade
-          };
-          // console.log("[site] for metadata", site);
-          return site;
-        },
+        metadata: (data) => siteData(pkg, data),
       },
     },
   });
@@ -105,14 +101,7 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     layout: "blades/sitemap.xml.njk",
     eleventyExcludeFromCollections: true,
     eleventyComputed: {
-      site: (data) => {
-        const site = {
-          ...pkg.site, // default values from package.json
-          ...data.site, // overrides from 11ty data cascade
-        };
-        // console.log("[site]", site);
-        return site;
-      },
+      site: (data) => siteData(pkg, data),
     },
   });
 
