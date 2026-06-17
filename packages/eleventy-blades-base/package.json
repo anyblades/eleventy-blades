@@ -6,7 +6,7 @@
   "dependencies": {
     "@11ty/eleventy-navigation": "^1.0.5",
     "@11ty/eleventy-plugin-rss": "^3.0.0",
-    "@anyblades/blades": "^2.4.0",
+    "@anyblades/blades": "^2.4.3",
     "@anyblades/eleventy-blades": "^1.2.0",
     "@uncenter/eleventy-plugin-toc": "^2.1.1",
     "markdown-it": "^14.1.0",
