@@ -39,6 +39,7 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   }
 
   /* Plugins */
+  eleventyConfig.addBundle("css", { bundleHtmlContentFromSelector: "style" }); // per https://www.11ty.dev/docs/plugins/bundle/#bundling-html-node-content
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(eleventyBladesPlugin, pluginOptions.plugins?.["@anyblades/eleventy-blades"] ?? {});
