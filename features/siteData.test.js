@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { siteData } from "./siteData.js";
+import { siteData, castArray, concatUnique } from "./siteData.js";
 
 describe("siteData", () => {
   it("should merge keys from pkg.site and site, ignoring page-level data[key]", () => {
@@ -81,4 +81,40 @@ describe("siteData", () => {
     assert.deepEqual(result.scripts, ["pkg.js", "site.js"]);
   });
 });
+
+describe("castArray", () => {
+  it("should return an empty array for null or undefined", () => {
+    assert.deepEqual(castArray(null), []);
+    assert.deepEqual(castArray(undefined), []);
+  });
+
+  it("should return the same array reference if given an array", () => {
+    const arr = [1, 2, 3];
+    assert.equal(castArray(arr), arr);
+  });
+
+  it("should wrap non-array, non-null values in an array", () => {
+    assert.deepEqual(castArray("hello"), ["hello"]);
+    assert.deepEqual(castArray(123), [123]);
+    assert.deepEqual(castArray({ a: 1 }), [{ a: 1 }]);
+  });
+});
+
+describe("concatUnique", () => {
+  it("should concatenate and deduplicate arrays", () => {
+    assert.deepEqual(concatUnique([1, 2], [2, 3]), [1, 2, 3]);
+  });
+
+  it("should handle null or undefined arguments gracefully", () => {
+    assert.deepEqual(concatUnique(null, [1, 2]), [1, 2]);
+    assert.deepEqual(concatUnique([1, 2], undefined), [1, 2]);
+    assert.deepEqual(concatUnique(null, undefined), []);
+  });
+
+  it("should handle single values or mixed types", () => {
+    assert.deepEqual(concatUnique("a", "b"), ["a", "b"]);
+    assert.deepEqual(concatUnique("a", ["a", "b"]), ["a", "b"]);
+  });
+});
+
 

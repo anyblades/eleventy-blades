@@ -17,16 +17,17 @@ The named export `siteData(data)` is also usable directly (e.g. as RSS feed meta
 const MERGED_KEYS = ["head_extras", "body_extras", "styles", "scripts"];
 
 // Lodash style
-const castArray = (val) => (val == null ? [] : Array.isArray(val) ? val : [val]);
+export const castArray = (val) => (val == null ? [] : Array.isArray(val) ? val : [val]);
+
+export const concatUnique = (a, b) => [...new Set([...castArray(a), ...castArray(b)])];
 
 export const siteData = (data) => {
   const pkgSite = data.pkg?.site ?? {};
   const dataSite = data.site ?? {};
-  const mergeByKey = (key) => [...new Set([...castArray(pkgSite[key]), ...castArray(dataSite[key])])];
   return {
     ...pkgSite,
     ...dataSite,
-    ...Object.fromEntries(MERGED_KEYS.map((key) => [key, mergeByKey(key)])),
+    ...Object.fromEntries(MERGED_KEYS.map((key) => [key, concatUnique(pkgSite[key], dataSite[key])])),
   };
 };
 
