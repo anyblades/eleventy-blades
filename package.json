@@ -1,6 +1,6 @@
 {
   "name": "@anyblades/eleventy-blades",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "type": "module",
   "main": "./plugin.js",
   "exports": {
@@ -8,10 +8,16 @@
     "./features/*": "./features/*"
   },
   "peerDependencies": {
-    "@11ty/eleventy": "^3.0.0 || ^4.0.0-alpha.6"
+    "@11ty/eleventy": "^3.0.0 || ^4.0.0-0",
+    "@awesome.me/buildawesome": "^3.0.0 || ^4.0.0-0"
   },
-  "engines": {
-    "node": ">=18.0.0"
+  "peerDependenciesMeta": {
+    "@11ty/eleventy": {
+      "optional": true
+    },
+    "@awesome.me/buildawesome": {
+      "optional": true
+    }
   },
   "=== DEV ONLY": "===",
   "scripts": {
