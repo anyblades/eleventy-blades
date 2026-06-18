@@ -7,7 +7,7 @@
     "@11ty/eleventy-navigation": "^1.0.5",
     "@11ty/eleventy-plugin-rss": "^3.0.0",
     "@anyblades/blades": "^2.4.3",
-    "@anyblades/eleventy-blades": "^1.2.0",
+    "@anyblades/eleventy-blades": "^1.2.1",
     "@uncenter/eleventy-plugin-toc": "^2.1.1",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
@@ -15,7 +15,16 @@
     "yaml": "^2.9.0"
   },
   "peerDependencies": {
-    "@11ty/eleventy": "^4.0.0-0"
+    "@11ty/eleventy": "^3.0.0 || ^4.0.0-0",
+    "@awesome.me/buildawesome": "^3.0.0 || ^4.0.0-0"
+  },
+  "peerDependenciesMeta": {
+    "@11ty/eleventy": {
+      "optional": true
+    },
+    "@awesome.me/buildawesome": {
+      "optional": true
+    }
   },
   "=== METADATA": "===",
   "author": "Anton Staroverov",
