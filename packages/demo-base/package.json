@@ -1,0 +1,18 @@
+{
+  "private": true,
+  "name": "demo-base",
+  "type": "module",
+  "scripts": {
+    "start": "clear; eleventy --config=./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js --serve"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^4.0.0-alpha.8",
+    "@anyblades/eleventy-blades-base": "^1.2.5"
+  },
+  "site": {
+    "base": "https://www.11ty.dev/",
+    "styles": [
+      "https://cdn.jsdelivr.net/npm/@anyblades/blades@2/css/blades.min.css"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+{% extends 'blades/html.njk' %}
+
+{% set content_for_header %}
+  <style>{% getBundle 'css' %}</style>
+{% endset %}
+
+{% block body %}
+  <main class="container">
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+  </main>
+  <footer class="container">© {{ site.year }} 🥷</footer>
+{% endblock %}
