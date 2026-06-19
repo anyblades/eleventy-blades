@@ -16,7 +16,7 @@
     "@anyblades/eleventy-blades-base": "^1.2.5"
   },
   "site": {
-    "base": "https://www.11ty.dev/",
+    "base": "https://example.com/",
     "styles": [
       "https://cdn.jsdelivr.net/npm/@anyblades/blades@2/css/blades.min.css"
     ]

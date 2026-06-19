@@ -62,7 +62,12 @@ export default async function (eleventyConfig, pluginOptions = {}) {
     },
     templateData: {
       eleventyComputed: {
-        metadata: (data) => siteData(data),
+        metadata: (data) => {
+          return {
+            base: "https://example.com/", // sample/fallback value required by Feed plugin
+            ...siteData(data),
+          };
+        },
       },
     },
   });
