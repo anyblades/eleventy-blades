@@ -2,8 +2,14 @@
   "private": true,
   "name": "base-package-usage",
   "type": "module",
+  "workspaces": [
+    "do"
+  ],
   "scripts": {
-    "start": "clear; eleventy --config=./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js --serve"
+    "do": "clear; ELTY_OPTIONS=--config=./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js npm -w do run",
+    "start": "npm run do -- start",
+    "stage": "npm run do -- stage",
+    "build": "npm run do -- build"
   },
   "dependencies": {
     "@11ty/eleventy": "^4.0.0-alpha.8",

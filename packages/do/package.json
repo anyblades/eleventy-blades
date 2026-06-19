@@ -12,6 +12,6 @@
     "=== INNER": "commands written so that extra arguments can be passed",
     "11ty": "cd ../ && NODE_OPTIONS='--preserve-symlinks' eleventy ${ELTY_OPTIONS}",
     "tw": "[ -z \"$TW_OPTIONS\" ] && exit 0; cd ../ && tailwindcss ${TW_OPTIONS}",
-    "dev:blades": "cd ../ && npm link @anyblades/eleventy-blades-base && cd ./node_modules/@anyblades/ && ln -sf ./eleventy-blades-base/node_modules/@anyblades/*blades* ./"
+    "dev:blades": "cd ../ && npm link @anyblades/eleventy-blades-base && cd ./node_modules/@anyblades/ && ln -sf ./eleventy-blades-base/node_modules/@anyblades/*blades* ./ && cd eleventy-blades-base && npm link @anyblades/blades @anyblades/eleventy-blades"
   }
 }

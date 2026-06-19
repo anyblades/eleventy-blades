@@ -6,9 +6,10 @@
     "do"
   ],
   "scripts": {
-    "start": "clear; npm -w do run start",
-    "stage": "clear; npm -w do run stage",
-    "build": "clear; npm -w do run build"
+    "do": "clear; npm -w do run",
+    "start": "npm run do -- start",
+    "stage": "npm run do -- stage",
+    "build": "npm run do -- build"
   },
   "dependencies": {
     "@11ty/eleventy": "^4.0.0-alpha.8",
