@@ -1,11 +1,1 @@
-# Dependencies
 node_modules/
-
-# System files
-.DS_Store
-
-# Logs
-*.log
-
-# Ignore files/folders in root starting with ~ (for testing)
-~*
