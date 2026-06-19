@@ -40,6 +40,10 @@ export default async function (eleventyConfig, pluginOptions = {}) {
 
   /* Plugins */
   eleventyConfig.addBundle("css", { bundleHtmlContentFromSelector: "style" }); // per https://www.11ty.dev/docs/plugins/bundle/#bundling-html-node-content
+  eleventyConfig.addTransform("inject-css-bundle", function (content) {
+    const css = this.page.outputPath?.endsWith(".html") && eleventyConfig.getFilter("getBundle").call(this, "css");
+    return css ? content.replace("</head>", `<style>${css}</style></head>`) : content;
+  });
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
   eleventyConfig.addPlugin(eleventyBladesPlugin, pluginOptions.plugins?.["@anyblades/eleventy-blades"] ?? {});

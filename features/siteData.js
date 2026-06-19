@@ -14,7 +14,7 @@
 The named export `siteData(data)` is also usable directly (e.g. as RSS feed metadata).
 
 <!--section:code-->```js */
-const MERGED_KEYS = ["head_extras", "body_extras", "styles", "scripts"];
+const MERGED_KEYS = ["styles", "scripts", "head_extras", "body_extras"];
 
 // Lodash style
 export const castArray = (val) => (val == null ? [] : Array.isArray(val) ? val : [val]);
