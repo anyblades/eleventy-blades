@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "demo-plugin",
+  "name": "plugin-usage",
   "type": "module",
   "scripts": {
     "start": "clear; eleventy --serve"

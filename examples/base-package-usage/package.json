@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "demo-base",
+  "name": "base-package-usage",
   "type": "module",
   "scripts": {
     "start": "clear; eleventy --config=./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js --serve"
