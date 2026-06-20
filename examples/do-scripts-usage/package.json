@@ -13,6 +13,6 @@
   },
   "dependencies": {
     "@11ty/eleventy": "^4.0.0-alpha.8",
-    "@anyblades/eleventy-blades": "^1.2.3"
+    "@anyblades/eleventy-blades": "^1.3.0"
   }
 }
