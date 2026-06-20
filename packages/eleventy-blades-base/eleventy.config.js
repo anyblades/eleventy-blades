@@ -43,7 +43,10 @@ export default async function (eleventyConfig, pluginOptions = {}) {
   });
   eleventyConfig.addPlugin(RenderPlugin);
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
-  eleventyConfig.addPlugin(eleventyBladesPlugin, pluginOptions.plugins?.["@anyblades/eleventy-blades"] ?? {});
+  eleventyConfig.addPlugin(
+    eleventyBladesPlugin,
+    pluginOptions.plugins?.["@anyblades/eleventy-blades"] ?? { mdAutoRawTags: true },
+  );
   eleventyConfig.addPlugin(pluginTOC, {
     ignoredElements: [".header-anchor", "sub"],
     ul: true,
