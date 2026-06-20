@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   isExternalUrl,
   cleanLinkText,
+  getExtraAttrs,
   buildFaviconLink,
   transformLink,
   replaceLinksInHtml,
@@ -75,12 +76,56 @@ describe("cleanLinkText", () => {
   });
 });
 
+describe("getExtraAttrs", () => {
+  it("should return default attributes when none are present", () => {
+    const defaults = {
+      title: "example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+    };
+    const result = getExtraAttrs("", defaults);
+    assert.equal(result, ' title="example.com" target="_blank" rel="noopener noreferrer"');
+  });
+
+  it("should return only missing attributes when some are present", () => {
+    const defaults = {
+      title: "example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+    };
+    const result = getExtraAttrs('target="_self"', defaults);
+    assert.equal(result, ' title="example.com" rel="noopener noreferrer"');
+  });
+
+  it("should be case-insensitive when checking attributes", () => {
+    const defaults = {
+      title: "example.com",
+    };
+    const result = getExtraAttrs('TITLE="custom"', defaults);
+    assert.equal(result, "");
+  });
+
+  it("should handle empty default dictionary", () => {
+    const result = getExtraAttrs('href="https://example.com"', {});
+    assert.equal(result, "");
+  });
+
+  it("should match attributes respect word boundaries", () => {
+    const defaults = {
+      title: "example.com",
+    };
+    // 'customtitle' contains 'title', but is not the 'title' attribute itself
+    const result = getExtraAttrs('customtitle="foo"', defaults);
+    assert.equal(result, ' title="example.com"');
+  });
+});
+
 describe("buildFaviconLink", () => {
   it("should create correct HTML with favicon", () => {
     const result = buildFaviconLink('href="https://example.com/docs"', "example.com", "/docs");
     assert.equal(
       result,
-      '<a href="https://example.com/docs" title="example.com"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> /docs</a>',
+      '<a href="https://example.com/docs" title="example.com" target="_blank" rel="noopener noreferrer"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> /docs</a>',
     );
   });
 
@@ -88,7 +133,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com" class="link"', "example.com", "text");
     assert.equal(
       result,
-      '<a href="https://example.com" class="link" title="example.com"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> text</a>',
+      '<a href="https://example.com" class="link" title="example.com" target="_blank" rel="noopener noreferrer"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> text</a>',
     );
   });
 
@@ -101,7 +146,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://github.com/repo"', "github.com", "/repo");
     assert.equal(
       result,
-      '<a href="https://github.com/repo" title="github.com"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64"></i> /repo</a>',
+      '<a href="https://github.com/repo" title="github.com" target="_blank" rel="noopener noreferrer"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64"></i> /repo</a>',
     );
   });
 
@@ -152,6 +197,40 @@ describe("buildFaviconLink", () => {
   it("should not add title when existing title uses single quotes", () => {
     const result = buildFaviconLink("href='https://example.com' title='My Link'", "example.com", "text");
     assert.equal((result.match(/title=/gi) ?? []).length, 1);
+  });
+
+  it("should add target=_blank when not already present", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
+    assert.match(result, /target="_blank"/);
+  });
+
+  it("should not add target when already present in attrs", () => {
+    const result = buildFaviconLink('href="https://example.com" target="_self"', "example.com", "text");
+    assert.doesNotMatch(result, /target="_blank"/);
+    assert.match(result, /target="_self"/);
+    assert.equal((result.match(/target=/g) ?? []).length, 1);
+  });
+
+  it("should add rel=noopener noreferrer when not already present", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
+    assert.match(result, /rel="noopener noreferrer"/);
+  });
+
+  it("should not add rel when already present in attrs", () => {
+    const result = buildFaviconLink('href="https://example.com" rel="nofollow"', "example.com", "text");
+    assert.doesNotMatch(result, /rel="noopener noreferrer"/);
+    assert.match(result, /rel="nofollow"/);
+    assert.equal((result.match(/rel=/g) ?? []).length, 1);
+  });
+
+  it("should not add target when existing target uses single quotes", () => {
+    const result = buildFaviconLink("href='https://example.com' target='_self'", "example.com", "text");
+    assert.equal((result.match(/target=/gi) ?? []).length, 1);
+  });
+
+  it("should not add rel when existing rel uses single quotes", () => {
+    const result = buildFaviconLink("href='https://example.com' rel='nofollow'", "example.com", "text");
+    assert.equal((result.match(/rel=/gi) ?? []).length, 1);
   });
 });
 
