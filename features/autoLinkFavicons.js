@@ -40,7 +40,10 @@ export function transformLink(match, attrs, url, linkText) {
 }
 
 export function replaceLinksInHtml(content, transformer) {
-  return content.replace(/<a\s+([^>]*href=["']([^"']+)["'][^>]*)>([^<]*(?:<\/?(?:em|strong)>[^<]*)*)<\/a>/gi, transformer);
+  return content.replace(
+    /<a\s+([^>]*href=["']([^"']+)["'][^>]*)>([^<]*(?:<\/?(?:em|strong|code)>[^<]*)*)<\/a>/gi,
+    transformer,
+  );
 }
 
 export default function (eleventyConfig) {

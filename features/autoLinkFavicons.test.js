@@ -130,6 +130,11 @@ describe("buildFaviconLink", () => {
     assert.match(result, /> <span><strong>Bold<\/strong><\/span><\/a>$/);
   });
 
+  it("should wrap text containing code tags in a span", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "<code>npm install</code>");
+    assert.match(result, /> <span><code>npm install<\/code><\/span><\/a>$/);
+  });
+
   it("should wrap text with mixed HTML and plain text in a span", () => {
     const result = buildFaviconLink('href="https://example.com"', "example.com", "Visit <em>Example</em> site");
     assert.match(result, /> <span>Visit <em>Example<\/em> site<\/span><\/a>$/);
@@ -471,7 +476,7 @@ describe("replaceLinksInHtml", () => {
   });
 });
 
-describe("replaceLinksInHtml - em and strong inside link text", () => {
+describe("replaceLinksInHtml - em, strong, and code inside link text", () => {
   const passThrough = (match, attrs, url, linkText) => `[${linkText}](${url})`;
 
   it("should match link text wrapped in <em>", () => {
@@ -486,6 +491,12 @@ describe("replaceLinksInHtml - em and strong inside link text", () => {
     assert.equal(result, "[<strong>Example</strong>](https://example.com)");
   });
 
+  it("should match link text wrapped in <code>", () => {
+    const html = '<a href="https://example.com"><code>npm install</code></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<code>npm install</code>](https://example.com)");
+  });
+
   it("should match plain text mixed with <em>", () => {
     const html = '<a href="https://example.com">Visit <em>Example</em> site</a>';
     const result = replaceLinksInHtml(html, passThrough);
@@ -498,10 +509,29 @@ describe("replaceLinksInHtml - em and strong inside link text", () => {
     assert.equal(result, "[Visit <strong>Example</strong> site](https://example.com)");
   });
 
+  it("should match plain text mixed with <code>", () => {
+    const html = '<a href="https://example.com">Run <code>npm install</code> first</a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[Run <code>npm install</code> first](https://example.com)");
+  });
+
   it("should match link text with both <em> and <strong>", () => {
     const html = '<a href="https://example.com"><em>Foo</em> and <strong>Bar</strong></a>';
     const result = replaceLinksInHtml(html, passThrough);
     assert.equal(result, "[<em>Foo</em> and <strong>Bar</strong>](https://example.com)");
+  });
+
+  it("should match link text with <code> and <em>", () => {
+    const html = '<a href="https://example.com"><code>foo</code> or <em>bar</em></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<code>foo</code> or <em>bar</em>](https://example.com)");
+  });
+
+  it("should not match <code> with attributes", () => {
+    const html = '<a href="https://example.com"><code class="lang-js">foo()</code></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    // <code class="lang-js"> is not a bare <code> tag — should not be matched
+    assert.equal(result, html);
   });
 
   it("should not match <em> with attributes", () => {
@@ -521,5 +551,12 @@ describe("replaceLinksInHtml - em and strong inside link text", () => {
     const html = '<a href="https://example.com"><img src="icon.png"> Example</a>';
     const result = replaceLinksInHtml(html, passThrough);
     assert.equal(result, html);
+  });
+
+  it("should transform <code> link text via transformLink (end-to-end)", () => {
+    const html = '<a href="https://example.com/docs"><code>npm install pkg</code></a>';
+    const result = replaceLinksInHtml(html, transformLink);
+    assert.match(result, /<i><img[^>]*><\/i>/);
+    assert.match(result, /<span><code>npm install pkg<\/code><\/span>/);
   });
 });
