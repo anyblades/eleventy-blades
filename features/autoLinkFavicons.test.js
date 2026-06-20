@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   isExternalUrl,
   cleanLinkText,
+  getExtraAttrs,
   buildFaviconLink,
   transformLink,
   replaceLinksInHtml,
@@ -36,46 +37,86 @@ describe("isExternalUrl", () => {
 });
 
 describe("cleanLinkText", () => {
-  it("should remove protocol and domain", () => {
-    assert.equal(cleanLinkText("https://example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("http://example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("https://example.com/docs/guide", "example.com"), "/docs/guide");
+  it("should remove protocol prefix", () => {
+    assert.equal(cleanLinkText("https://example.com/docs"), "example.com/docs");
+    assert.equal(cleanLinkText("http://example.com/docs"), "example.com/docs");
+    assert.equal(cleanLinkText("https://example.com/docs/guide"), "example.com/docs/guide");
   });
 
   it("should handle links without protocol", () => {
-    assert.equal(cleanLinkText("example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("example.com/path/to/page", "example.com"), "/path/to/page");
+    assert.equal(cleanLinkText("example.com/docs"), "example.com/docs");
+    assert.equal(cleanLinkText("example.com/path/to/page"), "example.com/path/to/page");
   });
 
-  it("should preserve leading slash after domain removal", () => {
-    assert.equal(cleanLinkText("https://example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("example.com/docs", "example.com"), "/docs");
+  it("should remove trailing slash", () => {
+    assert.equal(cleanLinkText("example.com/"), "example.com");
+    assert.equal(cleanLinkText("https://example.com/"), "example.com");
   });
 
-  it("should return cleaned domain for root domain (no long path)", () => {
-    // When path is too short (<=2 chars), returns cleanedText instead of withoutDomain
-    assert.equal(cleanLinkText("example.com/", "example.com"), "example.com");
-    assert.equal(cleanLinkText("example.com", "example.com"), "example.com");
-    assert.equal(cleanLinkText("https://example.com", "example.com"), "example.com");
+  it("should handle root domain (no path)", () => {
+    assert.equal(cleanLinkText("example.com"), "example.com");
+    assert.equal(cleanLinkText("https://example.com"), "example.com");
   });
 
   it("should handle whitespace", () => {
-    assert.equal(cleanLinkText("  https://example.com/docs  ", "example.com"), "/docs");
-    assert.equal(cleanLinkText("\nhttps://example.com/docs\n", "example.com"), "/docs");
+    assert.equal(cleanLinkText("  https://example.com/docs  "), "example.com/docs");
+    assert.equal(cleanLinkText("\nhttps://example.com/docs\n"), "example.com/docs");
   });
 
   it("should preserve path after domain", () => {
-    assert.equal(cleanLinkText("https://example.com/api/v1/docs", "example.com"), "/api/v1/docs");
+    assert.equal(cleanLinkText("https://example.com/api/v1/docs"), "example.com/api/v1/docs");
   });
 
   it("should handle query parameters", () => {
-    const result = cleanLinkText("https://example.com/search?q=test", "example.com");
-    assert.equal(result, "/search?q=test");
+    assert.equal(cleanLinkText("https://example.com/search?q=test"), "example.com/search?q=test");
   });
 
   it("should handle hash fragments", () => {
-    const result = cleanLinkText("https://example.com/page#section", "example.com");
-    assert.equal(result, "/page#section");
+    assert.equal(cleanLinkText("https://example.com/page#section"), "example.com/page#section");
+  });
+});
+
+describe("getExtraAttrs", () => {
+  it("should return default attributes when none are present", () => {
+    const defaults = {
+      title: "example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+    };
+    const result = getExtraAttrs("", defaults);
+    assert.equal(result, ' title="example.com" target="_blank" rel="noopener noreferrer"');
+  });
+
+  it("should return only missing attributes when some are present", () => {
+    const defaults = {
+      title: "example.com",
+      target: "_blank",
+      rel: "noopener noreferrer",
+    };
+    const result = getExtraAttrs('target="_self"', defaults);
+    assert.equal(result, ' title="example.com" rel="noopener noreferrer"');
+  });
+
+  it("should be case-insensitive when checking attributes", () => {
+    const defaults = {
+      title: "example.com",
+    };
+    const result = getExtraAttrs('TITLE="custom"', defaults);
+    assert.equal(result, "");
+  });
+
+  it("should handle empty default dictionary", () => {
+    const result = getExtraAttrs('href="https://example.com"', {});
+    assert.equal(result, "");
+  });
+
+  it("should match attributes respect word boundaries", () => {
+    const defaults = {
+      title: "example.com",
+    };
+    // 'customtitle' contains 'title', but is not the 'title' attribute itself
+    const result = getExtraAttrs('customtitle="foo"', defaults);
+    assert.equal(result, ' title="example.com"');
   });
 });
 
@@ -84,7 +125,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com/docs"', "example.com", "/docs");
     assert.equal(
       result,
-      '<a href="https://example.com/docs"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> /docs</a>',
+      '<a href="https://example.com/docs" title="example.com" target="_blank" rel="noopener noreferrer"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> /docs</a>',
     );
   });
 
@@ -92,7 +133,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com" class="link"', "example.com", "text");
     assert.equal(
       result,
-      '<a href="https://example.com" class="link"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> text</a>',
+      '<a href="https://example.com" class="link" title="example.com" target="_blank" rel="noopener noreferrer"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> text</a>',
     );
   });
 
@@ -105,7 +146,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://github.com/repo"', "github.com", "/repo");
     assert.equal(
       result,
-      '<a href="https://github.com/repo"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64"></i> /repo</a>',
+      '<a href="https://github.com/repo" title="github.com" target="_blank" rel="noopener noreferrer"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64"></i> /repo</a>',
     );
   });
 
@@ -130,9 +171,66 @@ describe("buildFaviconLink", () => {
     assert.match(result, /> <span><strong>Bold<\/strong><\/span><\/a>$/);
   });
 
+  it("should wrap text containing code tags in a span", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "<code>npm install</code>");
+    assert.match(result, /> <span><code>npm install<\/code><\/span><\/a>$/);
+  });
+
   it("should wrap text with mixed HTML and plain text in a span", () => {
     const result = buildFaviconLink('href="https://example.com"', "example.com", "Visit <em>Example</em> site");
     assert.match(result, /> <span>Visit <em>Example<\/em> site<\/span><\/a>$/);
+  });
+
+  it("should add domain as title attribute when not present", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
+    assert.match(result, /title="example\.com"/);
+  });
+
+  it("should not add title attribute when already present in attrs", () => {
+    const result = buildFaviconLink('href="https://example.com" title="Custom Title"', "example.com", "text");
+    assert.doesNotMatch(result, /title="example\.com"/);
+    assert.match(result, /title="Custom Title"/);
+    // Ensure title appears exactly once
+    assert.equal((result.match(/title=/g) ?? []).length, 1);
+  });
+
+  it("should not add title when existing title uses single quotes", () => {
+    const result = buildFaviconLink("href='https://example.com' title='My Link'", "example.com", "text");
+    assert.equal((result.match(/title=/gi) ?? []).length, 1);
+  });
+
+  it("should add target=_blank when not already present", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
+    assert.match(result, /target="_blank"/);
+  });
+
+  it("should not add target when already present in attrs", () => {
+    const result = buildFaviconLink('href="https://example.com" target="_self"', "example.com", "text");
+    assert.doesNotMatch(result, /target="_blank"/);
+    assert.match(result, /target="_self"/);
+    assert.equal((result.match(/target=/g) ?? []).length, 1);
+  });
+
+  it("should add rel=noopener noreferrer when not already present", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
+    assert.match(result, /rel="noopener noreferrer"/);
+  });
+
+  it("should not add rel when already present in attrs", () => {
+    const result = buildFaviconLink('href="https://example.com" rel="nofollow"', "example.com", "text");
+    assert.doesNotMatch(result, /rel="noopener noreferrer"/);
+    assert.match(result, /rel="nofollow"/);
+    assert.equal((result.match(/rel=/g) ?? []).length, 1);
+  });
+
+  it("should not add target when existing target uses single quotes", () => {
+    const result = buildFaviconLink("href='https://example.com' target='_self'", "example.com", "text");
+    assert.equal((result.match(/target=/gi) ?? []).length, 1);
+  });
+
+  it("should not add rel when existing rel uses single quotes", () => {
+    const result = buildFaviconLink("href='https://example.com' rel='nofollow'", "example.com", "text");
+    assert.equal((result.match(/rel=/gi) ?? []).length, 1);
   });
 });
 
@@ -257,7 +355,46 @@ describe("transformLink", () => {
     const result = transformLink(match, 'href="ht!tp://bad-url"', "ht!tp://bad-url", "ht!tp://bad-url");
     assert.equal(result, match);
   });
+
+  describe("when linkText.trim() === url (via replaceLinksInHtml)", () => {
+    it("should strip domain when path is significant (stripped length > 2)", () => {
+      const html = '<a href="https://example.com/docs">https://example.com/docs</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> \/docs<\/a>/);
+    });
+
+    it("should strip domain and handle whitespace in link text", () => {
+      const html = '<a href="https://example.com/docs">  https://example.com/docs  </a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> \/docs<\/a>/);
+    });
+
+    it("should not strip domain when path is short (stripped length <= 2)", () => {
+      const html = '<a href="https://example.com/a">https://example.com/a</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> example\.com\/a<\/a>/);
+    });
+
+    it("should not strip domain for root domain links", () => {
+      const html = '<a href="https://example.com/">https://example.com/</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> example\.com<\/a>/);
+    });
+
+    it("should not strip domain when link text is not equal to url", () => {
+      const html = '<a href="https://example.com/docs">Visit https://example.com/docs</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> Visit https:\/\/example\.com\/docs<\/a>/);
+    });
+
+    it("should not strip domain when link text is a different URL", () => {
+      const html = '<a href="https://example.com/docs">https://example.com/docs/extra</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> example\.com\/docs\/extra<\/a>/);
+    });
+  });
 });
+
 
 describe("replaceLinksInHtml", () => {
   it("should replace a single anchor link with transformer function", () => {
@@ -471,7 +608,7 @@ describe("replaceLinksInHtml", () => {
   });
 });
 
-describe("replaceLinksInHtml - em and strong inside link text", () => {
+describe("replaceLinksInHtml - em, strong, and code inside link text", () => {
   const passThrough = (match, attrs, url, linkText) => `[${linkText}](${url})`;
 
   it("should match link text wrapped in <em>", () => {
@@ -486,6 +623,12 @@ describe("replaceLinksInHtml - em and strong inside link text", () => {
     assert.equal(result, "[<strong>Example</strong>](https://example.com)");
   });
 
+  it("should match link text wrapped in <code>", () => {
+    const html = '<a href="https://example.com"><code>npm install</code></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<code>npm install</code>](https://example.com)");
+  });
+
   it("should match plain text mixed with <em>", () => {
     const html = '<a href="https://example.com">Visit <em>Example</em> site</a>';
     const result = replaceLinksInHtml(html, passThrough);
@@ -498,10 +641,29 @@ describe("replaceLinksInHtml - em and strong inside link text", () => {
     assert.equal(result, "[Visit <strong>Example</strong> site](https://example.com)");
   });
 
+  it("should match plain text mixed with <code>", () => {
+    const html = '<a href="https://example.com">Run <code>npm install</code> first</a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[Run <code>npm install</code> first](https://example.com)");
+  });
+
   it("should match link text with both <em> and <strong>", () => {
     const html = '<a href="https://example.com"><em>Foo</em> and <strong>Bar</strong></a>';
     const result = replaceLinksInHtml(html, passThrough);
     assert.equal(result, "[<em>Foo</em> and <strong>Bar</strong>](https://example.com)");
+  });
+
+  it("should match link text with <code> and <em>", () => {
+    const html = '<a href="https://example.com"><code>foo</code> or <em>bar</em></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    assert.equal(result, "[<code>foo</code> or <em>bar</em>](https://example.com)");
+  });
+
+  it("should not match <code> with attributes", () => {
+    const html = '<a href="https://example.com"><code class="lang-js">foo()</code></a>';
+    const result = replaceLinksInHtml(html, passThrough);
+    // <code class="lang-js"> is not a bare <code> tag — should not be matched
+    assert.equal(result, html);
   });
 
   it("should not match <em> with attributes", () => {
@@ -521,5 +683,12 @@ describe("replaceLinksInHtml - em and strong inside link text", () => {
     const html = '<a href="https://example.com"><img src="icon.png"> Example</a>';
     const result = replaceLinksInHtml(html, passThrough);
     assert.equal(result, html);
+  });
+
+  it("should transform <code> link text via transformLink (end-to-end)", () => {
+    const html = '<a href="https://example.com/docs"><code>npm install pkg</code></a>';
+    const result = replaceLinksInHtml(html, transformLink);
+    assert.match(result, /<i><img[^>]*><\/i>/);
+    assert.match(result, /<span><code>npm install pkg<\/code><\/span>/);
   });
 });

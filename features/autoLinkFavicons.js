@@ -11,18 +11,30 @@ export function isExternalUrl(url) {
   return /^https?:\/\//.test(url);
 }
 
-export function cleanLinkText(linkText, domain) {
-  const cleanedText = linkText
+export function cleanLinkText(linkText) {
+  return linkText
     .trim()
     .replace(/^https?:\/\//, "")
     .replace(/\/$/, "");
-  const withoutDomain = cleanedText.replace(domain, "");
-  return withoutDomain.length > 2 ? withoutDomain : cleanedText;
+}
+
+export function getExtraAttrs(attrs, defaults) {
+  return Object.entries(defaults)
+    .map(([key, value]) => {
+      const regex = new RegExp(`\\b${key}=`, "i");
+      return regex.test(attrs) ? "" : ` ${key}="${value}"`;
+    })
+    .join("");
 }
 
 export function buildFaviconLink(attrs, domain, text) {
+  const extraAttrs = getExtraAttrs(attrs, {
+    title: domain,
+    target: "_blank",
+    rel: "noopener noreferrer",
+  });
   const wrappedText = /<[a-z]/i.test(text) ? `<span>${text}</span>` : text;
-  return `<a ${attrs}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64"></i> ${wrappedText}</a>`;
+  return `<a ${attrs}${extraAttrs}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64"></i> ${wrappedText}</a>`;
 }
 
 export function transformLink(match, attrs, url, linkText) {
@@ -30,8 +42,10 @@ export function transformLink(match, attrs, url, linkText) {
     const domain = new URL(url).hostname;
 
     if (isExternalUrl(url) && !linkText.includes("↗")) {
-      const cleanedText = cleanLinkText(linkText, domain);
-      return buildFaviconLink(attrs, domain, cleanedText);
+      const cleaned = cleanLinkText(linkText);
+      const stripped = cleaned.replace(domain, "");
+      const label = linkText.trim() === url && stripped.length > 2 ? stripped : cleaned;
+      return buildFaviconLink(attrs, domain, label);
     }
   } catch (e) {
     // URL parsing failed — fall through and return original match
@@ -40,7 +54,10 @@ export function transformLink(match, attrs, url, linkText) {
 }
 
 export function replaceLinksInHtml(content, transformer) {
-  return content.replace(/<a\s+([^>]*href=["']([^"']+)["'][^>]*)>([^<]*(?:<\/?(?:em|strong)>[^<]*)*)<\/a>/gi, transformer);
+  return content.replace(
+    /<a\s+([^>]*href=["']([^"']+)["'][^>]*)>([^<]*(?:<\/?(?:em|strong|code)>[^<]*)*)<\/a>/gi,
+    transformer,
+  );
 }
 
 export default function (eleventyConfig) {
