@@ -197,7 +197,7 @@ Live examples:
 
 ---
 
-## <sup>Trusted by</sup>
+## <sup style>Trusted by</sup>
 
 - https://www.11ty.dev/docs/starter/#:~:text=blades
 - https://sveltiacms.app/en/docs/start#starter-templates:~:text=anyblades
@@ -206,7 +206,7 @@ Live examples:
 
 <!--section:featured-->
 
-## <sup>Featured by</sup><!--Z-A-->
+## <sup style>Featured by</sup><!--Z-A-->
 
 - https://www.11ty.dev/docs/plugins/community/
 - https://11tybundle.dev/blog/11ty-bundle-88/
