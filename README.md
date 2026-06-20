@@ -112,7 +112,7 @@ Or save it in your `package.json` scripts:
 
 <div><hr></div>
 
-Alternatively import it as a base config in your 11ty config:
+Alternatively, import it as a base config in your 11ty config:
 
 ```js
 import baseConfig from "@anyblades/eleventy-blades-base";
