@@ -16,9 +16,11 @@ Includes [Base package](//11ty.blades.ninja/base/) and [Reusable npm scripts](//
 
 <!--section:install,plugin-->
 
-There are 5 ways to get started:
+There are 3 ways to get started:
 
 ### <mark>A.</mark> Plugin install
+
+Plugin gives you all the features and filters in one go without interfering with the rest of your 11ty config:
 
 ```sh
 npm install @anyblades/eleventy-blades
@@ -43,19 +45,70 @@ eleventyConfig.addPlugin(eleventyBladesPlugin, {
 });
 ```
 
-Live example: https://github.com/anyblades/eleventy-blades/blob/main/packages/eleventy-blades-base/eleventy.config.js
+Live examples:
+
+- https://github.com/anyblades/eleventy-blades/tree/main/examples/plugin-usage
+- https://github.com/anyblades/eleventy-blades/tree/main/packages/eleventy-blades-base
 
 ---
 
 <!--section:install,config+starters-->
 
-### <mark>B.</mark> Base config
+### <mark>B.</mark> Starter projects
+
+Eleventy *Bl*ades plugin is included out-of-the-box with:
+
+`BA v4` [6-in-1 Starter](https://github.com/anyblades/buildawesome-starters)
+: Modern, lightweight Eleventy v4 multi-site starter showcasing Eleventy Blades Kit and Tailwind CLI for: [1] Tailwind CSS + Typography [2] Blades CSS [3] Bootstrap CSS [4] Pico CSS [5] Simple CSS [6] Liquid Templates.
+
+`11ty v4` [*S*ubtle](https://github.com/anyblades/subtle)
+: The most subtle Eleventy v4 micro-starter for content-first sites. Powered by Eleventy Blades Kit
+
+Built-in bare-minimum examples
+: https://github.com/anyblades/eleventy-blades/tree/main/examples
+
+---
+
+### <mark>C.</mark> Base package
+
+Base package bundles Eleventy *Bl*ades with other popular 11ty plugins, providing a ready-to-go reusable, zero-maintenance config:
 
 ```sh
 npm install @anyblades/eleventy-blades-base
+
+# Link base templates:
+cd _includes/
+ln -s ../node_modules/@anyblades/blades/_includes/blades
+
+# Run Eleventy:
+eleventy --config=node_modules/@anyblades/eleventy-blades-base/eleventy.config.js
 ```
 
-Then use `baseConfig` in your 11ty config:
+Live examples:
+
+- https://github.com/anyblades/buildawesome-starters
+- https://github.com/anyblades/subtle/tree/main/.11ty
+
+<div><hr></div>
+
+If you don't want to type `--config=...` every time, symlink it once:
+
+```sh
+ln -s node_modules/@anyblades/eleventy-blades-base/eleventy.config.js
+eleventy
+```
+
+Or save it in your `package.json` scripts:
+
+```json
+  "scripts": {
+    "build": "eleventy --config=node_modules/@anyblades/eleventy-blades-base/eleventy.config.js"
+  }
+```
+
+<div><hr></div>
+
+Alternatively import it as a base config in your 11ty config:
 
 ```js
 import baseConfig from "@anyblades/eleventy-blades-base";
@@ -82,39 +135,6 @@ Live examples:
 
 - https://github.com/johnheenan/minform/blob/main/eleventy.config.js
 - https://github.com/hostfurl/minformhf/blob/main/eleventy.config.js
-
----
-
-### <mark>C.</mark> Config via CLI
-
-```sh
-npm install @anyblades/eleventy-blades-base
-eleventy --config=./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js
-```
-
-Live examples:
-
-- https://github.com/anyblades/subtle/blob/main/.11ty/package.json
-- https://github.com/anyblades/buildawesome-starters/blob/main/package.json
-
----
-
-### <mark>D.</mark> Config via symlink
-
-```sh
-npm install @anyblades/eleventy-blades-base
-ln -s ./node_modules/@anyblades/eleventy-blades-base/eleventy.config.js
-eleventy
-```
-
----
-
-### <mark>E.</mark> Starter projects
-
-Eleventy *Bl*ades plugin is included out-of-the-box with:
-
-- https://subtle.blades.ninja/ 11ty micro-starter
-- https://github.com/anyblades/buildawesome-starters 11ty Tailwind CLI starter(s)
 
 <!--section:gh-only-->
 
