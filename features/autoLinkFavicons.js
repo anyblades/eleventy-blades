@@ -11,13 +11,11 @@ export function isExternalUrl(url) {
   return /^https?:\/\//.test(url);
 }
 
-export function cleanLinkText(linkText, domain) {
-  const cleanedText = linkText
+export function cleanLinkText(linkText) {
+  return linkText
     .trim()
     .replace(/^https?:\/\//, "")
     .replace(/\/$/, "");
-  const withoutDomain = cleanedText.replace(domain, "");
-  return withoutDomain.length > 2 ? withoutDomain : cleanedText;
 }
 
 export function buildFaviconLink(attrs, domain, text) {
@@ -31,8 +29,10 @@ export function transformLink(match, attrs, url, linkText) {
     const domain = new URL(url).hostname;
 
     if (isExternalUrl(url) && !linkText.includes("↗")) {
-      const cleanedText = cleanLinkText(linkText, domain);
-      return buildFaviconLink(attrs, domain, cleanedText);
+      const cleaned = cleanLinkText(linkText);
+      const stripped = cleaned.replace(domain, "");
+      const label = linkText.trim() === url && stripped.length > 2 ? stripped : cleaned;
+      return buildFaviconLink(attrs, domain, label);
     }
   } catch (e) {
     // URL parsing failed — fall through and return original match

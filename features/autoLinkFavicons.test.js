@@ -36,46 +36,42 @@ describe("isExternalUrl", () => {
 });
 
 describe("cleanLinkText", () => {
-  it("should remove protocol and domain", () => {
-    assert.equal(cleanLinkText("https://example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("http://example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("https://example.com/docs/guide", "example.com"), "/docs/guide");
+  it("should remove protocol prefix", () => {
+    assert.equal(cleanLinkText("https://example.com/docs"), "example.com/docs");
+    assert.equal(cleanLinkText("http://example.com/docs"), "example.com/docs");
+    assert.equal(cleanLinkText("https://example.com/docs/guide"), "example.com/docs/guide");
   });
 
   it("should handle links without protocol", () => {
-    assert.equal(cleanLinkText("example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("example.com/path/to/page", "example.com"), "/path/to/page");
+    assert.equal(cleanLinkText("example.com/docs"), "example.com/docs");
+    assert.equal(cleanLinkText("example.com/path/to/page"), "example.com/path/to/page");
   });
 
-  it("should preserve leading slash after domain removal", () => {
-    assert.equal(cleanLinkText("https://example.com/docs", "example.com"), "/docs");
-    assert.equal(cleanLinkText("example.com/docs", "example.com"), "/docs");
+  it("should remove trailing slash", () => {
+    assert.equal(cleanLinkText("example.com/"), "example.com");
+    assert.equal(cleanLinkText("https://example.com/"), "example.com");
   });
 
-  it("should return cleaned domain for root domain (no long path)", () => {
-    // When path is too short (<=2 chars), returns cleanedText instead of withoutDomain
-    assert.equal(cleanLinkText("example.com/", "example.com"), "example.com");
-    assert.equal(cleanLinkText("example.com", "example.com"), "example.com");
-    assert.equal(cleanLinkText("https://example.com", "example.com"), "example.com");
+  it("should handle root domain (no path)", () => {
+    assert.equal(cleanLinkText("example.com"), "example.com");
+    assert.equal(cleanLinkText("https://example.com"), "example.com");
   });
 
   it("should handle whitespace", () => {
-    assert.equal(cleanLinkText("  https://example.com/docs  ", "example.com"), "/docs");
-    assert.equal(cleanLinkText("\nhttps://example.com/docs\n", "example.com"), "/docs");
+    assert.equal(cleanLinkText("  https://example.com/docs  "), "example.com/docs");
+    assert.equal(cleanLinkText("\nhttps://example.com/docs\n"), "example.com/docs");
   });
 
   it("should preserve path after domain", () => {
-    assert.equal(cleanLinkText("https://example.com/api/v1/docs", "example.com"), "/api/v1/docs");
+    assert.equal(cleanLinkText("https://example.com/api/v1/docs"), "example.com/api/v1/docs");
   });
 
   it("should handle query parameters", () => {
-    const result = cleanLinkText("https://example.com/search?q=test", "example.com");
-    assert.equal(result, "/search?q=test");
+    assert.equal(cleanLinkText("https://example.com/search?q=test"), "example.com/search?q=test");
   });
 
   it("should handle hash fragments", () => {
-    const result = cleanLinkText("https://example.com/page#section", "example.com");
-    assert.equal(result, "/page#section");
+    assert.equal(cleanLinkText("https://example.com/page#section"), "example.com/page#section");
   });
 });
 
@@ -280,7 +276,46 @@ describe("transformLink", () => {
     const result = transformLink(match, 'href="ht!tp://bad-url"', "ht!tp://bad-url", "ht!tp://bad-url");
     assert.equal(result, match);
   });
+
+  describe("when linkText.trim() === url (via replaceLinksInHtml)", () => {
+    it("should strip domain when path is significant (stripped length > 2)", () => {
+      const html = '<a href="https://example.com/docs">https://example.com/docs</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> \/docs<\/a>/);
+    });
+
+    it("should strip domain and handle whitespace in link text", () => {
+      const html = '<a href="https://example.com/docs">  https://example.com/docs  </a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> \/docs<\/a>/);
+    });
+
+    it("should not strip domain when path is short (stripped length <= 2)", () => {
+      const html = '<a href="https://example.com/a">https://example.com/a</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> example\.com\/a<\/a>/);
+    });
+
+    it("should not strip domain for root domain links", () => {
+      const html = '<a href="https://example.com/">https://example.com/</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> example\.com<\/a>/);
+    });
+
+    it("should not strip domain when link text is not equal to url", () => {
+      const html = '<a href="https://example.com/docs">Visit https://example.com/docs</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> Visit https:\/\/example\.com\/docs<\/a>/);
+    });
+
+    it("should not strip domain when link text is a different URL", () => {
+      const html = '<a href="https://example.com/docs">https://example.com/docs/extra</a>';
+      const result = replaceLinksInHtml(html, transformLink);
+      assert.match(result, /<i><img[^>]*><\/i> example\.com\/docs\/extra<\/a>/);
+    });
+  });
 });
+
 
 describe("replaceLinksInHtml", () => {
   it("should replace a single anchor link with transformer function", () => {
