@@ -22,7 +22,8 @@ export function cleanLinkText(linkText, domain) {
 
 export function buildFaviconLink(attrs, domain, text) {
   const wrappedText = /<[a-z]/i.test(text) ? `<span>${text}</span>` : text;
-  return `<a ${attrs}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64"></i> ${wrappedText}</a>`;
+  const titleAttr = /\btitle=/i.test(attrs) ? "" : ` title="${domain}"`;
+  return `<a ${attrs}${titleAttr}><i><img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64"></i> ${wrappedText}</a>`;
 }
 
 export function transformLink(match, attrs, url, linkText) {

@@ -84,7 +84,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com/docs"', "example.com", "/docs");
     assert.equal(
       result,
-      '<a href="https://example.com/docs"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> /docs</a>',
+      '<a href="https://example.com/docs" title="example.com"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> /docs</a>',
     );
   });
 
@@ -92,7 +92,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://example.com" class="link"', "example.com", "text");
     assert.equal(
       result,
-      '<a href="https://example.com" class="link"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> text</a>',
+      '<a href="https://example.com" class="link" title="example.com"><i><img src="https://www.google.com/s2/favicons?domain=example.com&sz=64"></i> text</a>',
     );
   });
 
@@ -105,7 +105,7 @@ describe("buildFaviconLink", () => {
     const result = buildFaviconLink('href="https://github.com/repo"', "github.com", "/repo");
     assert.equal(
       result,
-      '<a href="https://github.com/repo"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64"></i> /repo</a>',
+      '<a href="https://github.com/repo" title="github.com"><i><img src="https://www.google.com/s2/favicons?domain=github.com&sz=64"></i> /repo</a>',
     );
   });
 
@@ -138,6 +138,24 @@ describe("buildFaviconLink", () => {
   it("should wrap text with mixed HTML and plain text in a span", () => {
     const result = buildFaviconLink('href="https://example.com"', "example.com", "Visit <em>Example</em> site");
     assert.match(result, /> <span>Visit <em>Example<\/em> site<\/span><\/a>$/);
+  });
+
+  it("should add domain as title attribute when not present", () => {
+    const result = buildFaviconLink('href="https://example.com"', "example.com", "text");
+    assert.match(result, /title="example\.com"/);
+  });
+
+  it("should not add title attribute when already present in attrs", () => {
+    const result = buildFaviconLink('href="https://example.com" title="Custom Title"', "example.com", "text");
+    assert.doesNotMatch(result, /title="example\.com"/);
+    assert.match(result, /title="Custom Title"/);
+    // Ensure title appears exactly once
+    assert.equal((result.match(/title=/g) ?? []).length, 1);
+  });
+
+  it("should not add title when existing title uses single quotes", () => {
+    const result = buildFaviconLink("href='https://example.com' title='My Link'", "example.com", "text");
+    assert.equal((result.match(/title=/gi) ?? []).length, 1);
   });
 });
 
