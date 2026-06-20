@@ -1,8 +1,4 @@
-/*<!--section:docs-->
-
-A ready-to-go `eleventy.config.js` for popular 11ty plugins, bundled with npm scripts in one reusable, zero-maintenance package.
-
-<!--section:code-->```js */
+//<!--section:code-->```js
 
 /* Plugins (core > official > contrib) */
 import { RenderPlugin } from "@11ty/eleventy";

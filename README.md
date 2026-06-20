@@ -14,7 +14,7 @@ Includes [Base package](//11ty.blades.ninja/base/) and [Reusable npm scripts](//
 
 ## Quick start
 
-<!--section:install,plugin-->
+<!--section:install-->
 
 There are 3 ways to get started:
 
@@ -50,13 +50,13 @@ Live examples:
 - https://github.com/anyblades/eleventy-blades/tree/main/examples/plugin-usage
 - https://github.com/anyblades/eleventy-blades/tree/main/packages/eleventy-blades-base
 
----
+<!--section:install,install-starters-->
 
-<!--section:install,config+starters-->
+---
 
 ### <mark>B.</mark> Starter projects
 
-Eleventy *Bl*ades plugin is included out-of-the-box with:
+Eleventy *Bl*ades plugin and base package are included out-of-the-box with:
 
 `BA v4` [6-in-1 Starter](https://github.com/anyblades/buildawesome-starters)
 : Modern, lightweight Eleventy v4 multi-site starter showcasing Eleventy Blades Kit and Tailwind CLI for: [1] Tailwind CSS + Typography [2] Blades CSS [3] Bootstrap CSS [4] Pico CSS [5] Simple CSS [6] Liquid Templates.
@@ -67,9 +67,13 @@ Eleventy *Bl*ades plugin is included out-of-the-box with:
 Built-in bare-minimum examples
 : https://github.com/anyblades/eleventy-blades/tree/main/examples
 
+<!--section:install-->
+
 ---
 
 ### <mark>C.</mark> Base package
+
+<!--section:install,install-base-->
 
 Base package bundles Eleventy *Bl*ades with other popular 11ty plugins, providing a ready-to-go reusable, zero-maintenance config:
 
