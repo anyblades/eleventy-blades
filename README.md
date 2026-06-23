@@ -4,9 +4,14 @@
 
 <h1><mark>Ultimate blade kit</mark> <small>for</small> 11ty <span class="faded">/</span> Build&nbsp;Awesome</h1>
 
-<big>Essential 11ty filters, pre/post-processors, and other toggleable features as a simple, configurable plugin.</big>
+<big>Essential 11ty [filters](//11ty.blades.ninja/filters/), transforms, and other toggleable [features](//11ty.blades.ninja/features/) as a simple, configurable plugin. Reusable [npm scripts](//11ty.blades.ninja/scripts/) included.</big>
 
-Includes [Base package](//11ty.blades.ninja/base/) and [Reusable npm scripts](//11ty.blades.ninja/scripts/) for a better DX.
+<nav>
+
+- [Get started &nbsp;›](//11ty.blades.ninja/plugin/)<!--{role=button}-->
+- [Base <span hidden>package</span> <i class="fa-brands fa-eleventy"></i> &nbsp;›](//11ty.blades.ninja/base/)<!--{role=button .outline}-->
+- [Micro-starters &nbsp;›](//11ty.blades.ninja/starters/)<!--{role=button .outline}-->
+</nav>
 
 <!--section:gh-only-->
 
