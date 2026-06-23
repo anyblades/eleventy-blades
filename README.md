@@ -7,10 +7,13 @@
 <big>Essential 11ty [filters](//11ty.blades.ninja/filters/), transforms, and other toggleable [features](//11ty.blades.ninja/features/) as a simple, configurable plugin. Reusable [npm scripts](//11ty.blades.ninja/scripts/) included.</big>
 
 <nav>
-
-- [Get started &nbsp;›](//11ty.blades.ninja/plugin/)<!--{role=button}-->
-- [Base <span hidden>package</span> <i class="fa-brands fa-eleventy"></i> &nbsp;›](//11ty.blades.ninja/base/)<!--{role=button .outline}-->
-- [Micro-starters &nbsp;🌱](//11ty.blades.ninja/starters/)<!--{role=button .outline}-->
+  <a href="//11ty.blades.ninja/plugin/" role="button">Get started &nbsp;›</a>
+  <span hidden>•</span>
+  <a href="//11ty.blades.ninja/base/" role="button" class="outline">
+    Base <span hidden>package</span> <i class="fa-brands fa-eleventy"></i> &nbsp;›
+  </a>
+  <span hidden>•</span>
+  <a href="//11ty.blades.ninja/starters/" role="button" class="outline">Micro-starters &nbsp;🌱</a>
 </nav>
 
 <!--section:gh-only-->
