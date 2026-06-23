@@ -10,7 +10,7 @@
 
 - [Get started &nbsp;›](//11ty.blades.ninja/plugin/)<!--{role=button}-->
 - [Base <span hidden>package</span> <i class="fa-brands fa-eleventy"></i> &nbsp;›](//11ty.blades.ninja/base/)<!--{role=button .outline}-->
-- [Micro-starters &nbsp;›](//11ty.blades.ninja/starters/)<!--{role=button .outline}-->
+- [Micro-starters &nbsp;🌱](//11ty.blades.ninja/starters/)<!--{role=button .outline}-->
 </nav>
 
 <!--section:gh-only-->
