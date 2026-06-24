@@ -205,19 +205,14 @@ Live examples:
 
 ---
 
-## <sup style>Trusted by</sup>
-
-- https://www.11ty.dev/docs/starter/#:~:text=blades
-- https://sveltiacms.app/en/docs/start#starter-templates:~:text=anyblades
-- https://github.com/johnheenan/minform#css-and-performance
-- https://github.com/hostfurl/minformhf
-
 <!--section:featured-->
 
-## <sup style>Featured by</sup><!--Z-A-->
+## <sup style>Featured by</sup><!--A-Z sites, then @users-->
 
-- https://www.11ty.dev/docs/plugins/community/
-- https://11tybundle.dev/blog/11ty-bundle-88/
-- [hamatti.org](https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=section%20filter)
+- [11ty.dev](https://www.11ty.dev/docs/starter/#:~:text=blades) + [↗](https://www.11ty.dev/docs/plugins/community/#:~:text=blades)
+- [11tybundle.dev](https://11tybundle.dev/blog/11ty-bundle-88/#:~:text=blades)
+- [sveltiacms.app](https://sveltiacms.app/en/docs/frameworks/eleventy#:~:text=anyblades)
+- [@hamatti](https://hamatti.org/posts/markdown-content-split-to-sections-in-eleventy-and-nunjucks/#:~:text=section%20filter)
+- [@johnheenan](https://github.com/johnheenan/minform#css-and-performance)
 
 <!--{.markerless .columns}-->
