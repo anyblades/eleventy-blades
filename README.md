@@ -2,7 +2,7 @@
 
 <!--section:summary-->
 
-<h1><mark>Ultimate blade kit</mark> <small>for</small> 11ty <span class="faded">/</span> Build&nbsp;Awesome</h1>
+<h1><mark>Ultimate blade kit</mark> <small>for</small> 11ty / Build&nbsp;Awesome</h1>
 
 <big>Essential 11ty [filters](//11ty.blades.ninja/filters/), transforms, and other toggleable [features](//11ty.blades.ninja/features/) as a simple, configurable plugin. Reusable [npm scripts](//11ty.blades.ninja/scripts/) included.</big>
 
